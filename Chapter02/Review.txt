@@ -34,16 +34,17 @@
 
 4. return 0 sigifies that the program terminated successfully.
 
-5. The compiler is a program translates source code into machine code. It also provides sytnax checking.
+5. The compiler is a program that checks syntax and translates source code into machine code or object code.
 
 6. The #include directive tells the computer to make available the contents of a library or header file.
 
 7. A .h suffix signifies a header file. Header files contain definitions of terms that are used in a program.
 
-8. The linker is a program that links all of the translation units together. source code -> compiler -> object code -> linker <- object code from directives -> exectuable file
+8. The linker is a program that links the translation units together. It mainly includes source code object code and object code from directives.
+   source code -> compiler -> object code -> linker <- object code from directives -> exectuable
 
 9. A source file is a .cpp file that you write your code in and an object file is a .obj file that contains the translated code as machine code. Object code is not portable.
 
-10. An IDE is an Integrated Development Environment that provides the tools to edit, check, and run your program.
+10. An IDE is an Integrated Development Environment that provides the tools to edit, debug, compile, and run your program.
 
-11. It's important to practice to develop your inventiveness and style.
+11. Iti is important to practice to develop your inventiveness and style.
