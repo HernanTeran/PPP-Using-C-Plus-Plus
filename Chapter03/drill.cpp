@@ -1,3 +1,6 @@
+#include <iostream>
+#include <string>
+
 int main()
 {
 	std::cout << "Enter the name of the person you want to write to (followed by 'enter'):\n";
