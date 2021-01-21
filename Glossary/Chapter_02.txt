@@ -1,0 +1,42 @@
+-----
+Terms
+-----
+1. // - double slash and /* */ stand for comments
+
+2. << - the insertion operator used in conjunction with cout to create output
+
+3. C++ - a programming language, a tool used on a wide variety of tasks and applications
+
+4. comment - Notes written by the user, that are ignored by the compiler, written to provide intent and clarification
+
+5. compiler - the compiler is a program that checks program syntax and translates source code (.cpp/.h) into machine code (.obj)
+
+6. compile-time error - a syntax error
+
+7. cout - character output stream
+
+8. executable - nonportable .exe file created by the the linker containing the set of instructions for a computer to execute
+
+9. function - a named sequence of instructions for the computer to execute in the order in which they are written. Has 4 parts: return type, name, parameter list, body
+
+10. header - a header file or .h file contains term definitions of libraries and classes
+
+11. IDE - Integrated Development Environment is a program that allows you to edit your code, as well as, debug, compile, and run it
+
+12. #include - a directive, preprocessor directive, tells the computer to make available the contents to the right of it
+
+13. library - a library is code written by someone else
+
+14. linker - a linker is a program that links the translation units together (object code) to create an executable (.exe file)
+
+15. main( ) - main is a function that must be included in every C++ program. The computer searches for main because it is the point of program execution
+
+16. object code - object code is source code translated into machine code by the compiler
+
+17. output - output is created using cout and the insertion operator
+
+18. program - a set of instructions written by a programmer for the computer to execute
+
+19. source code - the .cpp or .h file that contains code for a program
+
+20. statement - a part of a C++ program that isn't a directive or preprocessor directive and is terminated by a semicolon
