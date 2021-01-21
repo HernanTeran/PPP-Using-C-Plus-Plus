@@ -1,0 +1,35 @@
+1. assignment - assigning a new value to an initialized variable
+
+2. cin - character input stream used for retrieving user input. useful for int and double. use cin.get( ) for char and getline(cin, var) for string
+
+3. concatenation - the joining of strings using the + and += operators
+
+4. conversion - char to int, int to char according to the ASCII table
+
+5. declaration - type and name is provided for an object but no memory is set aside for it because it is uninitialized
+
+6. decrement - --
+
+7. definition - a declaration of type name for an object and initialization of the object with a value
+
+8. increment - ++
+
+9. initialization - providing an initial value for an object. Best if using the list-based notation known as universal and uniform initialization with { }
+
+10. name - an identifier for a statement/object
+
+11. narrowing - a narrowing conversion, produces a loss information by trying to fit a type's size into another that is incompatible
+
+12. object - a region in memory that has a type which dictates what type of information can go in it
+
+13. operation - a computation or expression made to get a result
+
+14. operator - used for operations (+, -, *, /)
+
+15. type - built-in types, user-defined types
+
+16. type safety - initialization + avoidance of narrowing conversion
+
+17. value - a literal according to type
+
+18. variable - a named object
