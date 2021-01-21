@@ -1,2 +1,3 @@
-# PPP-Using-C-Plus-Plus
-Programming: Principles and Practices Using C++
+# Drills/Review/Terms/Exercises of Programming: Principles and Practices Using C++
+
+This repository contains my completed work.
