@@ -39,7 +39,7 @@
 
 16. What is an initialization and how does it differ from an assignment?
 
-17. What is string concatenation and how do you make it wrk in C++?
+17. What is string concatenation and how do you make it work in C++?
 
 18. What are some good rules for choosing names?
 
@@ -52,25 +52,44 @@
 -------
   A's
 -------
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
-11.
-12.
-13.
-14.
-15.
-16.
-17.
-18.
-19.
-20.
-21.
-   
+1. A prompt is issued to the user using cout and it is meant to get the user's input
+
+2. >> the extraction operator
+
+3. cout << (prompt), cin >> variable;
+
+4. \n means newline and it creates a newline
+
+5. strings are terminated by whitespace 
+
+6. integer input is terminated by non-integer input such as hitting the enter key
+
+7. std::cout << "Hello, << first_name << "!\n";
+
+8. An object is a region in memory with a type that specifies what information can be placed in it
+
+9. A literal is the literal value of an object based on type
+
+10. int, double, string, char
+
+11. a variable is a named object
+
+12. char(1), int(4), double (8), bool(1), string(depends on number of characters in it +1 for whitespace '\0')
+
+13. Bits and bytes are used to measure size. There are 8 bits in 1 byte.
+
+14. = is the assignment operator and == is the equals operator
+
+15. A definition is a statement that introduces a new name into a program and sets aside memory for a variable through initialization
+
+16. Initialization is giving an object an initial value once it is defined (Use { }). Assignment is giving an object a new value after initialization (Use =)
+
+17. String concatenation is the joining of two strings by using the + and += operators
+
+18. The first character should be a letter, must contain alphabetical characters, or digits, or an underscore, and no other characters
+
+19. Type safety is initialization of objects and avoiding the conversion of data types. It is important because it prevents errors
+
+20. A conversion from double to int is called a narrowing conversion because double has 8 bytes and an int has 4 bytes the sizes conflict
+
+21. char & int conversion is safe as long as it is based off of the ASCII table. int to double is safe as long as its whole numbers like 2 -> 2.0
