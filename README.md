@@ -1,3 +1,3 @@
-# Drills/Review/Terms/Exercises of Programming: Principles and Practices Using C++
+# Programming: Principles and Practices Using C++
 
-This repository contains my completed work.
+This repository contains the drills, reviews, terms, and exercises of each chapter.
