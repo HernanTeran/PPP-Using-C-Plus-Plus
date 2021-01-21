@@ -1,0 +1,76 @@
+-------
+  Q's
+-------
+1. What is meant by the term prompt?
+
+2. Which operator do you use to read into a variable?
+
+3. If you want the user to input an integer value into your program for a variable named number, what are two lines of code you could write to ask the user to do it
+   and to input the value into your program?
+   
+4. What is \n called and what purpose does it serve?
+
+5. What terminates input into a string?
+
+6. What terminates input into an integer?
+
+7. How would you write:
+   cout << "Hello, ";
+   cout << first_name;
+   cout << "!\n";
+   
+   as a single line of code?
+   
+8. What is an object?
+
+9. What is a literal?
+
+10. What kinds of literals are there?
+
+11. What is a variable?
+
+12. What are typical sizes for a char, an int, a bool, and a double?
+
+13. What measures do we use for the size of small entities in memory such as ints and strings?
+
+14. What is the difference between = and ==?
+
+15. What is a definition?
+
+16. What is an initialization and how does it differ from an assignment?
+
+17. What is string concatenation and how do you make it wrk in C++?
+
+18. What are some good rules for choosing names?
+
+19. What is type safety and why is it important?
+
+20. Why can conversion from double to int be a bad thing?
+
+21. Define a rule to help decide if a conversion from one type to another is safe or unsafe.
+
+-------
+  A's
+-------
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+19.
+20.
+21.
+   
