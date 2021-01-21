@@ -49,11 +49,11 @@ void run_program()
 		dollars{ 0 };
 
 	constexpr double penny{ 0.01 },
-		             nickel{ 0.05 },
-					 dime{ 0.10 },
-					 quarter{ 0.25 },
-					 half_dollar{ 0.50 },
-					 one_dollar{ 1 };
+		         nickel{ 0.05 },
+		         dime{ 0.10 },
+			 quarter{ 0.25 },
+			 half_dollar{ 0.50 },
+			 one_dollar{ 1 };
 
 	int selection{ 0 };
 	double sum{ 0 };
