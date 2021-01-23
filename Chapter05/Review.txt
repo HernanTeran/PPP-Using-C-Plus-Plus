@@ -109,12 +109,39 @@
     The detection of an error should be done in a called function. The handling of an error should be done in the calling function. The basic way
     to use exceptions is to create an empty exception class like class Bad_Area(); this makes an object of type Bad_Area that is thrown. Throw the
     exception in the called function, use a try-block and catch the exception object in main.
-14.
-15.
-16.
-17.
-18.
-19.
-20.
-21.
-22.
+    
+14. You can test for success by writing if (cin) or if (!cin) and by using exceptions.
+
+15. Exception classes can be created or exceptions that already exist like out_of_range_ or runetime_error can be used. Then the the exception is
+    thrown in the called function. In the callee function (main) a try-block is implemented with a catch block as well. The catch block
+    catches the exception by reference and uses cerr to output an error message. 
+    
+16. You can't index into the "last" element of a vector because it doesn't exist. It's [v:v). The code would produce a subscript out of range error,
+    or off-by-one error, and a bounds error because the index was not within the limits of the vector.
+    
+17. A pre-condition is a requirement of a function upon its argument. It must be true for the function to perform its action correctly. A post-condition is
+    the return value and assuring that it is correct.
+
+18. Sometimes writing a pre-condition can take more work than executing the function. It can be expensive in memory, therefore, in this case
+    pre-conditions should be written as a comment. 
+
+19. You would not test a post-condition if it can be stated as a comment.
+
+20. Get the program to compile, get the program to link, and get the program to do what is is supposed to do.
+
+21. Commenting helps with debugging because as documentation it can help pinpoint where the error came from.
+
+22. Debugging is the process of finding and removing errors, whereas, testing is the systemic process of searching for errors.
+
+------------------
+Comment Guidelines
+------------------
+- name of the program
+- the purpose of the program
+- who wrote this and when
+- version numbers
+- what complicated code fragments are supposed to do
+- what the general design ideas are
+- how the source code is organized
+- what assumptions are made about inputs
+- what parts of the code are still missing and what cases are still not handled
