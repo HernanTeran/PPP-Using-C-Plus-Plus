@@ -70,9 +70,10 @@
 
 3. The three requirements a programmer should keep in mind are that it's our job to express computations correctly, simply, and efficiently.
 
-4. An expression computes a value from a number of operands. The simplest expression is a literal.
+4. An expression computes a value from a number of operands using operators. The simplest expression is a literal.
 
-5. A statement does not return a result but have side effects. Expressions return values.
+5. A statement does not return a result but have side effects. Expressions return values. There are expression statements, declaration
+   statements, selection statements, and iteration statements.
 
 6. An lvalue is the variable, the name assigned to the object. The assignment operator, insertion/extraction, and composite assignment operators
    require an lvalue because they operate based off of assignment/initialization. 
@@ -92,19 +93,37 @@
 
 13. ( + += ) for concatentation and the conditional/logical operators
 
-14. 
-15.
-16.
-17.
-18.
-19.
-20.
-21.
-22.
-23.
-24.
-25.
-26.
+14. Use a switch-statement if you're testing for more than 2 conditions. A switch-statement provides code that is easier to understand.
+
+15. Some common problems with switch-statements are forgetting to terminate a case with a break statement, using a variable as a case label,
+    trying to switch on a non-constant value, and writing case labels that aren't distinct.
+    
+16. for(loop variable, loop condition, loop increment/decrement) - execute the body starting at the control variable, incrementing/decrementing
+    the variable if it meets the loop condition.
+    
+17. Use a for-loop if there is an initializer, loop condition, and increment operator otherwise use a while-loop.
+
+18. Add 0 to the char variable/literal or assign the char variable to an int variable.
+
+19. A function with a return value of type char that uses an int argument to as its numeric value to get the char value.
+
+20. Functions make computation logically seperate from the rest of the program, makes the program text clearer especially because
+    the computation is given a name, makes it possible to reuse the function in more than one place, and eases testing.
+
+21. You can perform arithmetic operations with an int and use the remainder operator.
+
+22. You can perform concatenation and use the string member functions with a string.
+
+23. 2 because counting begins at 0 in C++
+
+24. for (const auto& e : v) { cout << e << '\n'; } - range-for-loop
+
+25. It allocates memory space for 26 chars.
+
+26. push_back() pushes an element at the end of a vector.
+
 27. size() returns the total count of elements in the vector.
-28.
+
+28. Vectors are easy to use, you don't need to specify the size(length) of a vector in advance, and you can add as many elements as you like.
+
 29. You sort a vector by using the sort algorithm from the C++ standard library. std::sort(v.begin(), v.end());
