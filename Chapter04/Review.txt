@@ -64,20 +64,35 @@
   A's
 -------
 
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
-11.
-12.
-13.
-14.
+1. Computation is taking input to produce output/a result.
+
+2. Input is built up through data structures like functions which produces a result. This result eventually becomes external output.
+
+3. The three requirements a programmer should keep in mind are that it's our job to express computations correctly, simply, and efficiently.
+
+4. An expression computes a value from a number of operands. The simplest expression is a literal.
+
+5. A statement does not return a result but have side effects. Expressions return values.
+
+6. An lvalue is the variable, the name assigned to the object. The assignment operator, insertion/extraction, and composite assignment operators
+   require an lvalue because they operate based off of assignment/initialization. 
+   
+7. Constant expressions are symbolic constants, a named object that you can't give a new value after it has been initialized. There are two types.
+   constexpr - must be known at compile time / const - value is known at run time
+   
+8. A literal is the literal value of a type.
+
+9. Symbolic constants, constexpr/const, are used to give a meaningful name to a constant and protect it from modification.
+
+10. Magic constants are non-obvious literals (not including 0 or 1). Basically, literals not assigned to a variable.
+
+11. ( + - * / ) and the conditional/logical operators
+
+12. ( % ) the remainder/modolo operator won't work on floating point numbers. The / division operator truncates the result of double/int division.
+
+13. ( + += ) for concatentation and the conditional/logical operators
+
+14. 
 15.
 16.
 17.
@@ -90,6 +105,6 @@
 24.
 25.
 26.
-27.
+27. size() returns the total count of elements in the vector.
 28.
-29.
+29. You sort a vector by using the sort algorithm from the C++ standard library. std::sort(v.begin(), v.end());
