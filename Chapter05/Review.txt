@@ -2,7 +2,7 @@
   Q's
 -------
 
-1. Name four major types of errors and brieflt define each one.
+1. Name four major types of errors and briefly define each one.
 
 2. What kinds of errors can we ignore in student programs?
 
@@ -50,19 +50,65 @@
   A's
 -------
 
-1. 
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
-11.
-12.
-13.
+1. Compile-time errors: syntax and type errors found by the compiler.
+   Link-time errors: errors found by the linker when it is trying to combine object files into an executable program.
+   Run-time errors: error found by the computer software/hardware, by a library, or user code.
+   Logic errors: errors found by the programmer looking for the causes of erroneous results.
+   
+2. Student program's don't need to be concerned with run-time errors because they deal with the hardware/operating system.
+
+3. Basic professionalism is to make sure that valid inputs produce logical results and that they give reasonable error messages for
+   all illegal inputs. Otherwise, they don't need to be considered with misbehaving software, misbehaving hardware, and are 
+   allowed to terminate after finding an error.
+
+4. Organize software to minimize errors, eliminate most of the errors through debugging and testing, and make sure the remaining errors
+   are not serious.
+
+5. Debugging can take a long time especially if a program is written poorly.
+
+6. Syntax are errors come from lines of code that isn't written according to the C++ grammar.
+   Int x{0}; // capitalized i in int
+   int x{'0}; // a quote mark inside the initializer list
+   int %x{ger}; // invalid name and invalid value
+   int x{0} // missing semicolon
+   int x{0; // missing curly brace
+   
+7. Type errors are errors reported after syntax errors. They occur due to function identifier misspellings, wrong number of arguments,
+   and incorrect type of value used as an argument.
+   int x = arena(3); // misspelled area - undeclared function
+   int x = area(fert); // incorrect type used for argument
+   int x = b; // b == string so incorrect type assigned
+   int x = area(3, 4); // incorrect amount of arguments
+   int x = area(6); // incorrect total amount of arguments
+   
+8. Linker errors occur due to errors in translation units. These can come from missing function declarations/definitions in the 
+   translation unit it was used and missing header files.
+   Missing header files
+   Missing function definitions
+   A function that is defined more than once in a program
+
+9. A logic error occurs from programmer mistakes. For example, a bad computation, misuse of a function, or a corner of code you forgot to cover.
+
+10. Poor specification: inadequate error messages, poor orgranization
+    Incomplete programs: know when we have handled all cases
+    Unexpected arguments: invalid function argument
+    Unexpected input: wrong type of input was read. For example: cin >> int reads a string
+    Unexpected state: Incorrect or incomplete data in data structures like vectors
+    Logical errors: errors produced by the programmer
+    
+11. A result is plausible if it abides by math, physics, and logic.
+
+
+12. If the caller deals with errors then it leads to messy code due to a bunch of if/else statements, potential use of magic constants, and
+    potentially leaving corners uncovered because you'd have to test for a whole bunch of cases. If the callee deals with errors then the code
+    is neater because the error-checking code is in one place. Checking your arguments within the function is better than creating test functions
+    because it saves on performance and memory. 
+
+13. Returning an error value is bad because that forces all parts of a program to check for that value and adjust accordingly. Exeptions function
+    through the fundamental idea of seperating error detection from the handling of an error while ensuring that the detected error can't be ignored.
+    The detection of an error should be done in a called function. The handling of an error should be done in the calling function. The basic way
+    to use exceptions is to create an empty exception class like class Bad_Area(); this makes an object of type Bad_Area that is thrown. Throw the
+    exception in the called function, use a try-block and catch the exception object in main.
 14.
 15.
 16.
