@@ -62,7 +62,7 @@
 
 5. strings are terminated by whitespace 
 
-6. integer input is terminated by non-integer input such as hitting the enter key
+6. integer input is terminated by non-integer input such as hitting the enter key or '|'
 
 7. std::cout << "Hello, << first_name << "!\n";
 
@@ -93,3 +93,17 @@
 20. A conversion from double to int is called a narrowing conversion because double has 8 bytes and an int has 4 bytes the sizes conflict
 
 21. char & int conversion is safe as long as it is based off of the ASCII table. int to double is safe as long as its whole numbers like 2 -> 2.0
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+know the built-in types
+know what variables are and how to properly create identifier names
+know how to initialize variables using {}
+know what assignment is and the difference between using the assignment operator = and {}
+know what prompts are
+know how to get input using cin, getline, get
+know about type safety
+know about built-in type sizes
+know about operations and operators
+know about if/else if/else statements
