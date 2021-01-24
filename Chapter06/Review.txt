@@ -1,0 +1,79 @@
+-------
+  Q's
+-------
+
+1. What do we mean by "Programming is understanding"?
+
+2. How do you break a problem up into smaller manageable parts?
+
+3. Why is creating a small, limited version of a program a good idea?
+
+4. Why is feature creep a bad idea?
+
+5. What are the three main phases of software development?
+
+6. What is a "use case"?
+
+7. Why is the purpose of testing?
+
+8. What is a token?
+
+9. What is a grammar? A grammar rule?
+
+10. What is a class? What do we use classes for?
+
+11. How can we provide a default value for a member of a class?
+
+12. What do we use the two data members of the Token class for?
+
+13. Why do we (sometimes) split a class's members into private and public members?
+
+14. When should we start testing our program?
+
+15. What is a "user-defined type"? Why would we want one?
+
+16. What is the interface to a C++ "user-defined type"?
+
+17. Why do we want to rely on libraries of code?
+
+-------
+  A's
+-------
+
+1. Programming means having a problem that a program can help solve. But if you don't understand the problem then you won't build a proper program.
+
+2. First figure out if there are any libraries you can implement. After that decide on what should be functions/classes. Finally, build a 
+   small, limited version of the program that solves a key part of the problem and build on it only after it is free of bugs.
+
+3. A mess just grows with time. Therefore, it's good to adjust the program. It can be thought of as a prototype and each adjustment is a version.
+
+4. Feature creep is attempting to build a program all at once. This is a bad idea because you'll introduce a lot of bugs that'll be hard to fine,
+   you'll have to put in more effort, and you'll probably run out of patience.
+
+5. Analysis: figure out what should be done and write out a set of requirements or specification.
+   Design: Create an overall structure for the system, deciding which parts the implementation should have and how those parts should communicate.
+   Implementation: Write the code, debug it, and test it.
+   
+6. A use case is an example written out to about to examine the use of some code.
+
+7. Testing little by little helps prevent bugs and find bugs before they become hard to find and ruin your program.
+   
+8. A token is a sequence of characters that represents something we consider a unit, such as a number or an operator.
+
+9. Grammar is the defining the syntax that will be used in your program and grammar rules is what constitutes proper syntax.
+
+10. A class is a user-defined type meant to hold data we need and give us useful operations on that data. 
+
+11. In-class initializer or by using the default constructor.
+
+12. To implement functions.
+
+13. To protect the data members from modification.
+
+14. As soon as you write something.
+
+15. A user-defined type can be a class, enum, or something out of the STL library. With their meaningful names, they make a program easier to understand
+    and implement.
+16. Anything written after the access-specifier public is written.
+
+17. Libraries of code help us by providing code that already works and has been tested, using that code helps us cut down on the time we spend coding.
