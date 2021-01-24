@@ -137,6 +137,7 @@ know what magic constants are and why to avoid them
 understand functions and how to return by value
 know what lvalues and rvalues are and what operations can/can't be performed on them
 know what a switch is and why to prefer it over if/else
+know what the arithmetic if expression is and what the ternary operator is and why they're better than if/else
 know what a for-loop is and how to use it
 know what a while-loop is and how to use it
 know string member functions
