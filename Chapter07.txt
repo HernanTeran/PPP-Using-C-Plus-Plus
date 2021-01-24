@@ -1,0 +1,131 @@
+-------
+  Q's
+-------
+
+1. What is the difference between a declaration and a definition?
+
+2. How do we syntactically distinguish between a function declaration and a function definition?
+
+3. How do we syntactically distinguish between a variable declaration and a variable definition?
+
+4. Why can't you use functions before declaring them first?
+
+5. Is int a; a definition or just a declaration?
+
+6. Why is it a good idea to initialize variables as they are declared?
+
+7. What can a function declaration consist of?
+
+8. What good does indentation do?
+
+9. What are header files used for?
+
+10. What is the scope of a declaration?
+
+11. What kinds of scopes are there? Give an example of each.
+
+12. What is the difference between a class scope and local scope?
+
+13. Why should a programmer minimize the number of global variables?
+
+14. What is the difference between pass-by-value and pass-by-reference?
+
+15. What is the difference between pass-by-reference and pass-by-const-reference?
+
+16. What is a swap()?
+
+17. Would you ever define a function with a vector<double> by-value parameter?
+
+18. Give an example of undefined order of evaluation. 
+
+19. What goes into an activation record?
+
+20. What is a call stack and why do we need one?
+
+21. What is the purpose of a namespace?
+
+22. How does a namespace differ from a class?
+
+23. What is a using declaration?
+
+24. Why should you avoid using directives in a header?
+
+25. What is namespace std;?
+
+-------
+  A's
+-------
+
+1. A declaration is a statement that introduces a name into a scope and specifies a type for what is named. Optionally, specifying an initalizer.
+   A declaration that fully specifies the entity delcared is a definition. Memory is set aside for a definition because an object is supplied.
+   
+2. function declaration: return_type identifier(parameter list);
+   function definition: return_type identifier(parameter list) { body; } + declaration
+   
+3. variable declaration: type identifier;
+   variable definition: type identifier{value}; // initialization or type identifier = value; // assignment
+   
+4. You can't use functions before declaring them first because they won't link. The program might compile but won't link because of missing declaration.
+
+5. int a; is just a declaration.
+
+6. It's always a good idea to initialize variables because it prevents undesired and erroneous results. Prefer to use the {} initializer syntax.
+   It also prevents narrowing conversions.
+
+7. A function declaration consists of return type, identifier, parameter list, semicolon if only declaration, other body if definition.
+   Strings and vectors don't need to be initialized because the default constructor mechanism already provides initialization through their class.
+
+8. Identation makes clear code.
+
+9. Header files are used as collections of declarations that can be included in other parts of a program.
+
+10. The scope of a declaration is from the the point of its declaration to the end of of the scope in which it was declared which means curly braces.
+
+11. The main purpose of scope is to keep names local so that they won't interfere with names declared elsewhere.
+    Global scope: the area of text outside any other scope
+    Namespace scope: a named scope nested in the global scope or in another namespace
+    Class scope: the area of text within a class
+    Local scope: between {...} braces of a block or in a function argument list
+    Statement scope: for-statement/while-statement/if/else-statements
+    
+12. Class scope is text that is local to that class. Local scope is mainly to describe text that is secondary to the main objects.
+
+13. A programmer should only use max two or three global variables. They can cause bugs that are hard to find since the variables can be used anywhere.
+
+14. Passing by value makes a copy of the argument and the copy is its cost. The original argument remains unchanged. It is only efficient with values
+    at or below 8 bytes of memory such as: double, int, char, and maybe some class objects depending on how big they are. Passing by reference
+    uses the address of the argument/object. References refer back to the object that is defined elsewhere because they are aliases for that object. 
+    References use the & operator which are written after the type. References are used to manipulate large objects, containers, and in functions that
+    change several objects. If size <= 8 pass by value and return a value. Use references in void functions.
+    
+15. Pass-by-const reference means that the object/s will be unmodifiable. Use with void functions.
+
+16. swap() is an algorithm that swaps a and b. It's used on containers like vector. Simply define it like: swap(arg1, arg2);
+
+17. No because that would require copying the value. Instead I would pass it by reference in a void function.
+
+18. The order of evaluation, or execution of a program, refers to variables being defined, constructed, which means memory is set
+    aside for the object and the object is initialized abd when the variable goes out of scope the variable is destroyed freeing the memory
+    so that the compiler can use it for something else.
+
+19. A function activation record is created when a function is called. The language implementation sets aside a data structure containing
+    a copy of all its parameters and local variables. The direction of stack growth is from the top to bottom. Each activation is unique each
+    time the function is called. Each time a function is called the stack of activation records, or stack/call stack, grows and shrinks by one record and
+    when the record returns, its record is no longer used. Last in, first out.
+    
+20. The call stack is useful because it prevents recursion, which means a function that calls itself. A unique activation record keeps each function
+    call separate.
+    
+21. A namespace organizes classes, functions, data, and types into an identifiable and named part of a program without defining a type. 
+
+22. A class means that you're defining an object type, whereas, a namespace does not require you to define a type.
+
+23. A using declaration is using only one facility of a namespace. For example, using std::cout from <iostream> or using std::string; from <string>
+
+24. A using directive is using a full namespace like using namespace std;
+
+25. namespace std; contains the facilities of the C++ standard library.
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
