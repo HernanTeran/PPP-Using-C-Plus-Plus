@@ -86,3 +86,6 @@ know how to write a simple class (access specifier, members, .h/.cpp, constructo
 know how to instantiate an object
 understanding how to establish an invariant
 know how to use member notation for member functions outside of the class ( class_name :: member_name )
+understand that a function should ideally perform a single logical action (including main)
+main should only be responsible for the general scaffolding: start the program, end the program, and handle "fatal" errors
+otherwise any calculations/loops should be written in a void function which is then ran in main
