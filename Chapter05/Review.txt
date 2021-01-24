@@ -98,7 +98,6 @@
     
 11. A result is plausible if it abides by math, physics, and logic.
 
-
 12. If the caller deals with errors then it leads to messy code due to a bunch of if/else statements, potential use of magic constants, and
     potentially leaving corners uncovered because you'd have to test for a whole bunch of cases. If the callee deals with errors then the code
     is neater because the error-checking code is in one place. Checking your arguments within the function is better than creating test functions
