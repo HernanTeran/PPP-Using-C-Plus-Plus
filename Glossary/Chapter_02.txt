@@ -1,7 +1,8 @@
 -----
 Terms
 -----
-1. // - double slash and /* */ stand for comments
+1. // - double slash and /* */ stand for comments. Comments are ignored by the compiler and are written to describe what the program is intended
+   to do and clarify anything that isn't clear with code.
 
 2. << - the insertion operator used in conjunction with cout to create output
 
@@ -11,13 +12,14 @@ Terms
 
 5. compiler - the compiler is a program that checks program syntax and translates source code (.cpp/.h) into machine code (.obj)
 
-6. compile-time error - a syntax error
+6. compile-time error - a syntax error, type error
 
-7. cout - character output stream
+7. cout - character output stream, terminated with a newline character
 
 8. executable - nonportable .exe file created by the the linker containing the set of instructions for a computer to execute
 
-9. function - a named sequence of instructions for the computer to execute in the order in which they are written. Has 4 parts: return type, name, parameter list, body
+9. function - a named sequence of instructions for the computer to execute in the order in which they are written. 
+   Has 4 parts: return type, name, parameter list, body
 
 10. header - a header file or .h file contains term definitions of libraries and classes
 
@@ -29,7 +31,7 @@ Terms
 
 14. linker - a linker is a program that links the translation units together (object code) to create an executable (.exe file)
 
-15. main( ) - main is a function that must be included in every C++ program. The computer searches for main because it is the point of program execution
+15. main() - main is a function that must be included in every C++ program. The computer searches for main because it is the point of program execution
 
 16. object code - object code is source code translated into machine code by the compiler
 
