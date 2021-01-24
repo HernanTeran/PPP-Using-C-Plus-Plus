@@ -1,6 +1,6 @@
-1. assignment - assigning a new value to an initialized variable
+1. assignment - assigning a new value to an initialized variable by using the assignment operator ( = )
 
-2. cin - character input stream used for retrieving user input. useful for int and double. use cin.get( ) for char and getline(cin, var) for string
+2. cin - character input stream used for retrieving user input. useful for int and double. use cin.get() for char and getline(cin, var) for string
 
 3. concatenation - the joining of strings using the + and += operators
 
