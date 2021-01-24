@@ -1,0 +1,40 @@
+argument error - incorrect amount of arguments provided or wrong type provided
+
+assertion - a statement that asserts an invariant
+
+catch - to catch an exception and output an error message. (pass by reference)
+
+compile-time error - a syntax or type error found by the compiler
+
+container - collections of data that hold objects based off of type. (vector)
+
+debugging - the process of finding and removing errors after writing some code
+
+error - compile-time, link-time, run-time, logic, range
+
+exception - a mechanism used for dealing with errors through the idea of separating the detection of an error from the handling
+            of an error
+
+invariant - a condition established to create a valid object
+
+link-time error - an error having to do with the linking of the object files to form an executable program
+
+logic error - an error created by the programmer
+
+post-condition - a valid function return value
+
+pre-condition - a requirement of a function based upon its arguments
+
+range-error - off-by-one error, bounds error
+
+requirement - the pre-condition
+
+run-time error - errors detected by the computer hardware/operating system, a library, or user code
+
+syntax error - a grammatical error
+
+testing - the systemic process of searching for errors
+
+throw - to throw an exception in a called function and to be catched in the callee function
+
+type error - using one type in place of the correct type
