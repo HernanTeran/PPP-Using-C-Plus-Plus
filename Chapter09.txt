@@ -1,0 +1,44 @@
+-------
+  Q's
+-------
+
+1. What are the two parts of a class, as described in the chapter?
+
+2. What is the difference between the interface and the implementation in a class?
+
+3. What is a struct?
+
+4. Why are constructors used?
+
+5. What is an invariant? Give examples.
+
+6. When should functions be put in the class definition (inline-function), and when should they be defined outside the class? Why?
+
+7. When should operator overloading be used in a program?
+
+8. Why should the public interface to a class be as small as possible?
+
+9. What does adding const to a member function do?
+
+10. Why are helper functions/convience functions/auxillary functions best placed outside the class definition?
+
+11. What is a destructor?
+
+12. What is an enum class? An enumerator?
+
+-------
+  A's
+-------
+
+1. 
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
