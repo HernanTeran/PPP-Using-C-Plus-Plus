@@ -30,21 +30,37 @@
 
 2. return type, name, parameter list, function body
 
-3. int main { return 0; }
+3. int main { return 0; } The computer looks for main and executes the instructions it finds there.
 
 4. return 0 sigifies that the program terminated successfully.
 
-5. The compiler is a program that checks syntax and translates source code into machine code or object code.
+5. C++ is a compiled language. Which means that in order to get your program to run, your source code must first be translated 
+   into something a machine can understand. The compiler is a program that checks syntax and translates source code into machine code/object code.
 
 6. The #include directive tells the computer to make available the contents of a library or header file.
 
-7. A .h suffix signifies a header file. Header files contain definitions of terms that are used in a program.
+7. A file with a .h suffix signifies a header file. Header files contain definitions of terms that are used in a program.
 
-8. The linker is a program that links the translation units together. It mainly includes source code object code and object code from directives.
+8. A program consists of several separate parts and these parts are called translation units. The translation units must be compiled which results
+   in object code.  The linker is a program that links the translation units together. In other words, it pieces your program together so it can run.
+   It mainly includes object code from source code and object code from directives.
    source code -> compiler -> object code -> linker <- object code from directives -> exectuable
 
-9. A source file is a .cpp file that you write your code in and an object file is a .obj file that contains the translated code as machine code. Object code is not portable.
+9. A source file is a .cpp file that you write your code in and an object file is a .obj file that contains the translated code as machine code.
+   Object code is not portable.
 
 10. An IDE is an Integrated Development Environment that provides the tools to edit, debug, compile, and run your program.
 
-11. Iti is important to practice to develop your inventiveness and style.
+11. It is important to practice to develop your inventiveness and style.
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+know the parts of a C++ program
+know how to write comments
+know how what a function is
+know what main is and how to write it
+know about directives
+know about libraries
+know how to create output with cout
+know about compile-time errors
