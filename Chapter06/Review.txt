@@ -77,3 +77,12 @@
 16. Anything written after the access-specifier public is written.
 
 17. Libraries of code help us by providing code that already works and has been tested, using that code helps us cut down on the time we spend coding.
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+understand what a user-defined type is
+know how to write a simple class (access specifier, members, .h/.cpp, constructors)
+know how to instantiate an object
+understanding how to establish an invariant
+know how to use member notation for member functions outside of the class ( class_name :: member_name )
