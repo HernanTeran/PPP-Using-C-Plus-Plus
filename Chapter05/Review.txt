@@ -144,3 +144,14 @@ Comment Guidelines
 - how the source code is organized
 - what assumptions are made about inputs
 - what parts of the code are still missing and what cases are still not handled
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+know how to write good comments
+know how to write an exception class
+know how to use exceptions
+understand the error types
+how about pre/post conditions
+know what an assertion is (a statement that asserts/states an invariant)
+understand what an invariant (conditions that should always hold) is
