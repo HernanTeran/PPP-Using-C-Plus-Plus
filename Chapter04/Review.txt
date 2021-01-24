@@ -85,7 +85,7 @@
 
 9. Symbolic constants, constexpr/const, are used to give a meaningful name to a constant and protect it from modification.
 
-10. Magic constants are non-obvious literals (not including 0 or 1). Basically, literals not assigned to a variable.
+10. Magic constants are non-obvious literals (not including 0 or 1). Basically, ints or double not assigned to a variable.
 
 11. ( + - * / ) and the conditional/logical operators
 
@@ -127,3 +127,23 @@
 28. Vectors are easy to use, you don't need to specify the size(length) of a vector in advance, and you can add as many elements as you like.
 
 29. You sort a vector by using the sort algorithm from the C++ standard library. std::sort(v.begin(), v.end());
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+know the difference between a statement and an expression
+know what constexpr and const is
+know what magic constants are and why to avoid them
+understand functions and how to return by value
+know what lvalues and rvalues are and what operations can/can't be performed on them
+know what a switch is and why to prefer it over if/else
+know what a for-loop is and how to use it
+know what a while-loop is and how to use it
+know string member functions
+know what a vector is and how to use one
+void functions and how and why to use them with vectors
+know range-for loop
+know what the sort algorithm is
+know what the find algorithm is
+know what iterators are
+know what the dereference operator is
