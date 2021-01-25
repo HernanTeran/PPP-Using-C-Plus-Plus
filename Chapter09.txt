@@ -53,7 +53,8 @@
 
 9. Adding const to a member function prevents modification of the object.
 
-10. 
+10. Helper functions take arguments of the classes that they are helpers of. Functions that are just useful and can be implemented as a freestanding
+    function should be implemented outside the class. That way, a bug in that function cannot directly corrupt the data in a class object.
 
 11. An enum (an enumeration) is a user-defined type that specifies a set of values (its enumerators) as symbolic integral constants.
     enum class Name{ body ... };
@@ -79,3 +80,6 @@ prefer to use static const/constexpr definitions as symbolic constants instead o
 static makes sure that there is just one copy of the value in the program rather than one per object of the class
 know what the copy constructor is and know that the default version copies all of the members of an object into another (used with assignment operator)
 use a bool is_valid function to help establish invariant
+know you can define a class + helper functions in a namespace
+understand helper functions should be defined outside the class (namespace)
+helper functions should be functions like operator overloading, calculations, is_valid
