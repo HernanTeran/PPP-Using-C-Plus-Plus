@@ -10,7 +10,7 @@
 
 4. Why are constructors used?
 
-5. What is an invariant? Give examples.
+5. What is an invariant?
 
 6. When should functions be put in the class definition (inline-function), and when should they be defined outside the class? Why?
 
@@ -22,23 +22,60 @@
 
 10. Why are helper functions/convience functions/auxillary functions best placed outside the class definition?
 
-11. What is a destructor?
-
-12. What is an enum class? An enumerator?
+11. What is an enum class? An enumerator?
 
 -------
   A's
 -------
 
-1. 
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
-11.
-12.
+1. A class has data members which define the representation of an object of the class. The representation is that a type knows how to represent
+   the data needed in an object. The data members make up the implementation of a class.
+   A class has function members which provide the operations on the objects. The operations are that a type knows what operations can be applied to objects
+   Function members make up the interface of a class.
+   
+2. The interface is the part of the class's declaration that its users access directly. The implementation is the part of the class's declaration that its
+   users access only indirectly through the interface. The interface is identified by the public access specifier and the implementation is identified 
+   by the private access specifier but members are private by default so you only really need to define public.
+   
+3. A struct is a class where members are public by default. Use structs if you're just working with data that logically belongs together and doesn't need to
+   be protected. Usually, just data members + constructor. Data members can take any value.
+   
+4. Constructors are used for initialization, validation by establishing an invariant, and instantiation of an object. 
+
+5. An invariant is a valid condition/state of an object that must be established by the constructor. A rule for what constitutes a valid value.
+
+6. In-line functions should be placed in the class definition only if they are less than 5 lines of code.
+
+7. Operator overloading should be used when we want to provide conventional notation for a type. Use only if you're certain it will make a big
+   positive change in your code.
+
+8. A small interface is easy to learn and easy to remember and when something is wrong it makes it easier to pinpoint where the problem is.
+
+9. Adding const to a member function prevents modification of the object.
+
+10. 
+
+11. An enum (an enumeration) is a user-defined type that specifies a set of values (its enumerators) as symbolic integral constants.
+    enum class Name{ body ... };
+    Accessed using scope resolution operator: Name::enumerator
+    if we don't initialize the enumerators the count begins at 0
+    
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+understand that you must not store a calculated value into a member variable. Instead, use a member function that calculates the value,
+using the most current data, and then returns the value
+know the difference between a struct and a class
+know how to build a struct
+know how to build a class
+understand default constructor(takes no arguments) + overloaded constructors + invariant
+understand default constructors should only exist if there is a default state for the object otherwise delete or put into private as =default
+know how to initialize data members either through member initialization list or in-class initialization
+know to use exception classes
+know to prefer enum classes and know how to use them
+know how to overload operators
+prefer to use static const/constexpr definitions as symbolic constants instead of global variables
+static makes sure that there is just one copy of the value in the program rather than one per object of the class
+know what the copy constructor is and know that the default version copies all of the members of an object into another (used with assignment operator)
+use a bool is_valid function to help establish invariant
