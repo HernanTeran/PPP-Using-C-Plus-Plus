@@ -1,0 +1,63 @@
+* There are three storage classes: automatic storage, static storage, and free store (heap) storage.
+
+* Automatic storage: variables defined in functions(including function parameters) are placed in automatic storage(on the stack) unless
+  explicitly declared as static. Automatic storage is allocated when a function is called and deallocated when a call returns; thus, if a function is 
+  directly or indirectly called by itself, multiple copies of automatic data can exist: one for each call.
+  
+* Static storage: variables declared in global and namespace scope are stored in static storage, as are variables explicitly declared static in functions
+  and classes. The linker allocates static storage before the program starts running.
+  
+* Free store (heap) storage: objects created by new are allocated in the free store.
+
+* Overload resolution: the process of choosing a function to call based on a set of arguments. The compiler is responsible for which overloaded function
+  gets used. 
+  
+* the tilde in a destructor ~ is called the complement operator
+
+------------------------------------------------------------------------------
+destructor use example
+------------------------------------------------------------------------------
+class A
+{
+    char *someHeapMemory;
+public:
+    A() : someHeapMemory(new char[1000]) {}
+    ~A() { delete[] someHeapMemory; }
+};
+
+class B
+{
+    A* APtr;
+public:
+    B() : APtr(new A()) {}
+    ~B() { delete APtr; }
+};
+
+class C
+{
+    A Amember;
+public:
+    C() : Amember() {}
+    ~C() {} // A is freed / destructed automatically.
+};
+
+int main()
+{
+    B* BPtr = new B();
+    delete BPtr; // Calls ~B() which calls ~A() 
+    C *CPtr = new C();
+    delete CPtr;
+    B b;
+    C c;
+} // b and c are freed/destructed automatically
+--------------------------------------------------------------------------------
+
+* Use template<typename T> with classes
+  Use template<class T> with functions
+  
+* Using the keyword using defines an alias for a name. This alias is a symbloc name. It works just like typedef from C.
+  Example: using Pint = int*; // Pint means pointer to int ... using Pchar = char*; ... Pchar p = "somehthing"; 
+  
+* std::fixed gives a floating-point format dddd.dd
+
+* std::scientific gives a scientific format d.ddddEdd
