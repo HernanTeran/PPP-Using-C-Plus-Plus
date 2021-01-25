@@ -129,3 +129,11 @@
 ---------------------------------------
 What should I be able to understand/do?
 ---------------------------------------
+know how to write proper functions
+know how to use references
+know how to use swap() algorithm
+understand what the call stack is
+understand the difference between using declarations and using directives
+understand the difference between declaratons and definitions
+understand when you should pass by value and when by reference
+understand scope
