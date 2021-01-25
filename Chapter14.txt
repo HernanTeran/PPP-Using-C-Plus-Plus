@@ -1,0 +1,124 @@
+-------
+  Q's
+-------
+
+1. What is an abstract class?
+
+2. How does an abstract class differ from a class that is not abstract?
+
+3. How do you make a class abstract?
+
+4. What is controlled by access control?
+
+5. What good can it do to make a data member private?
+
+6. What is a virtual function and how does it differ from a non-virtual function?
+
+7. What is a base class?
+
+8. What makes a class derived?
+
+9. What do we mean by object layout?
+
+10. What can you do to make a class easier to test?
+
+11. What is an inheritance diagram?
+
+12. What is the difference between a protected member and a private one?
+
+13. What members of a class can be accessed from a class derived from it?
+
+14. How does a pure virtual function differ from other virtual functions?
+
+15. Why would you make a member function virtual?
+
+16. Why would you make a virtual member function pure?
+
+17. What does overriding mean?
+
+18. How does interface inheritance differ from implementation inheritance?
+
+19. What is object-oriented programming?
+
+20. What is encapsulation?
+
+21. What is polymorphism?
+
+22. What is a virtual function table?
+
+-------
+  A's
+-------
+
+1. An abstract class is is a class that can only be used as a base class.
+
+2. A class that can be used to create objects is called a concrete class. Abstract classes cannot be instantiated. They refer to generalized, abstract
+   notions of an object. An abstract class is mainly called a base class and any concrete class that is built from it a derived class.
+   
+3. A class is abstract by making the default constructor protected or private or by using a pure virtual function in the class. Copy constructor
+   and copy assignment operator should be deleted in base classes.
+ 
+4. Access control provides direct access or not to data members. When private or protected is used, direct access is not given. This is called encapsulation.
+
+5. Data members are private to prevent accidental or malicious modification.
+
+6. A virtual function uses the virtual keyword and is written in the base class. The function, with the same name, is meant to be overriden by a derived class.
+   This means the derived class can customize the function to fit the needs of that particular derived class. This is called run-time polymorphism, dynamic
+   dispatch, or run-time dispatch because the function called is determined at run time based on the type of the object used. 
+
+7. A base class is the abstract class that provides the general concept of an object. It is meant to be used with a class derived from it.
+
+8. Derivation is a way to build one class from another so that the new class can be used in place of the original. This is called inheritance.
+   The derived class inherits all of the members of its base.
+   class Derived : class Base
+
+9. Object layout refers to how objects are laid out in memory. Data members are stored one after another in memory. When inheritance is used,
+   the data members of a derived class are added after those of a base class. 
+   
+10. Keep the interface as small as possible, documentation with comments.
+
+11. UML diagram
+
+12. Protected provides direct access to data members only to derived classes. Private requires indirect access to data members (setters/getters).
+
+13. If a member is private, its name can be used only by members of the class in which it is declared. Basically, only tne class's own members.
+    If a member is protected, its named can be used only by members of the class in which it is declared and members of classes derived from that.
+    Basically, the class's own members and derived class's members.
+
+14. Pure virtual functions must be set to = 0, they can't be defined in the base class, they must be overriden in derived classes.
+    Classes with pure virtual functions have no data members, no constructors, and no functions besides pure virtual functions.
+    Virtual functions can be defined in a base class.
+
+15. You would make function virtual to avoid complexity and errors. Instead of redefining the function in every class with a new name you can use polymorphism
+    through the use of the virtual keyword. This allows you to have only one type of function call but many forms of its implementation.
+
+16. A virtual function would be made pure to make a class abstract and to ensure that a derived class will override it.
+
+17. Defining a function in a derived class so that it can be used through the interface provided by a base. Uses the override keyword.
+
+18. Interface inheritance is code using the interface (derived class) provided by a base class and not having to know about the derived classes.
+    Implementation inheriatnce is the simplification in the implementation of derived classes provided by the facilities offered by the base class.
+
+19. The use of run-time polymorphism, encapsulation, and inheritance. 
+
+20. Encapsulation is the result of using private or protected to keep implementation details safe from purposeful/accidental modification. Instead,
+    it requires that data members be accessed indirectly.
+
+21. Polymorphism is the result of using virtual functions; the function called is determined at run time based on the type of the object used.
+
+22. A virtual function table is like a call stack but for virtual functions. Each class can have a virtual function table where each virtual function
+    gets its own slot. Code generated from a virtual function finds something called the virtual pointer, which is something acts like a reference, then
+    uses the pointer to get to the correct virtual function table and then calls the appropriate function there.
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+know how to implement inheritance
+know how to use protected keyword
+know how to use polymorphism through virtual/pure virtual functions
+know how to implement encapsulation
+know what base and derived classes are
+know how to write UML diagrams
+understand what an abstract class is
+know what a copy constructor is
+understand when to delete a copy constructor
