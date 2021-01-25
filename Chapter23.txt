@@ -1,0 +1,158 @@
+-------
+  Q's
+-------
+
+1. Does insert() add before or after its position (or iterator)?
+
+2. What is Unicode?
+
+3. How do you convert to and from a string representation?
+
+4. What is the difference between cin >> s and getline(cin, s)?
+
+5. List the standard streams.
+
+6. What is the key of a map?
+
+7. How do you iterate over the elements of a map?
+
+8. What is the difference between a map and a multimap? Which useful map operation is missing from multimap, and why?
+
+9. What operations are required for a forward iterator?
+
+10. What is the difference between an empty field and a nonexistent field?
+
+11. Why do we need an escape character to express regular expressions?
+
+12. How do you get a regular expression into a regex variable?
+
+13. How do you find out if a string is a valid regular expression?
+
+14. How do you specify your own character set?
+
+15. How do you extract the value of an integer field?
+
+16. How do you represent a floating-point number as a regular expression?
+
+17. How do you extract a floating point value from a match?
+
+18. What is a sub-match? How do you access one?
+
+19. What is a regular expression?
+
+20. What is a map?
+
+21. What is smatch?
+
+22. What is the difference between regex_search() and regex_match()?
+
+-------
+  A's
+-------
+
+1. insert() adds before its position
+
+2. Unicode is a set of characters that can be implemented in a string provided they meet system conventions.
+
+3. Convert to string: use to_string()
+   Convert from a string: use std::stoi() or std::stod()
+
+4. cin reads only up to the newline character, getline reads a whole string including spaces
+
+5. All from the I/O stream library.
+   istream: istringstream, ifstream, iostream
+   ostream: iostream, ostringstream, ofstream
+   iostream: stringstream, fstream
+
+6. the key, first, should generally be a string
+
+7. By using the iterators .begin() and .end()
+
+8. A multimap permits duplicate keys, a map does not. 
+
+9. auto var = container.begin()/.end() and then using ++ or -- in a loop
+
+10. An empty field doesn't is still represented as a character but a nonexistent field isn't.
+
+11. A backslash means "special character" they are necessary to create differentiation between what you want and what is implemented in regex
+
+12. Declare regex name {"pattern"};
+
+13. a bad_expression exception is thrown
+
+14. By using regex pat{R"(pattern)"}; R stands for raw string literal. Prefer raw string literals if pattern contains backslashes or double quotes.
+
+15. int var_name = std::stoi(matches[index]); Remember it's based off of the order of grouping.
+
+16. regex pat{ R"(([0-9]+.[0-9]+))" };
+
+17. By using std::stod(matches[0]);
+
+18. smatch is a vector. smatch matches...matches[0] == whole pattern match. After that, only what was in parenthesis is given. 
+
+19. Regular expressions are used for text processing. It defines a pattern that we can look for in a test. Regular expressions are a language
+    for expressing patterns of characters. 
+
+20. A map is an associate array. Maps use .insert() and make_pair(arg1, arg2). So: map.insert(make_pair(arg1, arg2));
+    To extract a string use the equal_range() function with an iterator. 
+    So: auto pp = map.equal_range("string");
+        for (auto p{ pp.first }; p !=  pp.second; ++p) { cout << find_subject(p->second) << '\n'; }
+        
+21. Smatch is a vector that stores regex matches automatically. S stands for sub-match. A sub-pattern is anything enclosed in parenthesis.
+    Smatches.size() == match + 1
+    Index with []
+    
+22. The difference is that regex_match() must match every character of its input to succeed, whereas regex_search() looks at the input
+    trying to find a substring that matches.
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+understand you should first collect data into a general structure like a vector than can be used for many things 
+and then you can use that for a particular application like in a multimap
+know how to write an iterator
+know how to iterate through a map
+know how to use regular expressions
+know how to convert a string to an int or double
+know how to convert an int or double into a string
+
+--------------------------------------------
+          Regular Expressions
+--------------------------------------------
+.     any single character
+[     a character class
+{     count
+
+(     begin grouping
+)     end grouping
+\     next character has a special meaning (use with + and - and .)
+*     zero or more
++     one or more
+?     optional (zero or one)
+|     alternative (or)
+^     start of line; negation
+$     end of line
+
+\d    a decimal digit
+\l    a lowercase character
+\s    a space/tab or ( ) or just a blank space
+\u    an uppercase character
+\w    a letter (a-zA-Z) or digit (0-9) or an underscore (_)
+\D    not \d
+\L    not \l
+\S    not \s
+\U    not \u
+\W    not \W
+
+[a-z] lowercase letters
+[A-Z] uppercase letters
+[0-9] digits
+[Cc]  an upper or lowercase letter
+[\w\-] a word character or a dash
+[\w @] a word character, a space, or an @
+[.]   dot
+[^aeiouy] not an English vowel
+
+{n}   exactly n times
+{n,}  n or more time
+{n,m} at least n and at most m times
