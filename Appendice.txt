@@ -14,6 +14,13 @@
   
 * the tilde in a destructor ~ is called the complement operator
 
+* understand you should first collect data into a general structure like a vector than can be used for many things 
+  and then you can use that for a particular application like in a multimap. A class is for objects, structs are for data, structs
+  can contain vectors of objects that are related. An iterator can also be defined in the struct for clarity.
+  Example: using Mess_it = vector<Messages>::const_iterator;
+           Mess_iter begin() const { return m.begin(); }
+           Mess_iter end() const { return m.end(); }
+
 ------------------------------------------------------------------------------
 destructor use example
 ------------------------------------------------------------------------------
