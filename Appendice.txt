@@ -21,6 +21,21 @@
            Mess_iter begin() const { return m.begin(); }
            Mess_iter end() const { return m.end(); }
 
+// namespace (make header namespace.h)
+// enum class (before class is defined)
+// class
+// private:
+// data members
+// public:
+// class Invalid{}
+// constructors
+// outside of class definition:
+// nonmodifying/modifying operations
+// bool is_valid(same parameters as constructor) function
+// is_valid returns true and has multiple returns for false
+// overloaded operators
+// Class_Object functions(const Class& c);
+// helper functions
 ------------------------------------------------------------------------------
 destructor use example
 ------------------------------------------------------------------------------
