@@ -1,0 +1,73 @@
+-------
+  Q's
+-------
+
+1. What does the notation << hex do?
+
+2. What are hexadecimal numbers used for in computer science? Why?
+
+3. Name some of the options you may want to implement for formatting integer output.
+
+4. What is a manipulator?
+
+5. What is the prefix for decimal? For octal? For hexadecimal?
+
+6. What is the default output format for floating-point values?
+
+7. What is a field?
+
+8. Explain what setprecision() and setw() do.
+
+9. What is the purpose of file open modes?
+
+10. Which of the following manipulators does not "stick": hex, scientific, setprecision(), showbase, setw?
+
+11. What is the difference between character I/O and binary I/O?
+
+12. Give an example of when it would probably be beneficial to use a binary file instead of a text file.
+
+13. Give two examples where a stringstream can be useful.
+
+14. What is a file position?
+
+15. What happens if you position a file position beyond the end of file?
+
+16. When would you prefer line-oriented input to type-specific input?
+
+17. What does isalnum(c) do?
+
+-------
+  A's
+-------
+
+1. hex << outputs a hexadecimal
+
+2. Hexadecimal is popular for outputting hardware-related information. A hexadecimal digit represents a 4-bit value so 2 = 1 byte.
+
+3. hex << or oct << or dec <<
+   These do not output values. Instead, they inform the stream that any further integer values should be displayed as specified.
+   oct, hex, and dec all "stick" until told otherwise
+
+4. A manipulator are terms like hex and oct that are used to change the behavior of a stream. showbase and noshowbase are manipulators.
+
+5. oct: 0
+   hex: 0x
+   dec: no prefix
+
+6. defaultfloat or general format is the default format and it "sticks". Otherwise there is fixed and scientific.
+
+7. The equivalent mechanism of fixed and scientific for integer values. 
+
+8. setprecision() is a manipulator that sets the precision of a floating-point value.
+   setw() specifies how many character positions an integer value or string value will occupy using the "set field width" manipulator.
+
+9. 
+
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
