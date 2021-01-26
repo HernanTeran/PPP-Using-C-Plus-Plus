@@ -61,13 +61,80 @@
 8. setprecision() is a manipulator that sets the precision of a floating-point value.
    setw() specifies how many character positions an integer value or string value will occupy using the "set field width" manipulator.
 
-9. 
+9. By default ifstream opens its file for reading and an ofstream opens its file for writing. 
+   ios_base::app    append, add to the end of the file
+   ios_base::ate    "at end" open and seek to end
+   ios_base::binary   binary mode - beware of system-specific behavior
+   ios_base::in     for reading
+   ios_base::out    for writing
+   ios_base::trunc    truncate file to 0 length
+   -Examples-
+   ofstream ofs{name, ios_base::app}; // useful for writing log files
+   fstream fs{"myfile", ios_base::in | ios_base::out}; // '|' means bitwise or operator
+   if (!fs) // error
+   stick to istream and ostream
 
-10.
-11.
-12.
-13.
-14.
-15.
-16.
-17.
+10. setw() doesn't stick
+
+11. By default, iostreams deal with character representations; that is, an istream reads a sequence of characters and turns it into an object
+    of the desired type. An ostream takes an object of a specified type and transforms it into a sequence of characters which it writes out.
+    Binary I/O is the request to istream and ostream to simply copy bytes to and from files by using ios_base::binary.
+    When reading (from a vector) bytes do:
+    for (int x; ifs.read(as_bytes(x), sizeof(int));) {v.push_back(x);}
+    When writing (from a vector) bytes do:
+    for (int x : v) {ofs.write(as_bytes(x), sizeof(x));}
+    Binary I/O doesn't use the <<, >> operators.
+    The as_bytes() function is needed to get the address of the first byte of an object's representation.
+    
+12. It would be beneficial to use a binary file for an image or sound file because there is no reasonable character representation.
+    They are both basically just a bag of bits.
+    I/O is portable and binary is not.
+    
+13. You can use string as the source of an istream or the targest for an ostream. An istream that reads from a string is called
+    istringstream and an ostream that stores characters written to it in a string is called an ostringstream.
+    An istringstream is useful for extracting numeric values from a string:
+    double str_to_double(string s)
+    {
+        istringstream is{s};
+        double d{0};
+        is >> d;
+        if (!is) // error
+        return d;
+    }
+    An ostringstream is useful for concatenation:
+    ostringstream name;
+    name << "myfile" << name << ".log";
+    ofstream logfile{name.str()};
+    
+14. Every file that is open for reading has a read/get position and every file that is open for writing has a write/put position.
+    fs.seekg(5); // read and increment reading position and then cout
+    fs.seekp(1); // move writing position to 1 and then write to it and increment writing position
+    There is no run-time error checking when you use positioning so avoid.
+
+15. eof() state
+
+16. Line-oriented input uses getline(cin, str) to differentiate between spaces and terminating whitespace character. Useful for text
+    communication like in a game. cin.get() reads a single character into its argument.
+    -Example-
+    string command;
+    getline(cin, command);
+    
+    stringstream ss{command};
+    vector<string> words;
+    for (string s; ss >> s; ) {words.push_back(s);}
+    
+    -Character classification-
+    isspace(c)
+    isalpha(c)
+    isdigit(c)
+    isxdigit(c) hexadecimal
+    isupper(c)
+    islower(c)
+    isalnum(c) letter or decimal digit
+    iscntrl(c) a control character
+    ispunct(c) punctuation
+    isprint(c) is printable
+    toupper(c) // pass-by-ref
+    tolower(c) // pass-by-ref
+
+17. returns true/false if it is a letter or decimal digit
