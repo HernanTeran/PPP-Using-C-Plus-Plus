@@ -1,47 +1,20 @@
-#include <utility>
-#include <vector>
-#include <cmath>
-#include <iomanip>
-#include <regex>
-#include <fstream>
-#include <algorithm>
-#include <set>
-#include <unordered_map>
-#include <unordered_set>
-#include <regex>
-#include <map>
-#include <functional>
-
-#include <iostream>
-#include <string>
-
-using std::string;
-using std::cout;
-using std::cin;
-using std::cerr;
-using std::regex;
-using std::smatch;
-using std::vector;
-using std::size_t;
-
-// namespace make header namespace.h
-// enum class
-// class
-// data members
-// class Invalid{}
-// constructors
-// nonmodifying/modifying operations
-// bool is_valid(same parameters as constructor) function
-// is_valid returns true and has multiple returns for false
-// overloaded operators
-// Class_Object functions(const Class& c);
-// helper functions
+// Hernan Teran 1/26/2021
+// V1
+// Excercises 5-7
 
 #include "Books.h"
+#include <vector>
+#include <iostream>
+
+using std::cin;
+using std::cerr;
+using std::vector;
 
 void run_program();
 
 int main()
+// The purpose of the program is to instantiate a book object to "check out" and then "return"
+// If the invariant is not established an exception will be thrown to terminate the program
 {
     run_program();
 
@@ -52,11 +25,10 @@ void run_program()
 {
     try
     {
-        Books::Book book;
+        Books::Book book; 
+        cin >> book; // overloaded >> operator
 
-        cin >> book;
-
-        Books::Book_Collection my_books;
+        Books::Book_Collection my_books; // vector: hold books
 
         if (!book.is_checked_out())
         {
@@ -65,6 +37,7 @@ void run_program()
         }
 
         for (const auto &bo : my_books.book_collection)
+        // outputting book data through overloaded << operator
         {
             cout << bo;
         }
@@ -74,6 +47,7 @@ void run_program()
 
     }
     catch (Books::Book::Invalid)
+    // catch exception then terminate
     {
         cerr << "[Error]: invalid input\n";
     }
