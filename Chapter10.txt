@@ -1,0 +1,146 @@
+-------
+  Q's
+-------
+
+1. When dealing with input and output, how is the variety of devices dealt with in most modern computers?
+
+2. What, fundamentally, does an istream do?
+
+3. What, fundamentally, does an ostream do?
+
+4. What, fundamentally, is a file?
+
+5. What is a file format?
+
+6. Name four different types of devices that can require I/O for a program.
+
+7. What are the four steps for reading a file?
+
+8. What are the four steps for writing a file?
+
+9. Name and define the four stream states.
+
+10. Discuss how the following input problems can be resolved:
+    a. The user typing an out-of-range value
+    b. Getting no value (end of file)
+    c. The user typing something of the wrong type
+    
+11. In what way is input usually harder than output?
+
+12. In what way is output usually harder than input?
+
+13. Why do we (often) want to separate input and output from computation?
+
+14. What are the two most common uses of the istream member function clear()?
+
+15. What are the usual function declarations for << and >> for a user-defined type?
+
+16. What is the buffer?
+
+-------
+  A's
+-------
+
+1. Operating systems separate the detailed handling of I/O devices into device drivers, and programs then access the device drivers through an I/O
+   library that make I/O from/to different sources appear as similar as possible. 
+   
+2. istream deals with streams of input
+   turns character sequences into values of various types
+   gets those characters from somewhere such as a console, a file, the main memory, or another computer
+   types -> istream -> buffer
+
+3. ostream deals with streams of output
+   turns values of various types into character sequences
+   sends those characters somewhere (buffer) such as to a consoloe, a file, the main memory, or another computer
+   types -> ostream -> buffer
+   
+4. At the most basic level, a file is simply a sequence of bytes numbered from 0 upward. For a file, an ostream converts objects in main memory 
+   into streams of bytes and writes them to disk. An istream does the opposite; it takes a stream of bytes from disk and composes objects from them. 
+   
+5. A file has a format; it has a set of rules that determine what the bytes mean.
+
+6. Files, network connections, recording devices, display devices.
+
+7. To read a file, we must:
+   1. Know its name
+   2. Open it (for reading)
+   3. Read in the characters
+   4. Close it
+   
+8. To write a file, we must:
+   1. Name it
+   2. Open it (for writing) or create a new file of that name
+   3. Write out our objects
+   4. Close it
+   
+9. good()   The operations succeeded
+   eof()    We hit the end of input(end of file)
+   fail()   Something unexpected happened (looked for digit and found 'x')
+   bad()    Something unexpected and serious happened (disk read error)
+   
+10. a. Handle the problem in the code doing the read
+    b. Throw an exception to let someone else handle the problem
+    c. Ignore the problem
+
+11. Most of the complexity of input has to do with how to handle errors. Also, defining an istream operator >> is much trickier than
+    defining the ostream operator << because you have to deal with errors.
+
+12. Instead of using cout, using strings to represent messages and make them arguments to functions.
+
+13. Utility functions shouldn't write messages to the user for cout or cin. Instead, use get_type() functions and in the parameters have
+    something like: get_type(T var, const string& greeting, const string& error); that way it's not hardwired into the machine and clearer.
+
+14. a. If cin.fail() then do cin.clear() to clear the buffer and try to recover from the error
+    b. ist.clear(ios_base::failbit); set the state to fail() 
+    
+15. ostream& operator << (ostream& os, const Obj& obj) { return os << obj.member() << ... << '\n';
+
+    istream& operator >> (istream& is, Obj& obj)
+    {
+        // local variables like char/int...
+        is >> var >> var...;
+        if (!is) {return is;}
+        if (check vars for formatting)
+        {
+            is.clear(ios_base::failbit);
+            return is;
+        }
+        obj = Obj(vars);
+        return is;
+    }
+
+16. The buffer is a data structure that the ostream uses internally to store the daa you give it while communicating with the operating system.
+    With an ostream, an istream uses a buffer to communicate with the operating system. With the istream, the buffering can be quite visible to the user.
+    What you type is left in the buffer until you hit Enter, and you can use the erase key "to change your mind" until you hit Enter.
+
+---------------------------------------
+What should I be able to understand/do?
+---------------------------------------
+1. ifstream iname{file name};
+   if (!iname) {cerr << "error";}
+   to input use: while(ist >> variables)
+   
+2. ofstream oname{file name};
+   if (!oname) {cerr << "error";}
+   to output use: while(ost << variables)
+   
+know how to write to a file
+know how to read from a file
+know to store data in structs
+know to not overuse cout
+understand the need to avoid magic constants
+know to store data in vectors or maps
+#include <fstream>
+know how to use: ifs.exceptions(ifs.exceptions()|ios_base::badbit);
+
+// if stream is in fail state
+void end_of_loop(istream& ist, char term, const string& error_message)
+{
+    if (ist.fail())
+    {
+        ist.clear();
+        char ch{'0'};
+        if (ist >> ch && ch == term) {return;}
+        cerr << error_message;
+    }
+}
