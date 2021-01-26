@@ -144,3 +144,34 @@ void end_of_loop(istream& ist, char term, const string& error_message)
         cerr << error_message;
     }
 }
+
+----------------
+Integer Literals
+----------------
+
+Decimal   0-9
+          base-10
+
+Octal   digits that start with 0
+        0-7
+        base-8
+
+Hexadecimal   hexadecimal digits that start with 0x or 0X
+              0-9, a-f, A-F (actually 0-15 / 16 values)
+              (Ex: 0X7B = 7*16+11 = 123(decimal))
+              base-16
+              
+Binary    a series of binary digits starting with 0b or 0B
+          0, 1
+          base-2
+
+* single quotes can be used to separate large numbers (Ex: 1'000'000)
+* a suffix of u or U makes an integer literal unsigned
+* l or L makes an integer literal long (Ex: 10u, 123456UL)
+
+--------------------------------------------------------------------------------------------------------
+Hexadecimal and binary
+--------------------------------------------------------------------------------------------------------
+hex       0     1     2     3     4     5     6     7     8     9     A     B     C     D     E     F
+binary    0000  0001  0010  0011  0100  0101  0110  0111  1000  1001  1010  1011  1100  1101  1110  1111
+--------------------------------------------------------------------------------------------------------
