@@ -149,9 +149,12 @@
     
 16. -> a member access operator
 
-17. 
-
-18.
+17. A linked list is made out of "links" where each link holds some information and pointers to other links. In a doubly-linked list,
+    we can find both the predecessor and the successor. A list where we can find only the successor is called a singly-linked list.
+    Doubly-linked lists are useful for removing an element.
+    
+18. In every member function, the identifier "this" is a pointer that points to the object for which the member function was called. 
+    So, the pointer to the current object.
 
 19. The new operator allocates ("gets") memory from the free store. Since a computer's memory is limited, it is usually a good idea to return
     memory to the free store. That way, the free store can reuse that memory for a new allocation. 
