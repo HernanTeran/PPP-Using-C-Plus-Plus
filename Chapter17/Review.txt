@@ -1,0 +1,199 @@
+-------
+  Q's
+-------
+
+1. What four kinds of storage do we have for a typical program?
+
+2. What is the free store? What operators support it?
+
+3. What is the dereference operator and why do we need one?
+
+4. What is an address? How are memory addresses manipulated in C++?
+
+5. What information about a pointed-to object does a pointer have? What useful information does it lack?
+
+6. What can a pointer point to?
+
+7. What is a leak?
+
+8. What is a resource?
+
+9. How can we initialize a pointer?
+
+10. What is a null pointer? When do we need to use one?
+
+11. When do we need a pointer instead of a reference or a named object?
+
+12. What is a destructor? When do we want one?
+
+13. When do we want a virtual destructor?
+
+14. How are destructors for members called?
+
+15. What is a cast? When do we need to use one?
+
+16. How do we access a member of a class through a pointer?
+
+17. What is a doubly-linked list?
+
+18. What is "this" and when do we need to use it?
+
+19. What is allocation?
+
+20. What are the member access operators?
+
+21. What should things should always be written in pairs?
+
+22. What are the differences between an array and a vector?
+
+23. How do you implement an array?
+
+24. What is a pointer?
+
+25. What is the subscript operator?
+
+26. How do you use void*?
+
+-------
+  A's
+-------
+
+1. When you start a C++ program, the compiler sets aside memory for your code called code/text storage.
+   Global variables get static storage.
+   Functions get stack/automatic storage.
+   The rest of the memory is available for other uses; it is "free". Free store or heap memory.
+   In memory the layout is: code -> static data -> free store -> stack
+
+2. The free store or heap is leftover memory the compiler didn't use for your C++ program. It is avaible through the operator new.
+   double* p = new double[4]; // allocates 4 doubles on the free store
+   This asks the run-time system to allocate four doubles on the free store and return a pointer to the first double to us.
+   The new operator returns a pointer to the object it creates.
+   If it created several objects (array) it returns a pointer to the first of those objects.
+
+3. * ; the dereference operator pointer "de-references" the pointer meaning it provides the actual value of an object as opposed to its address.
+   It is also used on the left hand side of an expression to indicate that an object is a pointer.
+   It allows to read and write the object pointed to by the pointer.
+
+4. The pointer hold's the first element's memory address and an address is a number that indicates an object's location
+   in memory in terms of bytes. The & address of operator is used to get the address of an object. 
+   & can be thought of as an automatically dereferenced immutable pointer or as an alias to an object.
+   
+5. Pointers have the address of an object and provide the operations suitable for addresses but they lack the arithmetic and logical operations
+   that built-in types can provide. Basically, you can treat a pointer to an object, like int or double, like an int or double.
+
+6. A pointer can point to the memory address of a type corresponding to the pointer's type.
+   A pointer value is the address of the first byte of the memory.
+   A pointer points to an object of a specific type.
+   A pointer does not know how many elements it points to.
+
+7. A leak occurs due to memory allocated by new not being returned to the free store. This can be avoided by always writing the new operator
+   with the delete operator. The delete operator returns memory to the free store. 
+   Pointers can be returned in functions and memory can be allocated more than once.
+   Whatever is getting returned in the function according to the function type should be deleted using delete in main.
+   Whatever is allocated locally in the function should be deleted within the function before a return.
+   delete ptr; // free the memory for an individual ovject allocated by new
+   delete[] ptr; // frees the memory for an array of objects allocated by new
+
+8. A resource is the object/s allocated by new.
+
+9. int* ptr = &var; // pointer to int
+   double* p1 = new double{5.5}; // allocate a double initialized to 5.5
+   double* p2 = new double[5]{0,0,0,0,0}; // allocate 5 doubles initialized to 0
+   double* p3 = new double[]{0,0,0,0}; // allocate 4 doubles initialized to 0
+   // number of elements can be left out when a set of elements is provided
+   double* p4 = new double[100]; // allocate 100 uninitialized doubles
+   // first set p4 = nullptr then use a for-loop to initialize to nullptr
+
+10. Null pointers represent the value zero for pointers. Can be used for initialization and to check for valid pointers.
+    if (ptr) // same as if (ptr != nullptr)
+    
+11. assignment to a pointer changes the pointer's value not the pointed-to value
+    to get a pointer you generally need to use new or &
+    to access an object pointed to by a pointer you use * or [] or *(i + 1)
+    assignment to a reference changes the value of the object referred to not the reference itself
+    you cannot make a reference refer to a different object after initialization but you can do this with a pointer
+    assignment of references does deep copy (assigns to the referred-to object)
+    assignment of pointers does not deep copy because it assigns to the pointer object itself
+    pointers have null pointers
+    A reference and a pointer are both implemented by using a memory address. Use pointers if you'll need to point several objects.
+    -pointer vs value vs reference-
+    return/pass by value if using built-in types and anything that uses a move constructor
+    void incr_p(int* p) { ++*p; } // incr_p(&x) pointer function call
+    indicates something might be change, must protect against nullptr. if (p) 
+    void incr_r(int& r) { ++r; } // incr_r(r) reference function call
+    generally prefer to use references
+
+12. A destructor is a function,known by the compiler, that does the opposite of a constructor. A destructor is implicitly called
+    when an object goes out of scope. A destructor makes sure that an object is properly cleaned up before it is destroyed.
+    This means deleting any pointers contained by data members.
+    ~Class() {delete elem; or delete[] elem;}
+    This way whenever the object from the class is used the destructor ensures the memory is returned to the free store and you
+    don't need to remember to call delete on it.
+    Every class that "owns" a resource needs a destructor defined.
+    However, every class already has a default destructor generated by the compiler. The destructor frees all of the memory used
+    up by the object definition. This should only be used if a resource from the free store isn't being acquired.
+    
+13. If you have a class with a virtual function it needs a virtual destructor. 
+
+14. First memory is allocated for the object type
+    Then the oject's constructor is invoked
+    The constructor allocates memory for the object's elements and initializes those elements
+    When going out of scope, the object's destructor is invoked
+    That destructor invokes the destructor for the object's elements (if they have one: string/vector/udt) deallocating the memory used by them
+    The object's destructor deallocates the memory used for the object
+
+15. A cast manipulates an object's type; it is a low level process that is really close to the hardware.
+    reinterpret_cast - converts an int to a pointer or can convert one pointer type to another. Converts between unrelated types
+    static_cast - explicitly converts between related pointer types such as void* and double*
+    const_cast - can cast away const
+    
+16. -> a member access operator
+
+17. 
+
+18.
+
+19. The new operator allocates ("gets") memory from the free store. Since a computer's memory is limited, it is usually a good idea to return
+    memory to the free store. That way, the free store can reuse that memory for a new allocation. 
+    
+20. -> or . the member access operators
+
+21. new       in constructor/definition
+    delete    in destructor/before going out of scope
+    
+22. An array is a pointer that doesn't know its size, can't range check, and allows faulty indexing.
+    Vector is a container that comes with range checking (at()), knows its size (size()), other useful member functions, constructor/destructor
+
+23. int* arr = new int[size]{...};
+    // assign size to a variable to avoid magic constants 
+    // initialize values if possible
+    // delete with delete[] arr;
+    // then set it equal to nullptr... arr = nullptr;
+
+24. A pointer is a data type, an object, that can hold an object's address. Requires the suffix *. A pointer, when dealing with containers, is implemented
+    by pointing to the first element which then points to the rest of the set of elements and then it can point to a different set of elements
+    if we need more space. 
+
+25. [ ] it provides access to an array based on index. It also works on vectors but is discouraged because it cannot provide the range checking
+    that the at() vector member function can provide.
+    Accessing a negative index or index past the allocated size will still return a value but it will be random value. This can cause errors in your
+    program. Also if you assign a pointer to point to another object this will work.
+    -Example-
+    double* p = new double; // allocate a double
+    double* q = new double[1000]; // allocate 1000 doubles
+    q[700] = 7.7 // ok
+    q = p; // let q point to the same as p
+    double d = q[700]; // out-of-range access
+    
+26. void* means pointer to some memory that the compiler doesn't know the type of. We use void* when we want to transmit an address between pieces
+    of code that really don't know each other's types. 
+    void* pv1 = new int; // int* converts to void*
+    void* pv2 = new double[10]; // double* converts to void*
+    void f(void* pv)
+    {
+        void* pv2 = pv; // copying is what void*s are for
+        double* pd = pv; // error you cannot convert void* to double*
+        *pv = 7; // error you cannot dereference a void*
+        pv[2] = 9; // error you cannot subscript a void*
+        int* pi = static_cast<int*>(pv); // explicit conversion
+    }
