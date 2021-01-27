@@ -1,0 +1,154 @@
+-------
+  Q's
+-------
+
+*TIP: You can see if you have a memory leak by seeing if the number of constructions - the number of destructions equals zero.
+
+1. What does "Caveat emptor!" mean?
+
+2. What is the default meaning of copying for class objects?
+
+3. When is the default meaning of copying of class objects appropriate?
+
+4. What is a copy constructor?
+
+5. What is a copy assignment?
+
+6. What is the difference between copy assignment and copy initialization?
+
+7. What is shallow copy? What is deep copy?
+
+8. How does the copy of a vector compare to its source?
+
+9. What are the five "essential operations" for a class?
+
+10. What is an explicit constructor? Where would you prefer one over the (default) alternative?
+
+11. What operations may be invoked implicitly for a class object?
+
+12. What is an array?
+
+13. How do you copy an array?
+
+14. How do initialize an array?
+
+15. When should you prefer a pointer argument over a reference argument?
+
+16. What is a C-style string?
+
+17. What is a palindrome?
+
+18. What is a move assignment/construction?
+
+-------
+  A's
+-------
+
+1. the principle that the buyer alone is responsible for checking the quality and suitability of goods before a purchase is made.
+
+2. copying all the data members of one object into another. Basically, the objects share object's 1 data members.
+
+3. If there is no acquisition of a resource through a pointer or reference.
+
+4. using {} or () to initialize an object with another 
+   ClassName(const obj&);
+   ClassName::ClassName(const obj& arg) : mem{arg.mem}, elem{new double[arg.sz]}...
+   {
+       copy(arg.elem, elem);
+   }
+       
+5. memberwise copy using the assignment operator. default operation can cause double deletion and a memeory leak because since they
+   both share object one's data both of their destructors are called only for that data.
+   ClassName& operator = (const ClassName&)
+   ClassName& ClassName::operator = (const ClassName& obj)
+   {
+       double* p = new double{obj.sz}; // allocate new space
+       copy(a.elem, a.elem.sz, p); // copy(mem, mem, new_mem)
+       delete[] elem; // deallocate old space (variable in private data member)
+       elem = p; // reset that old variable with the new space
+       sz = a.sz; // do the same with other elements
+       return *this; // return a self-reference
+   }
+   
+6. Assignment is a bit more complicated than construction because we must deal with the old elements.
+
+7. Shallow copy copies only a pointer so that the two pointers now refer to the same object. That's what pointers and references do and this is
+   referred to as pointer/reference semantics because that copy addresses.
+   Deep copy copies what a pointer points to so that the two pointers now refer to distinct objects. That's what vectors and strings do. We define
+   copy constructors and copy assignments when we want deep copy for objects of our classes. Types that provide deep copies have value semantics.
+   
+8. We can never use the original source because it is local and gets destroyed once it leaves the function scope.
+
+9. copy constructor
+   copy assignment operator
+   destructor/virtual destructor
+   move constructor
+   move assignment operator
+   
+10. An explicit constructor is a constructor that takes only one argument and is marked the keyword explicit. This prevents implicit conversions
+    between types. 
+
+11. default constructor
+    copy operations
+    move operations
+    destructor
+
+12. An array is a homogeneous sequence of objects allocated in contiguous memory; all elements of an array have the same type and there are no
+    gaps between the objects of the sequence. The number of elements of a named array must be known at compile time so the size must be const/constexpr
+    Uses pointer arithmetic ( + - +- -= ) to move pointer around. Just watch out for out of bounds
+
+13. for (int i = 0; i < 100; ++i) x[i] = y[i];
+    memcpy(x, y, 100*sizeof(int));
+    copy(y, y + 100, x);
+
+14. T* arr = new T[size];
+    int arr = int[size];
+
+15. Don't initialize a pointer to nullptr and then assign to it
+    Returning a pointer can save you from expensive copy operations because pointer arguments automatically get passed by reference.
+    Use a pointer argument if you want to modify a value because it requires & operator in function call.
+    Reference argument doesn't require & operator in function call.
+    Reference argument usually means the function refers to an object.
+    If "no object" or nullptr is a valid function argument then use a pointer parameter and test for nullptr.
+    Otherwise, pass by reference by default.
+
+16. char* or char[] array
+
+17. A word that is spelled the same from both ends.
+
+18. The move operations "steal" the representation of an object to be used for another object without copying. 
+    The source's pointer and elements move to the caller and the source gets destroyed with no side effects.
+    Move operations make returning objects by value cheap. We do not have to deal with pointers or references to get large
+    amounts of information out of a function.
+    ClassName(ClassName&& a); // move constructor
+    ClassName& operator = (ClassName&&); // move assignment
+    && means rvalue reference operator used only for move operations. They refer to the literal values of objects instead of the lvalues or
+    variables (named object)
+    ClassName::ClassName(ClassName&& a) : elem{a.elem}, sz{a.sz} // copy a's elem and sz
+    {
+        a.sz = 0;
+        a.elem = nullptr; // make the source object empty
+    }
+    
+    ClassName& ClassName::operator = (ClassName&& a) // move to this object
+    {
+        delete[] elem;
+        elem = a.elem; // deallocate old space
+        sz = a.sz;
+        a.elem = nullptr;
+        a.sz = 0;
+        return *this;
+    }
+    
+    -alternative- // we have to allocate and deallocate (remember to call delete properly)
+    vector* fill()
+    {
+        vector* res = new vector;
+        for (double x; cin >> x; ) res->push_back(x);
+        return res;
+    }
+    void use()
+    {
+        vector* vec = fill();
+        delete vec;
+    }
