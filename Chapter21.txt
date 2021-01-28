@@ -30,6 +30,8 @@
 
 14. What is a lambda expression?
 
+15. How to use a map?
+
 -------
   A's
 -------
@@ -61,14 +63,34 @@
 
 4. A predicate is a function that returns true or false.
 
-5. 
-6.
-7.
-8.
-9.
-10.
-11.
-12.
-13.
+5. Associative arrays, hash tables, red-black trees. Function with key value pairs or just keys (set) that have a relation to eachother
 
-14. A lambda expression is a shorthand notation for defining a function object and then immediately creating an object out of it.
+6. A tree is built from nodes.
+   For every node its left sub-node has a key that is less than node's key
+   the node's key is less than the key of its right sub-node
+
+7. Each node follows the rule outlined in #6
+
+8. Faster performance and optimized for strings being the keys.
+
+9. A set only has keys but has keys and values.
+
+10. A map doesn't allow duplicate keys but a multimap does.
+
+11. find() is a linear search
+    binary_search() and equal_range() are binary searches and are useful for containers with >= 10 elements
+    first sort container
+    look for value x in the middle if val == x then found
+    if val < x look to the right
+    if x < val look to the right
+    if last element not found
+
+12. A lambda expression is a shorthand notation for defining a function object and then immediately creating an object out of it.
+
+13. #include <map> or <unordered_map>
+    map<string, int> words;
+    
+    for (string s; cin >> s; ) ++words[s];
+    
+    for (const auto& p : words) cout << p.first << ": " << p.second << '\n';
+    
