@@ -1,0 +1,64 @@
+-------
+  Q's
+-------
+
+1. What is a template?
+
+2. What are the two most useful types of template arguments?
+
+3. What is generic programming?
+
+4. How does generic programming differ from object-oriented programming?
+
+5. How does array differ from vector?
+
+6. How does array differ from the built-in array?
+
+7. What is RAII?
+
+8. What is unique_ptr good for?
+
+9. What are the guarantees?
+
+10. What is a macro?
+
+11. What is a concept?
+
+-------
+  A's
+-------
+
+1. A template is a mechanism that allows a programmer to use types as parameters for a class or a function. The compiler then generates
+   a specific class or function when we later provide specific types as arguments. A class template is a type generator.
+   The process of generating types from a class template given template arguments is called specialization or template instantiation.
+   Template instantiation takes place at compile time or link time not run time.
+   
+2. template<typename T>
+   template<class T>
+   They both mean the same thing
+   
+3. The definition of generic programming is writing code that works with a variety of types presented as arguments as long as those
+   argument types meet specific syntactic and semantic requirements. 
+   
+4. When we parameterize a class we get a class template what is often called a paramterized type or parameterized class. When what
+   we parameterize is a function we get a function template what is often called a parameterized function or an algorithm.
+   The form of generic programming relying on explicit template parameters is called parametric polymorphism. Whereas, in object-oriented programming
+   it's called ad hoc polymorphism. They both rely on the programmer to present many versions of a concept by a single interface. 
+   The main difference between them is that the choice of function invoked when use generic programming is determined by the compilar at compile time,
+   whereas, for object-oriented programming, it is not determined until run time.
+   
+5. We know the size of an array at compile time so the compiler can allocate static memory for global objects and stack memory for local objects
+   rather than using the free store like vector. In embedded system programming, you must use array over vector because you can't use the free store.
+
+6. Built-in arrays don't know their own size, they convert to pointers, and they don't copy properly. Array doesn't have these problems.
+
+7. Resource acquisition is initialization
+   Resource is acquired by a constructor and released by a destructor.
+
+8. A unique_ptr is an object that holds a pointer. When unique_ptr is destroyed it destroys the object it points to as well. 
+
+9. basic, strong, no-throw
+
+10. A macro is a fragment of code that has been given a name and whenever the name is used it is replaced by the contents of the macro.
+
+11. A concept is a set of requirements on a template argument.
