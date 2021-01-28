@@ -1,0 +1,74 @@
+-------
+  Q's
+-------
+
+1. What are examples of useful STL algorithms?
+
+2. What is a function object?
+
+3. In which ways does a function object differ from a function?
+
+4. What is a predicate?
+
+5. What is an associative container?
+
+6. What is the basic ordering property of a binary tree?
+
+7. What does it mean for a tree to be balanced?
+
+8. How much space per element does a map take up?
+
+9. How much space per element does a vector take up?
+
+10. Why prefer an unordered_map to a map?
+
+11. How does a set differ from a map?
+
+12. How does multimap differ from a map?
+
+13. What is a binary search?
+
+14. What is a lambda expression?
+
+-------
+  A's
+-------
+
+1. #include <algorithm> - report failure by returning the end of a sequence
+   #include <numeric>
+   r = find(b,e,v)    r points to the first occurrence of v in [b:e)
+   r = find_if(b,e,p)   r points to the first element x in [b:e) so that p(x) is true
+   x=count(b,e,v)   x is the number of occurences of v in [b:e)
+   x=count_if(b,e,p)    x is the number of elements in [b:e) so that p(x) is true
+   sort(b,e)    sort [b:e) using <
+   sort(b,e,p)    sort [b:e) using p
+   copy(b,e,b2)
+   r=equal_range(b,e,v)   r is the subsequence of the sorted range [b:e) with the value v, a binary search for v
+   equal(b,e,b2) compare elements
+   x=accumulate(b,e,i)    x is the sum of i(should = 0) and the element of [b:e)
+   x=accumulate(b,e,i,op)   same as before but calculated using op #include <functional>
+   -op- (can also be a function/function object that performs an operation)
+   multiplies<T>()
+   divides<T>()
+   modulus<T>()
+   mins<T>()
+   plus<T>()
+   
+   
+2. A function object is an object that can behave like a function. We need an object because objects can store data.
+
+3. Typically, passing a function object leads to significantly smaller and faster code than passing a function.
+
+4. A predicate is a function that returns true or false.
+
+5. 
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+
+14. A lambda expression is a shorthand notation for defining a function object and then immediately creating an object out of it.
