@@ -16,21 +16,21 @@
 
 7. What does it mean for a tree to be balanced?
 
-8. How much space per element does a map take up?
+8. Why prefer an unordered_map to a map?
 
-9. How much space per element does a vector take up?
+9. How does a set differ from a map?
 
-10. Why prefer an unordered_map to a map?
+10. How does multimap differ from a map?
 
-11. How does a set differ from a map?
+11. What is a binary search?
 
-12. How does multimap differ from a map?
+12. What is a lambda expression?
 
-13. What is a binary search?
+13. How to use a map?
 
-14. What is a lambda expression?
+14. What are the sequence containers?
 
-15. How to use a map?
+15. How do sequence containers and associative containers differ?
 
 -------
   A's
@@ -93,4 +93,3 @@
     for (string s; cin >> s; ) ++words[s];
     
     for (const auto& p : words) cout << p.first << ": " << p.second << '\n';
-    
