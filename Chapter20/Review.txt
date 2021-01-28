@@ -66,7 +66,8 @@
 
 4. You'll get a junk value.
 
-5. 
+5. list uses a bidirectional iterator
+   vector uses random-access iterators
 
 6. The Standard Template Library that provides a framework for dealing with data as sequences of elements. It provides containers and algorithms.
 
@@ -89,20 +90,32 @@
 12. define an iterator holding the beginning
     for (it; it!=lastl++p)
     while (it != last)
+    vectors use size()
+    containers can use range-for loop because it is built using iterators
+    lists use advance() which can go forward and backward
     
 13. A container is a data structure that holds objects.
 
-14. 
+14. Use string if you require text manipulation operations.
 
-15.
+15. Use a list when the "list" you are wanting to make isn't sequential. Vectors hold elements that are represented in a sequence like
+    a to-do list, grocery list, or a schedule. So if there is a lot of inserting and deleting going on and the order isn't concrete using a linked list.
+    A list takes up at least three times as much memory compared to array, vector, and string.
 
 16. Provide the pointers to the beginning and end of a container.
 
-17. vector, string, list, map, array
+17. vector, string, list, map, array, set
 
-18.
-19.
+18. input iterator    iterate forward using ++ and read elements using *. (*p).m and p->m
+    output iterator   ++ and *
+    forward iterator  iterate forward using ++ and read and write elements using *. (*p).m and p->m
+    bidirectional iterator    ++ and --
+    random-access iterator    ++ -- + - * []
 
-20. A keyword that the compiler reads to automatically deduce what type of iterator you are using.
+19. Random-access iterators provide subscripting [], +, and -
+
+20. A keyword that the compiler reads to automatically use an iterator specified to the type you're using it with.
+    vector<T>::iterator p;
+    auto p;
 
 21. An unsigned type defined for containers.
