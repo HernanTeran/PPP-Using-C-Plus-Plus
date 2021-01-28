@@ -1,0 +1,108 @@
+-------
+  Q's
+-------
+
+1. What is an STL sequence?
+
+2. What is an STL iterator? What operations does it support?
+
+3. How do you move an iterator to the next/previous element?
+
+4. What happens if you try to move an iterator past the end of a sequence?
+
+5. What kinds of iterators can you move to the previous element?
+
+6. What is the STL?
+
+7. What is a linked list?
+
+8. What is a link?
+
+9. What does insert() do? What does erase() do?
+
+10. How do you know if a sequence is empty?
+
+11. What operations does an iterator for a list provide?
+
+12. How do you iterate over a container using the STL?
+
+13. What is a container?
+
+14. When would you use a string rather than a vector?
+
+15. When would you use a list rather than a vector?
+
+16. What should begin() and end() do for a container?
+
+17. What containers does the STL provide?
+
+18. What is an iterator category? What kinds of iterators does the STL offer?
+
+19. What operations are provided by a random-access iterator but not a bidirectional iterator?
+
+20. What is auto?
+
+21. What is size_t or size_type?
+
+-------
+  A's
+-------
+
+1. A sequence is a collection of data. A sequence has a beginning and an end. Therefore, a sequence can be traversed from beginning to its end.
+
+2.  The beginning and end of a sequence is identified by a pair of iterators. An iterator is an object that identifies an element of a sequence.
+   An iterator points to (refers to) an element of a sequence or one beyond the last element. [begind:end)
+   You can compare two iterators using == and !=
+   You can refer to the value of an iterator by using the dereference operator *
+   -operations-
+   p==q   true if they both point to the same element or one beyond the last element (end)
+   p!=q   if/while they don't equal eachother
+   *p     refers to the element pointed to by p
+   *p==val    writes to the element pointed to by p
+   val==*p    reads from the element pointed to by p
+   ++p    makes p refer to the next element or one beyond the last element
+   
+3. You can get an iterator to next element by using ++ the pre-fex increment operator and -- to go backward toward the front of the list.
+
+4. You'll get a junk value.
+
+5. 
+
+6. The Standard Template Library that provides a framework for dealing with data as sequences of elements. It provides containers and algorithms.
+
+7. A linked list is an STL container that, unlike vector, can be used to insert and delete elements without disturbing existing elements.
+   A linked list where a link has just one pointer to the next link is called singly-linked list.
+   A linked list where a link has pointers to both the previous and the next link is called doubly-linked list.
+   Linked lists do not support subscripting.
+   
+8. A link is an element part of a linked list consisting of the element and one or more pointers.
+
+9. insert() inserts an element after the element provided as an argument
+   erase() removes an element from the list
+   push_front()
+   push_back()
+   
+10. If begin == end
+
+11. ++ -- * == !=
+
+12. define an iterator holding the beginning
+    for (it; it!=lastl++p)
+    while (it != last)
+    
+13. A container is a data structure that holds objects.
+
+14. 
+
+15.
+
+16. Provide the pointers to the beginning and end of a container.
+
+17. vector, string, list, map, array
+
+18.
+19.
+
+20. A keyword that the compiler reads to automatically deduce what type of iterator you are using.
+
+21. An unsigned type defined for containers.
