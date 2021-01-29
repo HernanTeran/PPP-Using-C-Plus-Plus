@@ -20,6 +20,11 @@
   Example: using Mess_it = vector<Messages>::const_iterator;
            Mess_iter begin() const { return m.begin(); }
            Mess_iter end() const { return m.end(); }
+           
+// C++ Using Data Abstraction & Procedural Programming
+// C++ Using Object-Oriented Programming
+// C Programming
+// C++ Using Generic Programming
 
 // namespace (make header namespace.h)
 // enum class (before class is defined)
