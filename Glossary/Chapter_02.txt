@@ -48,4 +48,15 @@ Terms
 
 18. compile-time error - a syntax error, type error
 
-comments - 7.6.4
+------------------
+Comment Guidelines
+------------------
+- name of the program
+- the purpose of the program
+- who wrote this and when
+- version numbers
+- what complicated code fragments are supposed to do
+- what the general design ideas are
+- how the source code is organized
+- what assumptions are made about inputs
+- what parts of the code are still missing and what cases are still not handled
