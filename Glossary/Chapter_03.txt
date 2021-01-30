@@ -1,37 +1,52 @@
-1. assignment - assigning a new value to an initialized variable by using the assignment operator ( = )
+1. value - a literal according to type, a set of bits memory interpreted according to a type.
 
-2. cin - character input stream used for retrieving user input. useful for int and double. use cin.get() for char and getline(cin, var) for string
+2. type - a type defines a set of possible values and a set of operations for an object. The compiler remembers the type of each variable and makes
+          sure that you use it according to its type.
+
+3. object - a region in memory that has a type which dictates what type of information can go in it
+
+4. name - an identifier for a statement/object necessary to access an object
+           
+5. variable - a named object that has a specific type
+
+6. built-in types - 8 bits in a byte
+                    int stands for integer, holds unsigned values meaning + or -, size is 4 bytes
+                    double stands for double precision floating-point numbers, holds unsigned values, size is 8 bytes
+                    char stands for character, enclosed in single quotes, holds alpha, digit, special characters, size is 1 byte
+                    bool stands for boolean, represents either true or false, or 1 or 0, size is 1 byte
+ 
+ 7. user-defined types - class
+                         struct
+                         enum
+                         string holds a sequence of characters, enclosed in double quotes, size depends on total characters used
+                         vector holds objects, size depends
+
+8. declaration - type and name is provided for an object but no memory is set aside for it because it is uninitialized
+
+9. operator - used for operations (+, -, *, /)
+
+10. initialization - providing an initial value for an object. Best if using the list-based notation known as universal and uniform initialization with { }
+
+11. definition - a declaration of type name for an object and initialization of the object with a value
+
+12. assignment - assigning a new value to an initialized variable by using the assignment operator ( = )
+
+13. cin - character input stream used for retrieving user input. useful for int and double. use cin.get() for char and getline(cin, var) for string
+
+14. >> - extraction operator reads according to the type of variable you read into.
+
+14. operation - a computation or expression made to get a result
 
 3. concatenation - the joining of strings using the + and += operators
 
 4. conversion - char to int, int to char according to the ASCII table
 
-5. declaration - type and name is provided for an object but no memory is set aside for it because it is uninitialized
-
 6. decrement - --
-
-7. definition - a declaration of type name for an object and initialization of the object with a value
 
 8. increment - ++
 
-9. initialization - providing an initial value for an object. Best if using the list-based notation known as universal and uniform initialization with { }
-
-10. name - an identifier for a statement/object
-
 11. narrowing - a narrowing conversion, produces a loss information by trying to fit a type's size into another that is incompatible
-
-12. object - a region in memory that has a type which dictates what type of information can go in it
-
-13. operation - a computation or expression made to get a result
-
-14. operator - used for operations (+, -, *, /)
-
-15. type - a type defines a set of possible values and a set of operations for an object.
 
 16. type safety - initialization + avoidance of narrowing conversion
 
-17. value - a literal according to type, a set of bits memory interpreted according to a type.
-
-18. variable - a named object
-
-19. object- an object is some memory that holds a value of a given type.
+cerr - standard error stream used to output errors
