@@ -6,13 +6,13 @@ Terms
 
 2. source code - the .cpp or .h file that contains code for a program
 
-3. object code - object code is source code translated into machine code by a program called a compiler
-
-4. translation units - source code and object code that must be compiled
-
-5. compiler - C++ is a compiled language. Meaning that in order to get a program to run, it must first be translated into something
+3. compiler - C++ is a compiled language. Meaning that in order to get a program to run, it must first be translated into something
    a machine can understand. That translation is done by a program called the compiler. The compiler also checks program for
    syntax and type errors.
+
+4. object code - object code is source code translated into machine code by a program called a compiler
+
+5. translation units - source code and object code that must be compiled
 
 6. linker - after compilation the resulting object code files still need to go through one more process called linking which is carried out
    by a program called a linker. The linkers links the translation units together (object code) to create an executable (.exe file).
