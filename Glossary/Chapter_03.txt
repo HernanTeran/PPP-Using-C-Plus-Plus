@@ -1,4 +1,5 @@
-1. value - a literal according to type, a set of bits memory interpreted according to a type.
+1. value - a literal according to type, a set of bits memory interpreted according to a type. A bit is a unit of comuter memory that can hold
+   the value 0 or 1.
 
 2. type - a type defines a set of possible values and a set of operations for an object. The compiler remembers the type of each variable and makes
           sure that you use it according to its type.
@@ -35,18 +36,33 @@
 
 14. >> - extraction operator reads according to the type of variable you read into.
 
-14. operation - a computation or expression made to get a result
+15. operation - a computation or expression made to get a result
 
-3. concatenation - the joining of strings using the + and += operators
+16. concatenation - the joining of strings using the + and += operators
 
-4. conversion - char to int, int to char according to the ASCII table
+17. type safety - an object is type-safe when it is used only according to the rules for their type. The most important form of type safety is
+    initialization. + avoidance of narrowing conversion
 
-6. decrement - --
+18. conversion - char to int (add letter to 0), int to char (32-126) according to the ASCII table
 
-8. increment - ++
+19. narrowing - a narrowing conversion, produces a loss information by trying to fit a type's size into another that is too small to hold it.
+    Use {} to initialize it prevents narrowing conversion. Specifically, it is called list-based notation and it is known as the universal and uniform initialization.
+    double to int truncates meaning it rounds down.
 
-11. narrowing - a narrowing conversion, produces a loss information by trying to fit a type's size into another that is incompatible
+---------
+operators
+---------
+int (arithmetic/composite assignment)       + - / * % ++ -- += -= *= /= %= 
+double (arithmetic/composite assignment)    + - / * ++ -- += -= *= /=
+string (concatenation/member functions)     + +=
 
-16. type safety - initialization + avoidance of narrowing conversion
-
-cerr - standard error stream used to output errors
+----------------
+identifier rules
+----------------
+first character is lowercase letter
+upper/lower case letters
+camelCase
+snake_case
+can use underscores
+no other characters
+meaningful
