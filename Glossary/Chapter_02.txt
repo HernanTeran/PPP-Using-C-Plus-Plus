@@ -28,7 +28,7 @@ Terms
    
 10. main() - main is a function that must be included in every C++ program. The computer searches for main because it is the point of program execution
 
-11. library - a library is code written by someone else
+11. library - a library is code written by someone else. STL is written by Alex Stepanov and it contains algorithms, containers, etc.
 
 12. #include - a directive, tells the computer to make available the facilities to the right of it.
     Facilities meaning something that was designed to serve a specific function.
