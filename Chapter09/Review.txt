@@ -63,23 +63,7 @@
     
 
 ---------------------------------------
-What should I be able to understand/do?
+Terms
 ---------------------------------------
-understand that you must not store a calculated value into a member variable. Instead, use a member function that calculates the value,
-using the most current data, and then returns the value
-know the difference between a struct and a class
-know how to build a struct
-know how to build a class
-understand default constructor(takes no arguments) + overloaded constructors + invariant
-understand default constructors should only exist if there is a default state for the object otherwise delete or put into private as =default
-know how to initialize data members either through member initialization list or in-class initialization
-know to use exception classes
-know to prefer enum classes and know how to use them
-know how to overload operators
-prefer to use static const/constexpr definitions as symbolic constants instead of global variables
-static makes sure that there is just one copy of the value in the program rather than one per object of the class
-know what the copy constructor is and know that the default version copies all of the members of an object into another (used with assignment operator)
-use a bool is_valid function to help establish invariant
-know you can define a class + helper functions in a namespace
-understand helper functions should be defined outside the class (namespace)
-helper functions should be functions like operator overloading, calculations, is_valid
+
+1) 
