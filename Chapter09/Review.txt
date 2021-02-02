@@ -62,8 +62,18 @@
     if we don't initialize the enumerators the count begins at 0
     
 
----------------------------------------
-Terms
----------------------------------------
-
-1) 
+1) namespace Name{}
+2) enum class{};
+3) class {}; // contains only members that initialize object
+   class Invalid {};
+   private:
+   data members
+   public:
+   constructors
+   nonmodifying operations
+   modifying operations
+4) helper functions
+   bool is_valid(Class obj...);
+   operator overloading functions
+   ClassObj function() // returns object
+   any other enum class
