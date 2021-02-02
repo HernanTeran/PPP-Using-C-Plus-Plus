@@ -99,9 +99,9 @@
 11. A result is plausible if it abides by math, physics, and logic.
 
 12. If the caller deals with errors then it leads to messy code due to a bunch of if/else statements, potential use of magic constants, and
-    potentially leaving corners uncovered because you'd have to test for a whole bunch of cases. If the callee deals with errors then the code
-    is neater because the error-checking code is in one place. Checking your arguments within the function is better than creating test functions
-    because it saves on performance and memory. 
+    potentially leaving corners uncovered because you'd have to test for a whole bunch of cases. The caller deals with errors in main or any
+    other function that runs the program. If the callee deals with errors then the code is neater because the error-checking code is in one place. 
+    Checking your arguments within the function is better than creating test functions because it saves on performance and memory. 
 
 13. Returning an error value is bad because that forces all parts of a program to check for that value and adjust accordingly. Exeptions function
     through the fundamental idea of seperating error detection from the handling of an error while ensuring that the detected error can't be ignored.
@@ -112,19 +112,20 @@
 14. You can test for success by writing if (cin) or if (!cin) and by using exceptions.
 
 15. Exception classes can be created or exceptions that already exist like out_of_range_ or runetime_error can be used. Then the the exception is
-    thrown in the called function. In the callee function (main) a try-block is implemented with a catch block as well. The catch block
-    catches the exception by reference and uses cerr to output an error message. 
+    thrown in the called function. In the caller (main) a try-block is implemented with a catch block. The catch block
+    catches the exception by reference and uses cerr to output an error message. The error is detected by the caller while the callee (a function)
+    handles the error (throw).
     
 16. You can't index into the "last" element of a vector because it doesn't exist. It's [v:v). The code would produce a subscript out of range error,
     or off-by-one error, and a bounds error because the index was not within the limits of the vector.
     
-17. A pre-condition is a requirement of a function upon its argument. It must be true for the function to perform its action correctly. A post-condition is
-    the return value and assuring that it is correct.
+17. A pre-condition is a requirement of a function upon its arguments. It must be true for the function to perform its action correctly. A post-condition is
+    the return value and assuring that it is correct according to the return type and to logic.
 
 18. Sometimes writing a pre-condition can take more work than executing the function. It can be expensive in memory, therefore, in this case
     pre-conditions should be written as a comment. 
 
-19. You would not test a post-condition if it can be stated as a comment.
+19. You would not test a post-condition if it can be stated as a comment and the pre-condition was tested.
 
 20. Get the program to compile, get the program to link, and get the program to do what is is supposed to do.
 
@@ -146,12 +147,45 @@ Comment Guidelines
 - what parts of the code are still missing and what cases are still not handled
 
 ---------------------------------------
-What should I be able to understand/do?
+Terms
 ---------------------------------------
-know how to write good comments
-know how to write an exception class
-know how to use exceptions
-understand the error types
-how about pre/post conditions
-know what an assertion is (a statement that asserts/states an invariant)
-understand what an invariant (conditions that should always hold) is
+argument error - incorrect amount of arguments provided or wrong type provided
+
+assertion - a statement that asserts an invariant
+
+catch - to catch an exception and output an error message. (pass by reference)
+
+compile-time error - a syntax or type error found by the compiler
+
+container - collections of data that hold objects based off of type. (vector)
+
+debugging - the process of finding and removing errors after writing some code
+
+error - compile-time, link-time, run-time, logic, range
+
+exception - a mechanism used for dealing with errors through the idea of separating the detection of an error from the handling
+            of an error
+
+invariant - a condition established to create a valid object
+
+link-time error - an error having to do with the linking of the object files to form an executable program
+
+logic error - an error created by the programmer
+
+post-condition - a valid function return value
+
+pre-condition - a requirement of a function based upon its arguments
+
+range-error - off-by-one error, bounds error
+
+requirement - the pre-condition
+
+run-time error - errors detected by the computer hardware/operating system, a library, or user code
+
+syntax error - a grammatical error
+
+testing - the systemic process of searching for errors
+
+throw - to throw an exception in a called function and to be catched in the callee function
+
+type error - using one type in place of the correct type
