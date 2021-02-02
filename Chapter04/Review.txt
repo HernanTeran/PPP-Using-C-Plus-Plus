@@ -129,22 +129,82 @@
 29. You sort a vector by using the sort algorithm from the C++ standard library. std::sort(v.begin(), v.end());
 
 ---------------------------------------
-What should I be able to understand/do?
+Terms
 ---------------------------------------
-know the difference between a statement and an expression
-know what constexpr and const is
-know what magic constants are and why to avoid them
-understand functions and how to return by value
-know what lvalues and rvalues are and what operations can/can't be performed on them
-know what a switch is and why to prefer it over if/else
-know what the arithmetic if expression is and what the ternary operator is and why they're better than if/else
-know what a for-loop is and how to use it
-know what a while-loop is and how to use it
-know string member functions
-know what a vector is and how to use one
-void functions and how and why to use them with vectors
-know range-for loop
-know what the sort algorithm is
-know what the find algorithm is
-know what iterators are
-know what the dereference operator is
+1. abstraction - hide details that we don't need to use a facility behind a convenient and general interface. How we use memory through typed/named variables.
+
+2. computation - using input to get a result/output
+
+3. conditional statement - an if-statement or switch-statement or loop condition
+
+4. declaration - a function prototype - returnType name(parameter list);
+
+5. definition - function definition containing the block of code that performs a computation
+
+6. divide and conquer - to take a big problem and divide into chunks to ease the problem solving process
+
+7. else - used in conjunction with an if statement that executes an action if the if-statement condition is false
+
+8. expression - a statement that uses operands and operators for computation, returns a value
+
+9. for-statement - best choice for iteration due to clarity.
+   for (control variable; loop condition; increment/decrement) { body; }
+
+10. range-for-statement - a short hand for-statement best used on containers like vectors to perform quick operations
+    for (type temp : container) { body }
+
+11. function - a sequence
+    type name(parameter list) { body }
+
+12. if-statement - used for selection between 2 or 3 choices.
+    if (expression) { // do this; }
+    else if (expression) { // do this; }
+    else (expression) { // do this; }
+
+13. increment - ++ used to add 1 to an int/double. In this chapter it's used to increment a loop variable.
+
+14. input - an expression used to produce a result, an operand
+
+15. iteration - doing something several times to a series of elements of a data structure
+
+16. loop - the action of
+
+17. lvalue - the variable, what's on the left of an expression, the name of an object
+
+18. member function - a function belonging to a class/struct
+
+19. output - the result of a computation
+
+20. push_back() - one of vector's member functions used to store a new element at the end of the vector
+
+21. repetition - doing something several times and iteration is repetition to a series of elements of a data structure
+
+22. rvalue - the literal/value of an object, what's on the right of an expression
+
+23. selection - usage of if-statement or switch-statement to make a selection based on conditions
+
+24. size() - one of vector's member functions returning the total count of elements it holds
+
+25. sort() - an STL algorithm that sorts a container
+
+26. statement - expression statements, declarations, iteration statements, selection statements
+
+27. switch-statement - used for selection, prefer over if-statement, only works with int, enum, and char const values, you cannot use
+    variables as case labels, you can use several case labels for a single case, don't forget to use break.
+    switch (value)
+    {
+        case //:
+        // do this;
+        break;
+        default:
+        // do this
+        break;
+    }
+
+28. vector - a sequential container that stores data based off of the declared type. Sequential because it stores elements in the order that they were stored.
+    vector<type> name;
+    vector<type> name(n); allocate memory for n objects
+    vector<type> name{x, n, y}; initialize vector with objects
+    
+29. while-statement - used for iteration when the end of a loop isn't clear or known.
+    while (condition) { // do this }
