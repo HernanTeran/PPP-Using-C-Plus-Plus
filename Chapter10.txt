@@ -44,14 +44,14 @@
 1. Operating systems separate the detailed handling of I/O devices into device drivers, and programs then access the device drivers through an I/O
    library that make I/O from/to different sources appear as similar as possible. 
    
-2. istream deals with streams of input
+2. istream deals with streams of input meaning it reads from a file. works like cin
    turns character sequences into values of various types
    gets those characters from somewhere such as a console, a file, the main memory, or another computer
    types -> istream -> buffer
 
-3. ostream deals with streams of output
+3. ostream deals with streams of output meanining it writes to a file. works like cout
    turns values of various types into character sequences
-   sends those characters somewhere (buffer) such as to a consoloe, a file, the main memory, or another computer
+   sends those characters somewhere (buffer) such as to a console, a file, the main memory, or another computer
    types -> ostream -> buffer
    
 4. At the most basic level, a file is simply a sequence of bytes numbered from 0 upward. For a file, an ostream converts objects in main memory 
@@ -109,20 +109,26 @@
         return is;
     }
 
-16. The buffer is a data structure that the ostream uses internally to store the daa you give it while communicating with the operating system.
+16. The buffer is a data structure that the ostream uses internally to store the data you give it while communicating with the operating system.
     With an ostream, an istream uses a buffer to communicate with the operating system. With the istream, the buffering can be quite visible to the user.
     What you type is left in the buffer until you hit Enter, and you can use the erase key "to change your mind" until you hit Enter.
 
 ---------------------------------------
-What should I be able to understand/do?
+extra
 ---------------------------------------
-1. ifstream iname{file name};
-   if (!iname) {cerr << "error";}
-   to input use: while(ist >> variables)
+cout << "Please enter input file name: ";
+string iname;
+cin >> iname;
+ifstream ist{ iname }; // open existing file
+if (!ist) { cerr << "\ncan't open input file " << iname << '\n'; }
+ist.close();
    
-2. ofstream oname{file name};
-   if (!oname) {cerr << "error";}
-   to output use: while(ost << variables)
+cout << "Please enter name of output file: ";
+string oname;
+cin >> oname;
+ofstream ost{ oname }; // create new file
+if (!ost) { cerr << "can't open output file " << oname << '\n'; }	
+ost.close();
    
 know how to write to a file
 know how to read from a file
