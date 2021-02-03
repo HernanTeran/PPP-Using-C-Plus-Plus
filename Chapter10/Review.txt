@@ -102,8 +102,8 @@
         if (!is) {return is;}
         if (check vars for formatting)
         {
-            is.clear(ios_base::failbit);
-            return is;
+            is.clear(ios_base::failbit); // puts state into fail state and leaves
+            return is;                   // whatever was read unchanged
         }
         obj = Obj(vars);
         return is;
@@ -129,28 +129,20 @@ cin >> oname;
 ofstream ost{ oname }; // create new file
 if (!ost) { cerr << "can't open output file " << oname << '\n'; }	
 ost.close();
-   
-know how to write to a file
-know how to read from a file
-know to store data in structs
-know to not overuse cout
-understand the need to avoid magic constants
-know to store data in vectors or maps
-#include <fstream>
-know how to use: ifs.exceptions(ifs.exceptions()|ios_base::badbit);
 
 // if stream is in fail state
 void end_of_loop(istream& ist, char term, const string& error_message)
 {
-    if (ist.fail())
+    if (ist.fail()) // ist can = cin 
     {
-        ist.clear();
+        ist.clear(); // sets state back to good
         char ch{'0'};
         if (ist >> ch && ch == term) {return;}
         cerr << error_message;
     }
 }
 
+for (type var; ist >> var; ) // read until eof
 ----------------
 Integer Literals
 ----------------
