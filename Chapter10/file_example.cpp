@@ -48,3 +48,20 @@ int main()
 
 	return 0;
 }
+
+void fill_vector(istream& ist, vector<int>& v, char terminator, const string& message)
+{
+	for (int i{ 0 }; ist >> i; ) { v.push_back(i); }
+	if (ist.eof()) { return; }
+
+	ist.clear(); // else bad state
+
+	char c{ '0' };
+	ist >> c;
+
+	if (c != terminator)
+	{
+		ist.unget();
+		ist.clear(ios_base::failbit);
+	}
+}
