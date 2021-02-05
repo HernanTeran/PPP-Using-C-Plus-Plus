@@ -11,8 +11,9 @@ namespace Patrons
 		std::string name;
 		int acc_num;
 		double lib_fees;
-
 	public:
+		class Invalid{};
+
 		Patron() = delete;
 
 		Patron(const std::string& name_, int acc_num_, double lib_fees_);
@@ -32,5 +33,5 @@ namespace Patrons
 
 	bool owes_fee(const Patron& patron);
 	void pay_fee(Patron& patron);
-	bool is_valid_patron(std::string& name, int acc, double lib);
+	bool is_valid_patron(const std::string& name, int acc, double lib);
 }
