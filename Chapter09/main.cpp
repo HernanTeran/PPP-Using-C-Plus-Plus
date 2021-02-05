@@ -1,16 +1,11 @@
-// Hernan Teran 1/26/2021
-// V1
+// Hernan Teran
+// V1 - 1/26/2021
+// V2 - 2/5/2021
 // Excercises 5-7
 
-#include "Books.h"
+#include "practice.h"
 #include <vector>
 #include <iostream>
-
-using std::cin;
-using std::cerr;
-using std::vector;
-
-void run_program();
 
 int main()
 // The purpose of the program is to instantiate a book object to "check out" and then "return"
@@ -25,30 +20,25 @@ void run_program()
 {
     try
     {
-        Books::Book book; 
-        cin >> book; // overloaded >> operator
+        using Books::Book;
+        using Patrons::Patron;
+        using std::cout;
+        using std::cin;
 
-        Books::Book_Collection my_books; // vector: hold books
+        Book book;
+        //cin >> book;
 
-        if (!book.is_checked_out())
-        {
-            Books::check_out(book, my_books);
-            book.set_checked_out(true);
-        }
-
-        for (const auto &bo : my_books.book_collection)
-        // outputting book data through overloaded << operator
-        {
-            cout << bo;
-        }
-
-        Books::return_book(book, my_books);
-        book.set_checked_out(false);
-
+        Patron patron{ "Chucky Lryoer", 123456, 12.54 };
+       
+        Patrons::pay_fee(patron);
+       
     }
     catch (Books::Book::Invalid)
-    // catch exception then terminate
     {
-        cerr << "[Error]: invalid input\n";
+        std::cerr << "[Error: failed book instantiation]\n";
+    }
+    catch (Patrons::Patron::Invalid)
+    {
+        std::cerr << "[Error: failed patron instantiation]\n";
     }
 }
