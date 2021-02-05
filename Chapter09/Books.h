@@ -1,12 +1,11 @@
 #pragma once
 
+#include <string>
+#include <regex>
 #include <iostream>
 #include <ostream>
 #include <istream>
 #include <vector>
-#include <regex>
-#include <utility>
-#include <string>
 
 namespace Books
 {
@@ -15,41 +14,37 @@ namespace Books
 	class Book
 	{
 	private:
-		std::string ISBN,
-					title,
-					author;
-		int copyright_date;
+		std::string isbn;
+		std::string title;
+		std::string author;
+		int copyright_date{ 0 };
 		Genre genre{};
-
 	public:
-		// exception class
 		class Invalid{};
 
-		// default constructor
-		Book();
+		Book() = default;
 
-		Book(const std::string& isbn, 
-			const std::string& title_, 
-			const std::string& author_, 
-			int copyright_date_,
-			Genre genre_);
+		Book(const std::string& isbn_,
+			const std::string& title_,
+			const std::string& author_,
+			const int copyright_date_,
+			const Genre genre_);
 
-		// inlined nonmodifying operations
-		std::string get_ISBN() const { return ISBN; }
+		// nonmodifying operations
+		std::string get_ISBN() const { return isbn; }
 		std::string get_title() const { return title; }
 		std::string get_author() const { return author; }
 		int get_copyright_date() const { return copyright_date; }
-
 		std::string get_genre() const;
 	};
 
 	// establish invariant
 	// true for valid book
-	bool is_valid_book(const std::string& isbn, 
-		               const std::string& title, 
-		               const std::string& author, 
-		               const int copyright_date,
-		               const Genre genre);
+	bool is_valid_book(const std::string& isbn,
+		const std::string& title,
+		const std::string& author,
+		const int copyright_date,
+		const Genre genre);
 
 	struct Book_Collection
 	{
