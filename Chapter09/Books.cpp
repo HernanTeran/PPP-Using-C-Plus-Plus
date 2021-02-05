@@ -3,35 +3,23 @@
 namespace Books
 {
 	using std::string;
-	using std::cout;
-	using std::cin;
-	using std::cerr;
-	using std::regex;
-	using std::smatch;
-	using std::vector;
-	using std::ostream;
-	using std::istream;
 
-	// values used to establish invariant
-	static constexpr int min_year{ 1800 };
-	static constexpr int max_year{ 2021 };
-	static constexpr int min_str_len{ 4 };
-	static constexpr int max_str_len{ 40 };
-	static constexpr Genre min_genre{ Genre::Fiction };
-	static constexpr Genre max_genre{ Genre::Children };
-
-	Books::Book::Book() : ISBN("n-n-n-x"), title("title"), author("author"), copyright_date(min_year)
-	{
-	}
-
-	Books::Book::Book(const string& isbn, const string& title_, const string& author_, int copyright_date_, Genre genre_)
+	Book::Book::Book(const string& isbn_,
+		const string& title_,
+		const string& author_,
+		const int copyright_date_,
+		const Genre genre_)
 		:
-		ISBN(isbn), title(title_), author(author_), copyright_date(copyright_date_), genre(genre_)
+		isbn(isbn_),
+		title(title_),
+		author(author_),
+		copyright_date(copyright_date_),
+		genre(genre_)
 	{
-		if (!is_valid_book(isbn, title_, author_, copyright_date_, genre_)) { throw Invalid{}; };
+		if (!is_valid_book(isbn_, title_, author_, copyright_date_, genre_)) { throw Invalid{}; };
 	}
 
-	string Books::Book::get_genre() const
+	string Book::get_genre() const
 	{
 		string selection;
 
@@ -59,27 +47,47 @@ namespace Books
 		return selection;
 	}
 
-	bool Books::is_valid_book(const std::string& isbn, 
-		                      const std::string& title, 
-		                      const std::string& author, 
-		                      const int copyright_date, 
-		                      const Genre genre)
+	bool Books::is_valid_book(const string& isbn,
+		const string& title,
+		const string& author,
+		const int copyright_date,
+		const Genre genre)
 	{
-		if (copyright_date < min_year || copyright_date > max_year) { return false; } // copyright must be positive
-		if (genre < min_genre || max_genre < genre) { return false; }
-		if (title.length() < min_str_len) { return false; }
-		if (author.length() < min_str_len) { return false; }
+		// test ISBN ---------------------------------------------
+		using std::regex;
+		using std::smatch;
 
 		regex pat{ R"(([0-9])\-([0-9])\-([0-9])\-([0-9])\-([a-zA-z]))" };
 		smatch matches;
 
 		if (!regex_match(isbn, matches, pat)) { return false; } // must match d-d-d-d-l
 
-		return true;
+		// test title/author ---------------------------------------
+		constexpr int min_str_len{ 3 };
+
+		if (title.length() < min_str_len) { return false; }
+		if (author.length() < min_str_len) { return false; }
+
+		// test copyright date -------------------------------------
+		constexpr int min_date{ 1800 };
+		constexpr int max_date{ 2021 };
+
+		if (copyright_date < min_date || copyright_date > max_date) { return false; }
+
+		// test genre -----------------------------------------
+		constexpr Genre min_genre{ Genre::Fiction };
+		constexpr Genre max_genre{ Genre::Children };
+
+		if (genre < min_genre || genre > max_genre) { return false; }
+
+		return true; // passed all 5 tests
 	}
 
 	void check_out(const Book& book, Book_Collection& my_books)
 	{
+		using std::cout;
+		using std::cerr;
+
 		if (my_books.book_collection.empty())
 		{
 			my_books.book_collection.push_back(book);
@@ -88,24 +96,24 @@ namespace Books
 		}
 
 		for (const auto& b : my_books.book_collection)
-		// search for duplicate
+			// search for duplicate
 		{
 			if (book == b)
 			{
-				cerr << "[Error]: you already have this book in your collection!\n";
+				cerr << "[Error: you already have this book in your collection!]\n";
 				return;
 			}
-			else
-			{
-				my_books.book_collection.push_back(book);
-				cout << book.get_title() << " by " << book.get_author() << " has been added to your collection.\n";
-				return;
-			}
+			my_books.book_collection.push_back(book);
+			cout << book.get_title() << " by " << book.get_author() << " has been added to your collection.\n";
+			return;
 		}
 	}
 
 	void return_book(const Book& book, Book_Collection& my_books)
 	{
+		using std::cerr;
+		using std::cout;
+
 		if (my_books.book_collection.empty())
 		{
 			cerr << "There are currently no books in my collection.\n";
@@ -115,43 +123,45 @@ namespace Books
 		for (size_t index{ 0 }; index < my_books.book_collection.size(); ++index)
 		{
 			if (my_books.book_collection.at(index).get_ISBN() == book.get_ISBN())
-			// search for a match
+				// search for a match
 			{
 				constexpr int one_book{ 1 }; // avoiding magic constants
 				const size_t end_index{ my_books.book_collection.size() - one_book };
 
 				if (index != my_books.book_collection.size() - end_index)
-				// this if-statement swaps the last element with the current one
-				// to be able to use pop_back() on the vector to remove/"return" the book
+					// this if-statement swaps the last element with the current one
+					// to be able to use pop_back() on the vector to remove/"return" the book
 				{
 					std::swap(my_books.book_collection.at(end_index), my_books.book_collection.at(index));
-					my_books.book_collection.pop_back();
 				}
-				else
-				// book is already at the end
-				{
-					my_books.book_collection.pop_back();
-				}
+				// book is at the end
+				my_books.book_collection.pop_back();
 			}
 			cout << book.get_title() << " by " << book.get_author() << " has been returned!\n";
 		}
 	}
 
-	ostream& operator << (ostream& os, const Book& obj)
+	std::ostream& operator << (std::ostream& os, const Book& obj)
 	{
 		return os << "[Book Info]\n"
-			      << "-----------\n"
-				  << "[Title]: " << obj.get_title() << '\n'
-				  << "[Author]: " << obj.get_author() << '\n'
-				  << "[ISBN]: " << obj.get_ISBN() << '\n'
-				  << "[Genre]: " << obj.get_genre() << "\n\n";
+			<< "-----------\n"
+			<< "[Title]: " << obj.get_title() << '\n'
+			<< "[Author]: " << obj.get_author() << '\n'
+			<< "[ISBN]: " << obj.get_ISBN() << '\n'
+			<< "[Copyright Date]: " << obj.get_copyright_date() << '\n'
+			<< "[Genre]: " << obj.get_genre() << "\n\n";
 	}
 
-	istream& operator >> (istream& is, Book& obj)
+	std::istream& operator >> (std::istream& is, Book& obj)
 	{
-		string ISBN,
-			   title,
-			   author;
+		using std::vector;
+		using std::cout;
+		using std::cin;
+		using std::cerr;
+
+		string ISBN;
+		string title;
+		string author;
 		int copyright{ 0 };
 		Books::Genre genre{};
 
@@ -164,6 +174,8 @@ namespace Books
 		const size_t prompts_size{ prompts.size() - 1 };
 
 		for (size_t input{ 0 }; input < prompts_size; ++input)
+			// excludes genre prompt because
+			// it will be tested separately
 		{
 			switch (input)
 			{
@@ -184,7 +196,7 @@ namespace Books
 				cin >> copyright;
 				break;
 			default:
-				cerr << "[Error]: unknown value entered.\n";
+				cerr << "[Error: unknown value entered.]\n";
 				break;
 			}
 		}
