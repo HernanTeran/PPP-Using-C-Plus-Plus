@@ -3,27 +3,26 @@
 namespace Patrons
 {
 	using std::string;
-	using std::cout;
-	using std::cin;
-	using std::cerr;
 
 	Patron::Patron::Patron(const string& name_, int acc_num_, double lib_fees_)
 		: name(name_), acc_num(acc_num_), lib_fees(lib_fees_)
 	{
-		string temp_name{ name_ };
-		if (!is_valid_patron(temp_name, acc_num_, lib_fees_)) { cerr << "[ERROR]\n"; }
+		if (!is_valid_patron(name_, acc_num_, lib_fees_)) { throw Invalid{}; };
 	}
 
 	bool Patrons::owes_fee(const Patron& patron)
 	{
 		constexpr double zero_balance{ 0 };
 		if (patron.get_lib_fees() == zero_balance) { return false; }
-		
+
 		return true;
 	}
 
 	void pay_fee(Patron& patron)
 	{
+		using std::cout;
+		using std::cin;
+
 		cout << "You're current outstanding balance is: $" << patron.get_lib_fees() << '\n';
 		cout << "Would you like to pay your fee now? (Y/N)\n";
 
@@ -37,7 +36,9 @@ namespace Patrons
 					settle_bal = patron.get_lib_fees() - cash;
 					patron.set_lib_fee(settle_bal);
 					cout << "Your balance is now $" << patron.get_lib_fees() << '\n';
-					const double zero_balance{ 0 };
+
+					constexpr double zero_balance{ 0 };
+					// in case full amount wasn't paid
 					while (patron.get_lib_fees() != zero_balance)
 					{
 						cout << "You still have an outstanding balance of $" << patron.get_lib_fees() << '\n';
@@ -49,7 +50,6 @@ namespace Patrons
 							settle_bal = patron.get_lib_fees() - cash;
 							patron.set_lib_fee(settle_bal);
 						}
-						else { return; }
 					}
 					if (patron.get_lib_fees() == zero_balance)
 					{
@@ -58,35 +58,50 @@ namespace Patrons
 					}
 				}
 			}
-			else
-			{
-				return;
-			}
 		}
 	}
 
-	bool is_valid_patron(string& name, int acc, double lib)
+	bool is_valid_patron(const string& name, int acc, double lib)
 	{
+		// test name for valid length ---------------------------------
+		constexpr int min_name_len{ 5 };
+
+		if (name.length() < min_name_len) { return false; }
+		
+		// test name for valid characters -----------------------------
 		for (const auto& c : name)
 		{
-			if (!isalpha(c))
+			if (!isalpha(c) && !isspace(c))
 			{
-				cerr << "[Error]: invalid name input. Try again:\n";
-				getline(cin, name);
+				std::cerr << "[Error: invalid name input]\n";
+				return false;
 			}
 		}
 
-		while (acc < 0)
+		// test account number for valid integer range
+		if (acc < 0)
 		{
-			cerr << "[Error]: invalid account number. Try again:\n";
-			cin >> acc;
+			std::cerr << "[Error: invalid account number]\n";
+			return false;
 		}
 
-		while (lib < 0)
+		// test account number for valid length of 6 digits
+		string str_acc_number = std::to_string(acc);
+		constexpr int acc_number_len{ 6 };
+
+		if (str_acc_number.length() != acc_number_len)
 		{
-			cerr << "[Error]: invalid library fee input. Try again:\n";
-			cin >> lib;
+			std::cerr << "[Error: invalid account digit length]\n";
+			return false;
 		}
+
+		// test library fees for valid monetary value
+		if (lib < 0)
+		{
+			std::cerr << "[Error: invalid library fee input]\n";
+			return false;
+		}
+
 		return true;
 	}
 }
