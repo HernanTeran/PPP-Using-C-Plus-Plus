@@ -33,7 +33,7 @@ int main()
 
 	regex pat{R"( ([0-9]+) )"};
 	smatch matches;
-  std::size_t sum{ 0 };
+	std::size_t sum{ 0 };
 
 	for (string line; getline(ifs, line); )
 	{
