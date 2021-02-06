@@ -109,16 +109,3 @@
 22. A virtual function table is like a call stack but for virtual functions. Each class can have a virtual function table where each virtual function
     gets its own slot. Code generated from a virtual function finds something called the virtual pointer, which is something acts like a reference, then
     uses the pointer to get to the correct virtual function table and then calls the appropriate function there.
-
----------------------------------------
-What should I be able to understand/do?
----------------------------------------
-know how to implement inheritance
-know how to use protected keyword
-know how to use polymorphism through virtual/pure virtual functions
-know how to implement encapsulation
-know what base and derived classes are
-know how to write UML diagrams
-understand what an abstract class is
-know what a copy constructor is
-understand when to delete a copy constructor
