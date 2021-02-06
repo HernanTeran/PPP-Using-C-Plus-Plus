@@ -82,6 +82,10 @@ int main()
 
 	// --------------
 
+	// after all the tests this reference is still allowed
+	// because it is only a reference to B1 that is
+	// represented by D1 even though its f() function
+	// still calls the B1 f()
 	B1& bref{ d1 };
 	bref.vf(); // calls D1 override of vf()
 	bref.f(); // calls B1 f() before and after B1 is made abstract
