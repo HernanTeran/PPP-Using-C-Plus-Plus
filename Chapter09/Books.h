@@ -3,7 +3,6 @@
 #include <regex>
 #include <iostream>
 #include <ostream>
-#include <fstream>
 
 namespace Books
 {
@@ -12,13 +11,10 @@ namespace Books
 	class Book
 	{
 	public:
-		// exception class
 		class Invalid{};
 
-		// default constructor
 		Book() = default;
 
-		// constructor
 		Book(const std::string& isbn_,
 			const std::string& title_,
 			const std::string& author_,
