@@ -79,7 +79,7 @@
    & can be thought of as an automatically dereferenced immutable pointer or as an alias to an object.
    
 5. Pointers have the address of an object and provide the operations suitable for addresses but they lack the arithmetic and logical operations
-   that built-in types can provide. Basically, you can treat a pointer to an object, like int or double, like an int or double.
+   that built-in types can provide. 
 
 6. A pointer can point to the memory address of a type corresponding to the pointer's type.
    A pointer value is the address of the first byte of the memory.
