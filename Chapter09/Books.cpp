@@ -67,23 +67,23 @@ namespace Books
 
 		cout << "Enter ISBN (d-d-d-l):\n";
 		std::string ISBN;
-		is >> ISBN;
-		while (!is) { is >> ISBN; }
+		getline(is, ISBN);
+		if (!is) { return is; }
 		
 		cout << "Enter book title:\n";
 		std::string title;
 		getline(is, title);
-		while (!is) { getline(is, title); }
+		if (!is) { return is; }
 
 		cout << "Enter book author:\n";
 		std::string author;
 		getline(is, author);
-		while (!is) { getline(is, author); }
+		if (!is) { return is; }
 
 		cout << "Enter copyright date (yyyy):\n";
 		int copyright{ 1800 };
 		is >> copyright;
-		while (!is) { is >> copyright; }
+		if (!is) { return is; }
 
 		cout
 			<< "Enter genre (1-5):\n"
@@ -95,7 +95,7 @@ namespace Books
 
 		int i_genre{ 0 };
 		is >> i_genre;
-		while (!is) { is >> i_genre; }
+		if (!is) { return is; }
 		Books::Genre genre{ Genre::Fiction };
 
 		switch (i_genre)
