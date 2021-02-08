@@ -1,37 +1,39 @@
 #pragma once
-
 #include <string>
-#include <iostream>
 
 namespace Patrons
 {
 	class Patron
 	{
-	private:
-		std::string name;
-		int acc_num;
-		double lib_fees;
 	public:
 		class Invalid{};
 
 		Patron() = delete;
 
-		Patron(const std::string& name_, int acc_num_, double lib_fees_);
+		Patron(const std::string& full_name_, int account_number_);
 
 		// nonmodifying operations
-		std::string get_patron_name() const { return name; }
-		int get_acc_num() const { return acc_num; }
-		double get_lib_fees() const { return lib_fees; }
+		std::string get_full_name() const { return full_name; }
+		int get_account_number() const { return account_number; }
+		double get_library_fees() const { return library_fee; }
 
 		// modifying operation
-		void set_lib_fee(double fee)
+		void set_fee(double library_fee_)
 		{
-			while (fee < 0) { std::cin >> fee; }
-			lib_fees = fee;
+			if (library_fee_ < 0) { throw Invalid{}; }
+			library_fee = library_fee_;
 		}
+
+	private:
+		std::string full_name;
+		int account_number{ 0 };
+		double library_fee{ 0 };
 	};
 
-	bool owes_fee(const Patron& patron);
-	void pay_fee(Patron& patron);
-	bool is_valid_patron(const std::string& name, int acc, double lib);
+	// helper functions
+	bool is_valid_patron(const std::string& full_name_, int account_number_);
+	bool owes_fees(const Patron& patron);
+
+	bool operator == (const Patron& obj1, const Patron& obj2);
+	bool operator != (const Patron& obj1, const Patron& obj2);
 }
