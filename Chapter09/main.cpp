@@ -1,44 +1,50 @@
 // Hernan Teran
 // V1 - 1/26/2021
 // V2 - 2/5/2021
+// V3 - 2/8/2021
 // Excercises 5-7
 
 #include "practice.h"
-#include <vector>
-#include <iostream>
+
+// next time implement a second book and patron
+// make sure there are no bugs when running any of the
+// functions intended to work with only matches
+// implement static variables to replace repetitive variables
 
 int main()
-// The purpose of the program is to instantiate a book object to "check out" and then "return"
-// If the invariant is not established an exception will be thrown to terminate the program
 {
-    run_program();
+	try
+	{
+		Books::Book book1;
+		std::cin >> book1;
+		std::cout << book1;
 
-    return 0;
-}
+		Patrons::Patron patron1{"Bob Belcher", 434323};
 
-void run_program()
-{
-    try
-    {
-        using Books::Book;
-        using Patrons::Patron;
-        using std::cout;
-        using std::cin;
+		Local_Library::Library library;
+		library.add_book(book1);
+		library.add_patron(patron1);
+		library.check_out_book(book1, patron1);
 
-        Book book;
-        //cin >> book;
+		std::vector<Patrons::Patron> in_debt = library.patrons_in_debt(library);
 
-        Patron patron{ "Chucky Lryoer", 123456, 12.54 };
-       
-        Patrons::pay_fee(patron);
-       
-    }
-    catch (Books::Book::Invalid)
-    {
-        std::cerr << "[Error: failed book instantiation]\n";
-    }
-    catch (Patrons::Patron::Invalid)
-    {
-        std::cerr << "[Error: failed patron instantiation]\n";
-    }
+		for (const auto& p : in_debt)
+		{
+			std::cout 
+				<< "\n*patrons in debt*\n"
+				<< "-----------------\n"
+				<< p.get_full_name() << '\n';
+			std::cout << '\n';
+		}
+
+		library.check_in_book(book1, patron1);
+	}
+	catch (Books::Book::Invalid)
+	{
+		std::cerr << "What are you thinking?\n";
+	}
+	catch (Patrons::Patron::Invalid)
+	{
+		std::cerr << "WHAT.ARE.YOU.DOING?\n";
+	}
 }
