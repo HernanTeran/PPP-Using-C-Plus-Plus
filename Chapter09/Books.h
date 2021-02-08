@@ -29,8 +29,25 @@ namespace Books
 		bool is_available() { return book_is_available; }
 		
 		// modifying operation
-		void check_out() { if (book_is_available) { book_is_available = false; } }
-		void return_book() { if (!book_is_available) { book_is_available = true; } }
+		void check_out()
+		{
+			if (book_is_available)
+			{
+				book_is_available = false;
+				std::cout << get_title() << " by " << get_author() << " has been checked out.\n";
+				return;
+			}
+		}
+
+		void return_book() 
+		{
+			if (!book_is_available)
+			{
+				book_is_available = true;
+				std::cout << get_title() << " by " << get_author() << " has been returned.\n";
+				return;
+			}
+		}
 	private:
 		std::string isbn;
 		std::string title;
