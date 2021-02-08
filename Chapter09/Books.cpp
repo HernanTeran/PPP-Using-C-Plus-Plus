@@ -96,7 +96,7 @@ namespace Books
 		int i_genre{ 0 };
 		is >> i_genre;
 		if (!is) { return is; }
-		Books::Genre genre{ Genre::Fiction };
+		Books::Genre genre{};
 
 		switch (i_genre)
 		{
@@ -127,13 +127,6 @@ namespace Books
 		return is;
 	}
 
-	bool operator == (const Book& obj1, const Book& obj2)
-	{
-		return obj1.get_isbn() == obj2.get_isbn()
-			&& obj1.get_author() == obj2.get_author()
-			&& obj1.get_title() == obj2.get_title()
-			&& obj1.get_copyright_date() == obj2.get_copyright_date();
-	}
-
-	bool operator != (const Book& obj1, const Book& obj2) { return !(obj1 == obj2); }
+	bool operator == (const Book& obj1, const Book& obj2) { return obj1.get_isbn() == obj2.get_isbn(); }
+	bool operator != (const Book& obj1, const Book& obj2) { return !(obj1.get_isbn() == obj2.get_isbn()); }
 }
