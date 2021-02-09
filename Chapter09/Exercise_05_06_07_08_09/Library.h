@@ -13,7 +13,6 @@ namespace Local_Library
 
 	class Library
 	{
-		// static variables
 	public:
 		Library() = default;
 
@@ -24,11 +23,12 @@ namespace Local_Library
 		void add_patron(const Patrons::Patron& patron);
 		void check_out_book(Books::Book& book, Patrons::Patron& patron);
 		void check_in_book(Books::Book& book, Patrons::Patron& patron);
-		std::vector<Patrons::Patron> patrons_in_debt(const Library& library);
+		void print_debt_list();
 
 	private:
 		std::vector<Books::Book> books;
 		std::vector<Patrons::Patron> patrons;
 		std::vector<Transaction> transactions;
+		std::vector<Patrons::Patron> patrons_in_debt;
 	};
 }
