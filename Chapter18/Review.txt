@@ -152,3 +152,118 @@
         vector* vec = fill();
         delete vec;
     }
+
+// *EXTRA*
+
+1. The default meaning of copying ( = ) means copy all the data members but with pointers the default copy operations causes problems because
+   the elements will be shared. So when the values are accessed it's not going to be what we want. Also, since they will both point to the same
+   memory location, the memory will be freed twice by their destructors causing a memory leak.
+
+
+
+// *READ*
+// initializer_list<T> is a handle to elements allocated elsewhere
+// it defines {} list based notation so it doesn't conflict with ()
+// shallow copy copies only a pointer so that the two pointers now refer to the same object
+// that's what pointers and references do
+// deep copy copies what a pointer points to so that the two pointers now refer to
+// distinct object. That's what vectors, strings do. We define copy constructors
+// and copy assignment operators when we want deep copy for our objects
+// copying is expensive
+// moving is cheap
+// moving allows return by value and avoids having to deal with pointers or
+// references to get large amounts of information out of a function
+// ***If initializing a char array or char pointer with a string the last
+// character MUST be a 0; this is why you've had issues
+// ***Pointers can be initialized to nullptr but before using they MUST
+// be assigned to a reference or another pointer other exception
+
+
+class Vector
+	// use size_t when working with pointers and algorithms
+{
+public:
+	Vector(size_t s) : sz{s}, elem{new double[s]} 
+		// constructor
+	{
+		for (size_t i{ 0 }; i < sz; ++i) { elem[i] = 0; }
+	}
+
+	Vector(std::initializer_list<double> lst)
+		// allows () to initialize elements
+		: sz{ lst.size() }, elem{ new double[sz] }
+	{
+		std::copy(lst.begin(), lst.end(), elem);
+	}
+
+	Vector::Vector(const Vector& arg) : sz{ arg.sz }, elem{ new double[arg.sz] }
+		// copy constructor
+	{
+		std::copy(arg.elem, arg.elem+sz, elem);
+	}
+
+	Vector& Vector::operator = (const Vector& arg)
+		// copy assignment operator
+	{
+		double* p = new double[arg.sz]; // allocate new space
+		std::copy(arg.elem, arg.elem+sz, p); // copy elements
+		delete[] elem; // deallocate old space
+		elem = p; // reset element
+		sz = arg.sz; // reset element
+		return *this; // return a self-reference
+	}
+
+	Vector::Vector(Vector&& arg) noexcept
+		: sz{ arg.sz }, elem{ arg.elem } // copy arg's elem and sz
+		// move constructor
+	{
+		// make arg (old) the empty vector
+		arg.sz = 0;
+		arg.elem = nullptr;
+	}
+
+	Vector& Vector::operator = (Vector&& arg) noexcept
+		// move assignment operator
+	{
+		delete[] elem; // deallocate old space
+		elem = arg.elem; // copy arg's elem and sz
+		sz = arg.sz;
+		arg.elem = nullptr; // make arg the empty vector
+		arg.sz = 0;
+		return *this; // return a self-reference
+	}
+
+	double& operator [] (size_t n) { return elem[n]; }
+	double operator [] (size_t n) const { return elem[n]; }
+
+	// nonmodifying operation
+	size_t size() const { return sz; }
+
+	// destructor
+	~Vector() { delete[] elem; }
+
+private:
+	size_t sz{ 0 };
+	double* elem{ nullptr };
+};
+
+// palindrome
+string p = "petep";
+	bool is_palindrome{ false };
+
+	size_t first{ 0 };
+	size_t last{ p.length() - 1 };
+	while (first < last)
+	{
+		if (p.at(first) != p.at(last))
+		{
+			is_palindrome = false;
+		}
+		else
+		{
+			is_palindrome = true;
+		}
+		++first;
+		--last;
+	}
+	cout << is_palindrome;
