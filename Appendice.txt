@@ -169,3 +169,24 @@ void error(const string& s)
 // file.read(&var, sizeof(var));
 // !!! However this only works for char so you must convert 
 // other data types into char using file.write(reinterpret_cast<char*>(&var), sizeof(var));
+
+// MAPS
+map<int, string> employees;
+	employees.insert(std::make_pair( 110, "Bob Belcher" ));
+	employees.emplace(111, "Linda Belcher");
+	for (const auto& e : employees) cout << e.first << ' ' << e.second << '\n';
+	if (employees.count(111))
+	{
+		cout << employees.at(111) << '\n'; // .at(key) returns value use .count() before to test
+	}
+	else
+	{
+		cout << "employee not found\n";
+	}
+	employees.erase(110); // returns bool 1 or 0 if found and erased
+
+	// .count(key) returns the number of elements with a matching key 
+	// .equal_range(key) returns all of the elements in multimap
+	// .sort()
+	// .binary_search(begin, end, search) used with if statement
+	// is_permutation(con1.begin(), con1.end(), con2.begin());
