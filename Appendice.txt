@@ -90,3 +90,82 @@ int main()
 * std::fixed gives a floating-point format dddd.dd
 
 * std::scientific gives a scientific format d.ddddEdd
+
+--------------------------------------------------------------------------------
+// file path: practice -> out -> build -> x64 -> practice
+
+
+void error(const string& s);
+// catch std::exception& for potential out-of-range errors
+// catch std::runtime_error& for everything else with the error() function
+void error(const string& s)
+{
+	throw std::runtime_error(s);
+}
+
+// use constexpr functions to have the function evaluated at compile time
+// instead of run time. Must use constexpr arguments
+
+// use a static const initializer function for default constructor
+
+// using enums instead of enum classes are fine just make sure
+// that you are using the correct values and have names that won't conflict with others
+
+// stream state: good(), eof(), fail(), bad()
+// use cin.clear() after cin.fail() or (!cin)
+
+// so far void function to fill using istream
+
+// defining the input operator >> requires testing for (!is) by doing:
+// (!is) return is;			or
+// if (...) is.clear(ios_base::failbit) return is;
+
+// fstream can be used for input and output instead of ifstream and ofstream
+
+// istringstream is useful for string to numeric value
+// ostringstream is useful for formatting output especially for log files
+// ex:
+// int seq_no = get_next_number();
+// ostringstream name;
+// name << "myfile" << seq_no << ".log"; // concatenation
+// ofstream logfile{name.str()};
+
+// getline is only useful if the input is full of commands
+// that were separated by white space
+// otherwise use stringstream ss >> and read input individually
+
+// EXAMPLE (with simple input like this read with cin individually):
+// string name;
+// string first_name;
+// string last_name;
+// getline(cin, name); uses getline to get the line containing name
+// stringstream ss{ name }; // ss separates by whitespace and holds the contents of name
+// ss >> first_name; // ss reads the first word into a string
+// ss >> last_name; // and so on
+// cout << ss.str() << '\n'; this outputs the original input
+// cout << first_name << '\n'; // read from ss
+// cout << last_name << '\n';
+
+// EXAMPLE (with commands or long text use a vector to hold each individual word):
+// string command;
+// getline(cin, command);
+// stringstream ss{command};
+// vector<string> words;
+// for (string s; ss >> s;) words.push_back(s);
+
+// remember to use initializer_list<T> t for types that should have lists
+// abstract classes are classes that can only be used as a base class
+// classes are made abstract by making constructors protected or using a pure virtual function
+// use protected for functions that the make sense only for derived classes but
+// use an important object creation concept
+// delete a base class's copy constructor, copy assignment operator, and default constructor
+
+// BINARY FILES
+// file type: f.dat
+// ofstream os{file, ios::binary};
+// to write binary: fileObject.write(address, size)
+// file.write(&var, sizeof(var));
+// to read binary: fileObject.read(address, size)
+// file.read(&var, sizeof(var));
+// !!! However this only works for char so you must convert 
+// other data types into char using file.write(reinterpret_cast<char*>(&var), sizeof(var));
