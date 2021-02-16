@@ -30,9 +30,9 @@ void display_menu()
 		<< "7. exit\n\n";
 }
 
-int get_input()
+int get_input(const std::string& prompt)
 {
-	cout << "make your selection:\n";
+	cout << prompt;
 	int selection{ 0 };
 	std::cin >> selection;
 
@@ -62,7 +62,7 @@ void run_program()
 	{
 		display_menu();
 		
-		selection = get_input();
+		selection = get_input("make your selection:\n");
 
 		switch (selection)
 		{
