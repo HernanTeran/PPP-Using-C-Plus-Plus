@@ -1,70 +1,34 @@
-#include <iostream>
+// Hernan Teran 2/16/2021
+// Chapter 3 Exercise 9
+// This is a simple program that converts and prints
+// a string representing a number as an integer.
+// The program uses an if/else if/else construct
+// but could have been better implemented with a map
+// or a pair of vectors.
 
-int get_input();
-void run_program();
-void display_number(int val);
+#include <iostream>
+#include <string<
+
+using std::string;
+using std::cout;
+using std::cin;
 
 int main()
 {
-	run_program();
+	for (string str_num; cin >> str_num;)
+		{
+			if (str_num == "zero") { cout << 0 << '\n'; }
+			else if (str_num == "one") { cout << 1 << '\n'; }
+			else if (str_num == "two") { cout << 2 << '\n'; }
+			else if (str_num == "three") { cout << 3 << '\n'; }
+			else if (str_num == "four") { cout << 4 << '\n'; }
+			else if (str_num == "five") { cout << 5 << '\n'; }
+			else if (str_num == "six") { cout << 6 << '\n'; }
+			else if (str_num == "seven") { cout << 7 << '\n'; }
+			else if (str_num == "eight") { cout << 8 << '\n'; }
+			else if (str_num == "nine") { cout << 9 << '\n'; }
+			else { cout << "not a number I know\n"; }
+		}
 
 	return 0;
-}
-
-int get_input()
-{
-	std::cout << "Enter a value:\n";
-
-	int val{ 0 };
-	std::cin >> val;
-
-	return val;
-}
-
-void run_program()
-{
-	int val1{ 0 };
-	val1 = get_input();
-
-	display_number(val1);
-}
-
-void display_number(int val)
-{
-	switch (val)
-	{
-	case 0:
-		std::cout << "zero\n";
-		break;
-	case 1:
-		std::cout << "one\n";
-		break;
-	case 2:
-		std::cout << "two\n";
-		break;
-	case 3:
-		std::cout << "three\n";
-		break;
-	case 4:
-		std::cout << "four\n";
-		break;
-	case 5:
-		std::cout << "five\n";
-		break;
-	case 6:
-		std::cout << "six\n";
-		break;
-	case 7:
-		std::cout << "seven\n";
-		break;
-	case 8:
-		std::cout << "eight\n";
-		break;
-	case 9:
-		std::cout << "nine\n";
-		break;
-	default:
-		std::cout << "not a number I know\n";
-		break;
-	}
 }
