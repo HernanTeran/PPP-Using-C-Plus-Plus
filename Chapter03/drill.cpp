@@ -1,5 +1,5 @@
 // Hernan Teran 2/16/2021
-// Chapter 2 Drill
+// Chapter 3 Drill
 // The drill is to write a simple letter based on user input
 
 #include <iostream>
