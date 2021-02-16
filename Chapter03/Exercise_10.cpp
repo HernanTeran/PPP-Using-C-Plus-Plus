@@ -1,88 +1,85 @@
+// Hernan Teran 2/16/2021
+// Chapter 3 Exercise 10
+// This program takes a string in the form of:
+// operator operand operand
+// then performs a computation of basic arithmetic
+
 #include <iostream>
 #include <string>
-#include <regex>
+#include <exception>
+#include <sstream>
 
 using std::string;
+using std::stringstream;
 using std::cout;
 using std::cin;
+using std::cerr;
 
-string get_operation();
+void error(const std::string& message);
 void run_program();
-int compute(char op, const int val1, const int val2);
+
+string get_operation(const std::string& prompt);
+double calculate_result(char oper, double op1, double op2);
+
+void run_program()
+{
+	try
+	{
+		string operation = get_operation("Enter an expression (operator operand operand):\n");
+
+		stringstream ss{ operation };
+		char operator_{ '0' };
+		double op1{ 0 }, op2{ 0 };
+		ss >> operator_ >> op1 >> op2;
+
+		double result = calculate_result(operator_, op1, op2);
+		cout << op1 << ' ' << operator_ << ' ' << op2 << " = " << result << '\n';
+
+	}
+	catch (std::exception& e)
+	{
+		cerr << e.what();
+	}
+}
+
+string get_operation(const std::string& prompt)
+{
+	cout << prompt;
+	string operation;
+	getline(cin, operation);
+	return operation;
+}
+
+double calculate_result(char oper, double op1, double op2)
+{
+	double result{ 0 };
+
+	switch (oper)
+	{
+	case '+':
+		result = op1 + op2;
+		break;
+	case '-':
+		result = op1 - op2;
+		break;
+	case '*':
+		result = op1 * op2;
+		break;
+	case '/':
+		result = std::max(op1, op2) / std::min(op1, op2);
+		break;
+	default:
+		error("invalid operator");
+		break;
+	}
+	return result;
+}
+
+void error(const std::string& message) { throw std::runtime_error(message); }
 
 int main()
 {
 	run_program();
 
 	return 0;
-}
-
-string get_operation()
-{
-	cout
-		<< "Compute an operation\n"
-		<< "------------------\n"
-		<< "Operators: + - * /\n\n"
-		<< "Format: operator value1 value2\n\n";
-
-	string operation;
-	getline(cin, operation);
-
-	return operation;
-}
-
-void run_program()
-{
-	string operation;
-	operation = get_operation();
-
-	std::regex pat{ "([\\+|\\-|\\*|\\/] ([0-9]+) ([0-9]+))" };
-	std::smatch matches;
-
-	char operator_used{ 0 };
-	int val1{ 0 };
-	int val2{ 0 };
-
-	if (std::regex_match(operation, matches, pat))
-	{
-		operator_used = operation.at(0);
-		val1 = std::stoi(matches[2]);
-		val2 = std::stoi(matches[3]);
-	}
-	else
-	{
-		std::cerr << "invalid format try again\n";
-	}
-
-	int result{ 0 };
-	result = compute(operator_used, val1, val2);
-
-	std::cout << "Result: " << result << '\n';
-}
-
-int compute(char op, const int val1, const int val2)
-{
-	int result{ 0 };
-	int largest{ 0 };
-	largest = val1 > val2 ? val1 : val2;
-
-	switch (op)
-	{
-	case '+':
-		result = val1 + val2;
-		break;
-	case '-':
-		result = val1 - val2;
-		break;
-	case '*':
-		result = val1 * val2;
-		break;
-	case '/':
-		result = val1 == largest ? val1 / val2 : val2 / val1;
-		break;
-	default:
-		std::cerr << "can't compute\n";
-		break;
-	}
-	return result;
 }
