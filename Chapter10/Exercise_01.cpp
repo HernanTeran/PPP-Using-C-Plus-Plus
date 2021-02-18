@@ -1,86 +1,94 @@
+// Hernan Teran 2/18/2021
+// Chapter 10 Exercise 1
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 
-using std::cout;
 using std::string;
-using std::cin;
-using std::ifstream;
-using std::ofstream;
-using std::cerr;
 using std::vector;
+using std::ofstream;
+using std::ifstream;
+using std::cout;
+using std::cin;
 
-// * READ *
-// I found that if you don't space out the values
-// that you are outputting into a file
-// they will read wrong (1.1 reads as 0.1)
+// --------------------------------------------------------------------------------------------
 
 struct Numbers
 {
-	double x{ 0 };
+	vector<double> numbers;
 };
 
-void fill_vector(vector<Numbers>&, const string&);
-void create_file(ofstream& os, const vector<Numbers>&);
-void fill_vector(vector<Numbers>&, ifstream&);
-void print_sum(const vector<Numbers>&);
-
-int main()
+void fill(const string& prompt, Numbers& v)
 {
-	// file path: practice -> out -> build -> x64 -> practice
-	
-	vector<Numbers> numbers;
-	fill_vector(numbers, "Please input 7 numbers:\n");
-
-	cout << "Please enter the output file name: ";
-	string oname;
-	cin >> oname;
-	while (!cin) { cin >> oname; }
-	ofstream ofs{ oname };
-
-	create_file(ofs, numbers);
-
-	ofs.close();
-
-	cout << "Please enter the input file name: ";
-	string iname;
-	cin >> iname;
-	while (!cin) { cin >> iname; }
-	ifstream ifs{ iname };
-
-	vector<Numbers> new_numbers;
-	fill_vector(new_numbers, ifs);
-	print_sum(new_numbers);
-
-	return 0;
-}
-
-void fill_vector(vector<Numbers>& nums, const string& message)
-{
-	cout << message;
-
-	while (nums.size() < 7)
+	cout << prompt;
+	while (true)
 	{
-		double i{ 0 };
-		cin >> i;
-		nums.push_back(Numbers{ i });
+		double n{ 0 };
+		if (!(cin >> n)) { error("invalid input\n"); }
+		if (v.numbers.size() == 7) { break; }
+		v.numbers.push_back(n);
 	}
 }
 
-void fill_vector(vector<Numbers>& numbers, ifstream& ifs)
+void create_file(const string& prompt, const Numbers& v)
 {
-	for (double i{ 0 }; ifs >> i;) { numbers.push_back(Numbers{ i }); }
+	cout << prompt;
+	string oname;
+	cin >> oname;
+	ofstream ofs{ oname };
+	if (!ofs) { error("error while creating file, " + oname + '\n'); }
+	for (const auto& num : v.numbers) { ofs << num << ' '; }
 }
 
-void create_file(ofstream& os, const vector<Numbers>& numbers)
+void read(const string& prompt, Numbers& v)
 {
-	for (const auto& ele : numbers) { os << ele.x << ' '; }
+	cout << prompt;
+	string iname;
+	cin >> iname;
+	ifstream ifs{ iname };
+	if (!ifs) { error("cannot open file, " + iname + '\n'); }
+	for (double i{ 0 }; ifs >> i;) { v.numbers.push_back(i); }
 }
 
-void print_sum(const vector<Numbers>& numbers)
+void print_sum(const Numbers& v)
 {
 	double sum{ 0 };
-	for (const auto& n : numbers) { sum += n.x; }
+	for (const auto& n : v.numbers) { sum += n; }
 	cout << "[sum: " << sum << "]\n";
+}
+
+// --------------------------------------------------------------------------------------------
+
+void error(const string& message) { throw std::runtime_error(message); }
+
+void run_program()
+{
+	try
+	{
+		Numbers numbers;
+		fill("Please input numbers:\n", numbers);
+		create_file("Please enter the output file name:\n", numbers);
+
+		Numbers new_numbers;
+		read("Please enter the input file name:\n", new_numbers);
+		print_sum(new_numbers);
+
+	}
+	catch (std::exception& e)
+	{
+		cerr << e.what();
+	}
+	catch (...)
+	{
+		cerr << "something went wrong\n";
+	}
+}
+
+int main()
+{
+	run_program();
+
+	return 0;
 }
