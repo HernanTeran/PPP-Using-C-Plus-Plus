@@ -1,8 +1,8 @@
 #pragma once
+
 #include "Purchase.h"
-#include <string>
 #include <iostream>
-#include <fstream>
+#include <string>
 #include <vector>
 #include <regex>
 
@@ -12,41 +12,33 @@ namespace Orders
 	{
 	public:
 		// exception class
-		class Invalid_Order{};
+		class Invalid_order{};
 
-		// deleted default constructor
-		Order() = delete;
+		// default constructor
+		Order();
 
 		// constructor
 		Order(const std::string& customer_name_,
-			const std::string& address_,
-			const std::vector<Purchases::Purchase>& purchases_);
-
-		Order(const std::string& customer_name_,
-			const std::string& address_,
-			const std::string& status_,
+			const std::string& home_address_,
 			const std::vector<Purchases::Purchase>& purchases_);
 
 		// nonmodifying operations
 		std::string get_customer_name() const { return customer_name; }
-		std::string get_address() const { return address; }
-		std::string get_shipping_status() const { return status; }
-		bool has_shipped() const { return shipped; }
+		std::string get_home_address() const { return home_address; }
+		bool has_shipped() const { return order_shipped; }
 		std::vector<Purchases::Purchase> get_purchases() const { return purchases; }
 
 		// modifying operation
-		void set_status(bool ship_status) 
-		{ 
-			shipped = ship_status;
-			status = shipped ? "shipped" : "pending";
-		}
+		void set_shipping_status(bool status) { order_shipped = status; }
 
 	private:
-		std::string customer_name, address, status;
-		bool shipped{ false };
+		std::string customer_name, home_address;
+		bool order_shipped{ false };
 		std::vector<Purchases::Purchase> purchases;
 	};
 
-	bool is_valid_order(const std::string& customer_name, const std::string& address);
-	void print_order(const Orders::Order& order);
-};
+	// helper functions
+	bool is_valid_order(const std::string& customer_name_, const std::string& home_address_);
+	std::ostream& operator<<(std::ostream& os, const Order& order);
+	std::istream& operator>>(std::istream& is, Order& order);
+}
