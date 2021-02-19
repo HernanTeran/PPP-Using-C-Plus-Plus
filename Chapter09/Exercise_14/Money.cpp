@@ -39,8 +39,6 @@ namespace Currency
 		return is;
 	}
 
-	double Money::get_monetary_value() const { return (double)cents / 100; }
-
 	double Money::get_rounded_value() const
 		// round monetary_value
 		// subtract monetary_value from the rounded value
