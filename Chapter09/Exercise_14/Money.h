@@ -21,7 +21,7 @@ namespace Currency
 
 		// nonmodifying operation
 		long int get_cents() const { return cents; }
-		double get_monetary_value() const;
+		double get_monetary_value() const { return (double)cents / 100; }
 		double get_rounded_value() const;
 
 	private:
