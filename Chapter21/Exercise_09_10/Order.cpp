@@ -2,61 +2,92 @@
 
 namespace Orders
 {
-	Order::Order(const std::string& customer_name_, 
-		         const std::string& address_, 
-		         const std::vector<Purchases::Purchase>& purchases_)
-		:
-		customer_name{customer_name_},
-		address{address_},
-		purchases{ purchases_ }
+	Order::Order() : order_shipped{ false }
 	{
-		if (!is_valid_order(customer_name_, address_)) { throw Invalid_Order{}; };
 	}
 
-	Order::Order(const std::string& customer_name_, 
-				const std::string& address_, 
-				const std::string& status_, 
-				const std::vector<Purchases::Purchase>& purchases_)
+	Order::Order(const std::string& customer_name_,
+		const std::string& home_address_,
+		const std::vector<Purchases::Purchase>& purchases_)
 		:
-		customer_name{customer_name_},
-		address{address_},
-		status{status_},
-		purchases{purchases_}
+		customer_name{ customer_name_ }, home_address{ home_address_ }, purchases{ purchases_ }
 	{
-		if (!is_valid_order(customer_name_, address_)) { throw Invalid_Order{}; };
+		if (!is_valid_order(customer_name_, home_address_)) { throw Invalid_order{}; }
 	}
 
-	bool is_valid_order(const std::string& customer_name, const std::string& address)
+	bool is_valid_order(const std::string& customer_name_, const std::string& home_address_)
 	{
-		// testing customer name ------------------------------------------------
-		std::regex pat1{ R"([a-zA-Z]+ [a-zA-z]+)" };
-		if (!std::regex_match(customer_name, pat1)) { return false; }
+		std::regex customer_pat{ R"([A-Za-z]+ [A-Za-z]+)" };
+		if (!std::regex_match(customer_name_, customer_pat)) { return false; }
 
-		// testing customer address ---------------------------------------------
-		std::regex pat2{ R"([0-9]+ \w+ (St|Rd|Pl|Ln|Rd|Ct|Ave).)" };
-		if (!std::regex_match(address, pat2)) { return false; }
-
-		// purchases have already been tested in their class --------------------
+		std::regex address_pat{ R"([0-9]+ \w+ (St|Rd|Pl|Ln|Rd|Ct|Ave).)" };
+		if (!std::regex_match(home_address_, address_pat)) { return false; }
 
 		return true;
 	}
 
-	void print_order(const Orders::Order& order)
+	std::ostream& operator<<(std::ostream& os, const Order& order)
 	{
-		std::cout
-			<< "\t {ORDER}\n"
-			<< "==============================\n"
-			<< "{Full name: " << order.get_customer_name() << "}\n"
-			<< "{Home address: " << order.get_address() << "}\n"
-			<< "{Shipping status: " << order.get_shipping_status() << "}\n\n";
-
-		for (const auto& p : order.get_purchases())
+		os << "\t {ORDER}\n"
+			<< "{Customer name: " << order.get_customer_name() << "}\n"
+			<< "{Home address: " << order.get_home_address() << "}\n\n";
+		
+		for (const auto& purchase : order.get_purchases())
 		{
-			std::cout
-				<< "{Product name: " << p.get_product_name() << "}\n"
-				<< "{Unit price: $" << p.get_unit_price() << "}\n"
-				<< "{Units ordered: " << p.get_count() << "}\n";
+			os << purchase;
 		}
-		std::cout << '\n';
+
+		return os;
+	}
+
+	std::istream& operator>>(std::istream& is, Order& order)
+	{
+		std::cout << "Enter customer name: ";
+		std::string first_name, last_name, full_name;
+		is >> first_name >> last_name;
+		full_name = first_name + ' ' + last_name;
+
+		std::cout << "Enter home address: ";
+		std::string street_number, street_name, street_suffix, home_address;
+		is >> street_number >> street_name >> street_suffix;
+		home_address = street_number + ' ' + street_name + ' ' + street_suffix;
+
+		if (!is)
+		{
+			is.clear(std::ios_base::failbit);
+			return is;
+		}
+
+		std::vector<Purchases::Purchase> purchases;
+		Purchases::Purchase purchase;
+		is >> purchase;
+		purchases.push_back(purchase);
+
+		char add_order{ '0' };
+
+		while (add_order != 'n')
+		{
+			std::cout << "Would you like to add another purchase (y/n): ";
+			is.ignore();
+			is.get(add_order);
+
+			switch (add_order)
+			{
+			case 'y':
+				is >> purchase;
+				purchases.push_back(purchase);
+				break;
+			case 'n':
+				std::cout << "Completing order...\n\n";
+				break;
+			default:
+				std::cerr << "Unknown input. Try again.\n";
+				break;
+			}
+		}
+
+		order = Order{ full_name, home_address, purchases };
+
+		return is;
 	}
 }
