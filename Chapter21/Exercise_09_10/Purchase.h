@@ -1,4 +1,6 @@
 #pragma once
+
+#include <iostream>
 #include <string>
 #include <regex>
 
@@ -8,10 +10,10 @@ namespace Purchases
 	{
 	public:
 		// exception class
-		class Invalid_Purchase{};
+		class Invalid_purchase{};
 
-		// deleted default constructor
-		Purchase() = delete;
+		// default constructor
+		Purchase();
 
 		// constructor
 		Purchase(const std::string& product_name_,
@@ -29,7 +31,8 @@ namespace Purchases
 		int count{ 0 };
 	};
 
-	bool is_valid_purchase(const std::string& product_name,
-						   double unit_price,
-						   int count);
-};
+	// helper functions
+	bool is_valid_purchase(const std::string& product_name_, double unit_price_, int count_);
+	std::ostream& operator<<(std::ostream& os, const Purchase& purchase);
+	std::istream& operator>>(std::istream& is, Purchase& purchase);
+}
