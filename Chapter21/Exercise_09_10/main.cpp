@@ -1,68 +1,56 @@
 // Hernan Teran
 // V1 - 2/15/2021
 // V2 - 2/19/2021
+// V3 - 2/20/2021
 
 #include "practice.h"
 
 void run_program()
 {
+	using Orders::Order;
+	using Purchases::Purchase;
+	using Order_files::Order_file;
+	using All_orders::Order_data;
+	using std::vector;
+	using std::list;
+	using std::sort;
+	using std::cin;
+	using std::cout;
+	using std::cerr;
+
+	// -----------------------------------------------------------------------------------------
+
 	try
 	{
-		std::vector<Orders::Order> v_orders;
+		Order_data orders;
+		
+		orders.create_v_orders("Please enter the amount of orders you would like to add: ");
+		orders.write_v_file();
 
-		while (v_orders.size() != 3)
-		{
-			Orders::Order order;
-			std::cin >> order;
-			std::cout << order;
-			Order_files::Order_file order_file;
-			std::cin >> order_file;
-			order_file.write_file(order);
-			std::cin >> order_file;
-			order_file.read_file(order, v_orders);
-		}
+		orders.create_l_orders("Please enter the amount of orders you would like to add: ");
+		orders.write_l_file();
 
-		std::sort(v_orders.cbegin(), v_orders.cend());
-		Order_files::Order_file combined_file;
-		std::cin >> combined_file;
+		orders.merge_files();
 
-		for (const auto& o : v_orders)
-		{ 
-			combined_file.write_file(o);
-			std::cout << o; 
-		}
-
-		double total_sum{ 0 };
-
-		for (const auto& o : v_orders)
-		{
-			for (const auto& p : o.get_purchases())
-			{
-				total_sum += (p.get_unit_price() * p.get_count());
-			}
-		}
-
-		std::cout << "Sum of all purchases: $" << total_sum << "\n\n";
-
-		// -----------------------------------------------------------------------------
-
-		std::list<Orders::Order> l_orders;
+		orders.compute_v_sum();
+		orders.compute_l_sum();
+		orders.print_sum("{Sum of all purchases: $");
 	}
-	catch (Orders::Order::Invalid_order)
+	catch (Order::Invalid_order)
 	{
 		std::cerr << "Invalid order\n";
 	}
-	catch (Purchases::Purchase::Invalid_purchase)
+	catch (Purchase::Invalid_purchase)
 	{
-		std::cerr << "Invalid purchase\n";
+		cerr << "Invalid purchase\n";
 	}
-	catch (Order_files::Order_file::Invalid_file)
+	catch (Order_file::Invalid_file)
 	{
-		std::cerr << "Invalid order file\n";
+		cerr << "Invalid order file\n";
 	}
 	catch (...)
 	{
-		std::cerr << "Error\n";
+		cerr << "Error\n";
 	}
 }
 
