@@ -80,4 +80,32 @@ namespace Order_files
 		if (ifs.eof()) { std::cout << "Reading from file complete.\n\n"; }
 		orders.push_back(Orders::Order{ full_name, home_address, purchases });
 	}
+
+	void Order_file::read_file(const Orders::Order& order, std::list<Orders::Order>& orders)
+	{
+		std::ifstream ifs{ f_name };
+		if (!ifs) { throw Invalid_file{}; }
+
+		std::string first_name, last_name, full_name,
+			street_number, street_name, street_suffix, home_address;
+
+		ifs >> first_name >> last_name >> street_number >> street_name >> street_suffix;
+
+		full_name = first_name + ' ' + last_name;
+		home_address = street_number + ' ' + street_name + ' ' + street_suffix;
+
+		std::vector<Purchases::Purchase> purchases;
+		std::string product_name;
+		double unit_price{ 0 };
+		int count{ 0 };
+
+		while (ifs >> product_name >> unit_price >> count)
+		{
+			purchases.push_back(Purchases::Purchase{ product_name, unit_price, count });
+			ifs.clear();
+		}
+
+		if (ifs.eof()) { std::cout << "Reading from file complete.\n\n"; };
+		orders.push_back(Orders::Order{ full_name, home_address, purchases });
+	}
 }
