@@ -1,3 +1,25 @@
+* TCPPPL Notes *
+
+* a namespace can have its own int main() function. This can simplify code because in main you can just return Namespace::main();
+
+* operators should be defined outside of the class definition. class_name operator _ (const class_name& obj1, const class_name& obj2); The boolean operators are
+  defined with bool not class_name
+
+* with objects like string, vector, and anything with move operations defined: pass by value in constructor and use std::move(arg) on the argument
+  in the initializer list
+
+* templates are a compile-time mechanism with no run-time overhead
+
+* Function objects used to specify the meaning of key operations of a general algorithm are referred to as policy objects
+
+* lambda capture list can include a reference to objects like [&]
+
+* use unique_copy(v.begin(), v.end(), back_inserter(v2)) with back_inserter to create new containers
+
+*
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 * There are three storage classes: automatic storage, static storage, and free store (heap) storage.
 
 * Automatic storage: variables defined in functions(including function parameters) are placed in automatic storage(on the stack) unless
