@@ -153,6 +153,7 @@ $     end of line
 [.]   dot
 [^aeiouy] not an English vowel
 
+* THERE CANNOT BE SPACES IN BETWEEN N AND M OTHERWISE STUPID ERROR *
 {n}   exactly n times
 {n,}  n or more time
 {n,m} at least n and at most m times
