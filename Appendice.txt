@@ -16,7 +16,19 @@
 
 * use unique_copy(v.begin(), v.end(), back_inserter(v2)) with back_inserter to create new containers
 
-*
+* namespace directives are fine as long as they are not used in header files and are local to functions as opposed to being global
+
+* use using-directives if using a qualification that is really common for several names unless names are exactly the same
+
+* use using-declarations if a qualification is common for a particular name
+
+* use namespace aliases to clarify use of namespaces
+  namespace short_name = long_name;
+  
+* use include guards
+  #ifndef SOME_NAME_H
+  #define SOME_NAME_H
+  #endif
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -45,11 +57,6 @@
            Mess_iter begin() const { return m.begin(); }
            Mess_iter end() const { return m.end(); }
            
-// C++ Using Data Abstraction & Procedural Programming
-// C++ Using Object-Oriented Programming
-// C Programming
-// C++ Using Generic Programming
-
 // namespace (make header namespace.h)
 // enum class (before class is defined)
 // class
