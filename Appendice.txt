@@ -29,6 +29,11 @@
   #ifndef SOME_NAME_H
   #define SOME_NAME_H
   #endif
+  
+* current time:
+  auto time = std::chrono::system_clock::now();
+  std::time_t ctime = std::chrono::system_clock::to_time_t(time);
+  std::string current_time = std::ctime(&ctime);
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
