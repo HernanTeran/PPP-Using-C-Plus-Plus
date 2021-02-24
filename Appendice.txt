@@ -34,6 +34,23 @@
   auto time = std::chrono::system_clock::now();
   std::time_t ctime = std::chrono::system_clock::to_time_t(time);
   std::string current_time = std::ctime(&ctime);
+  
+* use the inline keyford for inline member functions
+
+* use mutable keyword for data members that can be modified in const member functions/objects
+
+* instead of using void set functions use functions that a return a reference to the object or *this to be exact
+  but these would be helper functions not member functions
+  Object& add_year(T t)
+  {
+      if (validate...) {}
+      data_mem += t;
+      return *this;
+  }
+  
+* operators ++, --, +=, -= return a reference to the object so Object& operator...
+  + and - return the object so Object operator...
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
