@@ -156,7 +156,7 @@ namespace Books
 	//------------------------------------------------------------------------------------------------------------------------------
 	istream& operator >> (istream& is, Book& obj)
 	{
-		cout << "Enter ISBN (d-d-d-l):\n";
+		cout << "Enter ISBN (d-d-d-d-l):\n";
 		string ISBN;
 		getline(is, ISBN);
 		if (!is) { return is; }
