@@ -54,9 +54,6 @@ namespace Local_Library
 		Library(const std::vector<Books::Book>& books_,
 			const std::vector<Patrons::Patron>& patrons_);
 
-		//-----------------------------------------------------
-	        // Public member functions
-		//-----------------------------------------------------
 		void add_book(const Books::Book& book);
 		void add_patron(const Patrons::Patron& patron);
 		void check_out_book(Books::Book& book, Patrons::Patron& patron);
