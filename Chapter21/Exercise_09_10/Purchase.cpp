@@ -1,56 +1,59 @@
-#include "Purchase.h"
+// $Header$
+//----------------------------------------------------------------------------------------------------------------------------------
+//                                               Purchase
+//----------------------------------------------------------------------------------------------------------------------------------
+// Chapter 21 Exercises 9 & 10
+//
+// Author: Hernan Teran
+// Created: 2021/02/09
+//
+/*
+* Purchase is a class with a (product) name, unit_price, and count members.
+*/
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifndef PURCHASE_H
+#define PURCHASE_H
+#pragma once
+
+#include <iostream>
+#include <string>
+#include <regex>
 
 namespace Purchases
 {
-	Purchase::Purchase() : unit_price{0}, count{0}
+	class Purchase
 	{
-	}
+	public:
+		// exception class
+		class Invalid_purchase{};
 
-	Purchase::Purchase(const std::string& product_name_, double unit_price_, int count_)
-		: product_name{product_name_}, unit_price{unit_price_}, count{count_}
-	{
-		if (!is_valid_purchase(product_name_, unit_price_, count_)) { throw Invalid_purchase{}; }
-	}
+		// default constructor
+		Purchase();
 
-	bool is_valid_purchase(const std::string& product_name_, double unit_price_, int count_)
-	{
-		std::regex pat{ R"(\w+ ?\w*)" };
-		if (!std::regex_match(product_name_, pat)) { return false; }
-		if (unit_price_ <= 0) { return false; }
-		if (count_ <= 0) { return false; }
+		// constructor
+		Purchase(const std::string& product_name_,
+			     double unit_price_,
+			     int count_);
 
-		return true;
-	}
+		//----------------------------------------------------------------------
+		// Public member functions
+		//----------------------------------------------------------------------
 
-	std::ostream& operator<<(std::ostream& os, const Purchase& purchase)
-	{
-		return os << "{Product name: " << purchase.get_product_name() << "}\n"
-			      << "{Unit price: $" << purchase.get_unit_price() << "}\n"
-			      << "{Total ordered: " << purchase.get_count() << "}\n\n";
-	}
+		// nonmodifying operations
+		inline std::string get_product_name() const { return product_name; }
+		inline double get_unit_price() const { return unit_price; }
+		inline int get_count() const { return count; }
 
-	std::istream& operator>>(std::istream& is, Purchase& purchase)
-	{
-		std::cout << "Enter product name: ";
+	private:
 		std::string product_name;
-		is >> product_name;
-
-		std::cout << "Enter unit price: $";
 		double unit_price{ 0 };
-		is >> unit_price;
-
-		std::cout << "Enter total bought: ";
 		int count{ 0 };
-		is >> count;
+	};
 
-		if (!is)
-		{
-			is.clear(std::ios_base::failbit);
-			return is;
-		}
+	bool is_valid_purchase(const std::string& product_name_, double unit_price_, int count_);
 
-		purchase = Purchase{ product_name, unit_price, count };
-
-		return is;
-	}
+	std::ostream& operator<<(std::ostream& os, const Purchase& purchase);
+	std::istream& operator>>(std::istream& is, Purchase& purchase);
 }
+
+#endif // PURCHASE_H
