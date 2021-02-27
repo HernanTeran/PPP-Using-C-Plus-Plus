@@ -11,49 +11,112 @@
 * Purchase is a class with a (product) name, unit_price, and count members.
 */
 //----------------------------------------------------------------------------------------------------------------------------------
-#ifndef PURCHASE_H
-#define PURCHASE_H
-#pragma once
-
-#include <iostream>
-#include <string>
-#include <regex>
+#include "Purchase.h"
 
 namespace Purchases
 {
-	class Purchase
+	using namespace std;
+
+	//-----------------------------------------------------------------------------------------------------------------------------
+	// Purchase::Purchase()
+	//-----------------------------------------------------------------------------------------------------------------------------
+	/*
+	* Default constructor
+	*/
+	//-----------------------------------------------------------------------------------------------------------------------------
+	Purchase::Purchase() : unit_price{ 0 }, count{ 0 }
 	{
-	public:
-		// exception class
-		class Invalid_purchase{};
+	}
 
-		// default constructor
-		Purchase();
+	//-----------------------------------------------------------------------------------------------------------------------------
+	// Purchase::Purchase()
+	//-----------------------------------------------------------------------------------------------------------------------------
+	/*
+	* Constructor that establishes invariant from a valid product name, unit price, and count.
+	* 
+	* @param <product_name_> input one or two word product name
+	* @param <unit_price_>   input positive unit price
+	* @param <count_>        input positive count
+	* 
+	* @exception Invalid_purchase is thrown if one of the members has invalid input.
+	*/
+	//-----------------------------------------------------------------------------------------------------------------------------
+	Purchase::Purchase(const string& product_name_, double unit_price_, int count_)
+		: product_name{ product_name_ }, unit_price{ unit_price_ }, count{ count_ }
+	{
+		if (!is_valid_purchase(product_name_, unit_price_, count_)) { throw Invalid_purchase{}; }
+	}
 
-		// constructor
-		Purchase(const std::string& product_name_,
-			     double unit_price_,
-			     int count_);
+	//--------------------------------------------------------
+	// Helper functions
+	//--------------------------------------------------------
 
-		//----------------------------------------------------------------------
-		// Public member functions
-		//----------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------------------------
+	// bool is_valid_purchase(const string& product_name_, double unit_price_, int count_)
+	//-----------------------------------------------------------------------------------------------------------------------------
+	/*
+	* This functions validates user input and is called by the constructor to establish invariant.
+	*
+	* @param <product_name_> input one or two word product name
+	* @param <unit_price_>   input positive unit price
+	* @param <count_>        input positive count
+	* 
+	* @return                true if valid
+	*/
+	//-----------------------------------------------------------------------------------------------------------------------------
+	bool is_valid_purchase(const string& product_name_, double unit_price_, int count_)
+	{
+		regex pat{ R"(\w+ ?\w*)" };
+		if (!regex_match(product_name_, pat)) { return false; }
+		if (unit_price_ <= 0) { return false; }
+		if (count_ <= 0) { return false; }
 
-		// nonmodifying operations
-		inline std::string get_product_name() const { return product_name; }
-		inline double get_unit_price() const { return unit_price; }
-		inline int get_count() const { return count; }
+		return true;
+	}
 
-	private:
-		std::string product_name;
+	//-----------------------------------------------------------------------------------------------------------------------------
+	// ostream& operator<<(ostream& os, const Purchase& purchase)
+	//-----------------------------------------------------------------------------------------------------------------------------
+	/*
+	* Overloading the << (extraction) operator to print a Purchase.
+	*/
+	//-----------------------------------------------------------------------------------------------------------------------------
+	ostream& operator<<(ostream& os, const Purchase& purchase)
+	{
+		return os << "{Product name: " << purchase.get_product_name() << "}\n"
+			<< "{Unit price: $" << purchase.get_unit_price() << "}\n"
+			<< "{Total ordered: " << purchase.get_count() << "}\n\n";
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------
+	// istream& operator>>(istream& is, Purchase& purchase)
+	//-----------------------------------------------------------------------------------------------------------------------------
+	/*
+	* Overloading the >> (insertion) operator to get user input and construct a Purchase.
+	*/
+	//-----------------------------------------------------------------------------------------------------------------------------
+	istream& operator>>(istream& is, Purchase& purchase)
+	{
+		cout << "Enter product name: ";
+		string product_name;
+		is >> product_name;
+
+		cout << "Enter unit price: $";
 		double unit_price{ 0 };
+		is >> unit_price;
+
+		cout << "Enter total bought: ";
 		int count{ 0 };
-	};
+		is >> count;
 
-	bool is_valid_purchase(const std::string& product_name_, double unit_price_, int count_);
+		if (!is)
+		{
+			is.clear(ios_base::failbit);
+			return is;
+		}
 
-	std::ostream& operator<<(std::ostream& os, const Purchase& purchase);
-	std::istream& operator>>(std::istream& is, Purchase& purchase);
+		purchase = Purchase{ product_name, unit_price, count };
+
+		return is;
+	}
 }
-
-#endif // PURCHASE_H
