@@ -1,5 +1,7 @@
 * TCPPPL Notes *
 
+* !!!!!!!!!! read up on using std::endl vs '\n' !!!!!!!!
+
 * a namespace can have its own int main() function. This can simplify code because in main you can just return Namespace::main();
 
 * operators should be defined outside of the class definition. class_name operator _ (const class_name& obj1, const class_name& obj2); The boolean operators are
