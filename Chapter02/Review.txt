@@ -52,15 +52,3 @@
 10. An IDE is an Integrated Development Environment that provides the tools to edit, debug, compile, and run your program.
 
 11. It is important to practice to develop your inventiveness and style.
-
----------------------------------------
-What should I be able to understand/do?
----------------------------------------
-know the parts of a C++ program
-know how to write comments
-know how what a function is
-know what main is and how to write it
-know about directives
-know about libraries
-know how to create output with cout
-know about compile-time errors
