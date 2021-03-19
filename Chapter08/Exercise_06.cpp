@@ -1,4 +1,10 @@
-#include "Main.h"
+// Chapter 8 Exercise 6
+// Author: Hernan Teran
+// Created on: 2021/03/19
+
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
