@@ -1,3 +1,7 @@
+// Chapter 8 Exercise 9
+// Author: Hernan Teran
+// Created on: 2021/03/19
+
 #include <iostream>
 #include <vector>
 #include <string>
