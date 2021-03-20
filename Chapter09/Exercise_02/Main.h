@@ -5,7 +5,7 @@
 // Chapter 9 Exercises 2 & 3
 //
 // Author: Hernan Teran
-// Created: 2021/02/09
+// Created: 2021/03/20
 //
 /*
 * Design and implement a Name_Pairs class holding (name, age) pairs where name is a string and age is a double.
@@ -26,7 +26,5 @@
 #include "Name_Pair.h"
 
 #include <iostream>
-
-void driver();
 
 #endif // MAIN_H
