@@ -21,22 +21,35 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 #include "Main.h"
 
+using namespace std;
+
 int main()
 {
 	try
 	{
-		Name_Pairs pairs;
+		Name_Pairs p1;
+		
+		p1.read_names("Input names:");
+		p1.read_ages("Input ages:");
+		p1.sort();
+		p1.print("\nPairs:");
 
-		pairs.read_names("Input names:");
-		pairs.read_ages("Input ages:");
-		pairs.sort();
-		pairs.print("\nPairs:");
+		Name_Pairs p2;
+		
+		p2.read_names("Input names:");
+		p2.read_ages("Input ages:");
+		p2.sort();
+		cout << p2;
 
+		if (p1 == p2)
+			cout << "p1 and p2 are equal\n";
+		else
+			cout << "p1 and p2 are not equal\n";
 	}
 	catch (Name_Pairs::Invalid_Pair)
 	{
 		cerr << "I am unable to create pairs.\n";
 	}
-
+	
 	return 0;
 }
