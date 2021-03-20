@@ -27,7 +27,7 @@ public:
 	long double get() const { return a; }
 	void set_b(long double b) { a = b - a; }
 
-	long double operator!() const;
+	Factorial operator!() const;
 
 private:
 	long double a{ 0 };
