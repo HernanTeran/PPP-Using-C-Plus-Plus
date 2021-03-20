@@ -5,7 +5,7 @@
 // Chapter 9 Exercise 2 & 3
 //
 // Author: Hernan Teran
-// Created: 2021/02/09
+// Created: 2021/03/20
 //
 /*
 * Design and implement a Name_Pairs class holding (name, age) pairs where name is a string and age is a double.
@@ -19,123 +19,92 @@
 * Replace Name_Pair::print() with a global operator << and define == and != for Name_Pairs.
 */
 //----------------------------------------------------------------------------------------------------------------------------------
-#include "Name_Pair.h"
+#include "Name_Pairs.h"
 
-//----------------------------------------------------------------------------------------------------------------------------------
-// namespace Name_pairs
-//----------------------------------------------------------------------------------------------------------------------------------
-/*
-* @note This namespace contains the Name_Pair class and its related functions.
-*/
-namespace Name_pairs
+using namespace std;
+
+size_t Name_Pairs::data_sz(const string& prompt)
 {
-	using namespace std;
+	cout << prompt;
+	size_t sz{ 0 };
+	cin >> sz;
+	if (!cin) { throw Invalid_Pair{}; }
+	return sz;
+}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Name_pair::read_names(const string& prompt)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* @param <prompt> Prompt used to get the user to input a name.
-	* 
-	* @note This function reads names until 'stop' is entered. Until then, the names are added to
-	* the names data member which is a vector.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	void Name_pair::read_names(const string& prompt)
+void Name_Pairs::read_names(const string& prompt)
+{
+	DATA_SZ = data_sz("Total names to be entered: ");
+
+	cout << prompt << '\n';
+
+	for (string n; cin >> n;)
 	{
-		cout << prompt;
-
-		for (string name; getline(cin, name);)
-		{
-			const string stop{ "stop" };
-
-			if (name == stop) { break; }
-			names.push_back(name);
-		}
+		name.push_back(n);
+		if (name.size() == DATA_SZ) { return; }
 	}
+}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Name_pair::read_ages(const string& prompt)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* @param <prompt> Prompt used to get the user to input an age.
-	*
-	* @note This function reads ages until a non-digit character is entered. Until then, the ages are added to
-	*       the ages data member which is a vector.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	void Name_pair::read_ages(const string& prompt)
+void Name_Pairs::read_ages(const string& prompt)
+{
+	cout << prompt << '\n';
+
+	for (int a{ 0 }; cin >> a;)
 	{
-		cout << prompt;
-
-		for (int age{ 0 }; cin >> age;) { ages.push_back(age); }
+		if (a <= 0 || !cin) { throw Invalid_Pair{}; }
+		age.push_back(a);
+		if (age.size() == DATA_SZ) { return; }
 	}
+}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Name_pair::print()
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* @note This function prints (names[i], ages[i]) pairs as long as both vectors have the same size.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	void Name_pair::print()
+void Name_Pairs::sort()
+{
+	for (size_t start{ 0 }; start < (name.size() - 1); ++start)
 	{
-		if (names.empty()) { cerr << "There are no names to print.\n"; }
-		if (ages.empty()) { cerr << "There are no ages to print.\n"; }
+		// these variables update every iteration
+		size_t min_index = start;
+		string min_value = name.at(start);
+		int temp_age = age.at(start);
 
-		if (names.empty() && ages.empty())
+		for (size_t index{ start + 1 }; index < name.size(); ++index)
+			// this loop iterates through all the elements
+			// this loop begins after the first element
 		{
-			cerr << "There are no names or ages to print.\n";
-			return;
-		}
-
-		if (names.size() > ages.size() || ages.size() > names.size())
-		{
-			cerr << "The lists are uneven. Unable to print.\n";
-			return;
-		}
-
-		for (size_t i{ 0 }; i < names.size(); ++i)
-		{
-			cout << names.at(i) << '\t' << ages.at(i) << '\n';
-		}
-		cout << '\n';
-	}
-
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Name_pair::sort()
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* @note This function sorts the names and ages vector alphabetically.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	void Name_pair::sort()
-	{
-		constexpr size_t one_name{ 1 };
-
-		for (size_t start{ 0 }; start < (names.size() - one_name); ++start)
-			// first loop excludes the last element
-		{
-			// these variables update every iteration
-			size_t min_index = start;
-			string min_value = names.at(start);
-			int temp_age = ages.at(start);
-
-			for (size_t index{ start + one_name }; index < names.size(); ++index)
-				// this loop iterates through all the elements
-				// this loop begins after the first element
+			if (name.at(index) < min_value)
+				// make changes
 			{
-				if (names.at(index) < min_value)
-					// make changes
-				{
-					min_value = names.at(index);
-					min_index = index;
-					temp_age = ages.at(index);
-				}
+				min_value = name.at(index);
+				min_index = index;
+				temp_age = age.at(index);
 			}
-			// confirm changes
-			swap(names.at(min_index), names.at(start));
-			swap(ages.at(min_index), ages.at(start));
 		}
+		// confirm changes
+		swap(name.at(min_index), name.at(start));
+		swap(age.at(min_index), age.at(start));
 	}
+}
+
+void Name_Pairs::print(const string& prompt)
+{
+	cout << prompt << endl;
+	for (size_t i{ 0 }; i != DATA_SZ; ++i)
+		cout << "Name: " << name.at(i) << '\n' << "Age: " << age.at(i) << "\n\n";
+}
+
+ostream& operator<<(ostream& os, const Name_Pairs& pairs)
+{
+	os << "\nPairs: " << endl;
+	for (size_t i{ 0 }; i != pairs.get_sz(); ++i)
+		os << "Name: " << pairs.get_names().at(i) << '\n' << "Age: " << pairs.get_ages().at(i) << "\n\n";
+	return os;
+}
+
+bool operator==(const Name_Pairs& lp, const Name_Pairs& rp)
+{
+	return (lp.get_names() == rp.get_names()) && (lp.get_ages() == rp.get_ages());
+}
+
+bool operator!=(const Name_Pairs& lp, const Name_Pairs& rp)
+{
+	return !(lp.get_names() == rp.get_names()) && (lp.get_ages() == rp.get_ages());;
 }
