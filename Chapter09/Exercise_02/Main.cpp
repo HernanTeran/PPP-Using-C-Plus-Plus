@@ -5,7 +5,7 @@
 // Chapter 9 Exercises 2 & 3
 //
 // Author: Hernan Teran
-// Created: 2021/02/09
+// Created: 2021/03/20
 //
 /*
 * Design and implement a Name_Pairs class holding (name, age) pairs where name is a string and age is a double.
@@ -21,27 +21,22 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 #include "Main.h"
 
-//----------------------------------------------------------------------------------------------------------------------------------
-// void driver()
-//----------------------------------------------------------------------------------------------------------------------------------
-/*
-* @note This function runs the program and is called by main.
-*/
-//----------------------------------------------------------------------------------------------------------------------------------
-void driver()
-{
-	Name_pairs::Name_pair pairs;
-
-	pairs.read_names("Please enter names ('stop' to terminate):\n");
-	pairs.read_ages("Please enter ages according to name entered ('|' to terminate):\n");
-	pairs.print();
-	pairs.sort();
-	pairs.print();
-}
-
 int main()
 {
-	driver();
+	try
+	{
+		Name_Pairs pairs;
+
+		pairs.read_names("Input names:");
+		pairs.read_ages("Input ages:");
+		pairs.sort();
+		pairs.print("\nPairs:");
+
+	}
+	catch (Name_Pairs::Invalid_Pair)
+	{
+		cerr << "I am unable to create pairs.\n";
+	}
 
 	return 0;
 }
