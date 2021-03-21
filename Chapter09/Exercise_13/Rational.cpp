@@ -31,15 +31,18 @@ namespace Algebra
 	Rational simplify(Rational& rn)
 		// use the modulo operator to find common integer to simplify by
 	{
-		constexpr int MAX_DIVISOR{ 9 };
+		constexpr int MAX_DIVISOR{ 100 };
 
 		for (int i{ 2 }; i != MAX_DIVISOR; ++i)
 		{
 			if (rn.get_numerator() % i == 0 && rn.get_denominator() % i == 0)
-				return Rational{ rn.get_numerator() / i, rn.get_denominator() / i };
+			{
+				rn.set_numerator(rn.get_numerator() / i);
+				rn.set_denominator(rn.get_denominator() / i);
+			}
 		}
 
-		return Rational{ rn };
+		return rn;
 	}
 
 	ostream& operator<<(ostream& os, const Rational& rn)
@@ -113,6 +116,12 @@ namespace Algebra
 
 		int den = static_cast<int>(rn1.den_to_double() * rn2.den_to_double());
 
+		if (num < 0 && den < 0)
+		{
+			num = abs(num);
+			den = abs(den);
+		}
+
 		return simplify(Rational{ num, den });
 	}
 
@@ -135,6 +144,12 @@ namespace Algebra
 		num -= num2;
 
 		int den = static_cast<int>(rn1.den_to_double() * rn2.den_to_double());
+
+		if (num < 0 && den < 0)
+		{
+			num = abs(num);
+			den = abs(den);
+		}
 
 		return simplify(Rational{ num, den });
 	}
