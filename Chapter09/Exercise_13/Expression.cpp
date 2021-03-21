@@ -80,6 +80,7 @@ namespace Algebra
 		if (!is || is.eof() || !is_valid_operator(oper))
 		{
 			is.clear();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
 			throw Expression::Invalid_Operator{};
 		}
 
