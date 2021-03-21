@@ -15,7 +15,7 @@
 
 int main()
 {
-	Algebra::driver();
+	Algebra::driver("\nGoodbye!", "\nI am unable to solve this problem.\n\n");
 	
 	return 0;
 }
