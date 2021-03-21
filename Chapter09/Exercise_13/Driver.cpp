@@ -17,7 +17,7 @@ using namespace std;
 
 namespace Algebra
 {
-	void driver()
+	void driver(const string& message, const string& error)
 	{
 		for (;;)
 		{
@@ -45,22 +45,18 @@ namespace Algebra
 			}
 			catch (Rational::Invalid_Input)
 			{
-				cin.clear();
-				cin.ignore();
-				cerr << "\nI am unable to solve this problem.\n\n";
+				cerr << error;
 				char a = calc_again("Enter 'c' to continue...");
 				if (a != 'c') { break; }
 			}
 			catch (Expression::Invalid_Operator)
 			{
-				cin.clear();
-				cin.ignore();
-				cerr << "\nI am unable to solve this problem.\n\n";
+				cerr << error;
 				char a = calc_again("Enter 'c' to continue...");
 				if (a != 'c') { break; }
 			}
 		}
-		cout << "\nGoodbye!" << endl;
+		cout << message << endl;
 	}
 
 	char calc_again(const string& message)
