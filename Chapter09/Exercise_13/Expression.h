@@ -52,7 +52,7 @@ namespace Algebra
 	bool is_valid_operator(char oper);
 
 	std::istream& operator>>(std::istream& is, Expression& expression);
-	std::ostream& operator<<(std::ostream& os, const Expression& expresson);
+	std::ostream& operator<<(std::ostream& os, const Expression& expression);
 }
 
 #endif // EXPRESSION_H
