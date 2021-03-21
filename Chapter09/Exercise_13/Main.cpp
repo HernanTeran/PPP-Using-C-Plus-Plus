@@ -24,7 +24,7 @@ int main()
 		            "[Input / for division]\n"
 		            "==============================\n\n", 
 		            "\nGoodbye!", 
-		            "\nI am unable to solve this problem.\n\n");
+		            "\nI am unable to solve this problem.\n");
 	
 	return 0;
 }
