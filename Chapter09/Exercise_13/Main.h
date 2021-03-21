@@ -17,4 +17,6 @@
 
 #include "Driver.h"
 
+#include <exception>
+
 #endif // MAIN_H
