@@ -17,31 +17,21 @@ using namespace std;
 
 namespace Algebra
 {
-	void driver(const string& message, const string& error)
+	void driver(const string& menu, const string& message, const string& error)
 	{
 		for (;;)
 		{
 			try
 			{
-				cout << "==============================\n"
-					<< "[Compute Rational Expressions]\n"
-					<< "==============================\n"
-					<< "[Input + for addition]\n"
-					<< "[Input - for subtraction]\n"
-					<< "[Input * for multiplication]\n"
-					<< "[Input / for division]\n"
-					<< "==============================\n\n";
+				cout << menu;
 
-				Expression expression;
-				cin >> expression;
-				cout << expression;
-
-				Rational result = expression.compute();
-				cout << result << endl;
+				Expression expression = get_expression();
+				print_calc(expression);
 
 				char a = calc_again("\nEnter 'c' to continue...");
 				if (a != 'c') { break; }
-				cout << "\n";
+
+				cout << endl;
 			}
 			catch (Rational::Invalid_Input)
 			{
@@ -57,6 +47,18 @@ namespace Algebra
 			}
 		}
 		cout << message << endl;
+	}
+
+	Expression get_expression()
+	{
+		Expression expression;
+		cin >> expression;
+		return expression;
+	}
+
+	void print_calc(const Expression& expression)
+	{
+		cout << expression;
 	}
 
 	char calc_again(const string& message)
