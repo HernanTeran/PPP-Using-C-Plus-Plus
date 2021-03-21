@@ -28,7 +28,8 @@ namespace Algebra
 				Expression expression = get_expression();
 				print_calc(expression);
 
-				char a = calc_again("\nEnter 'c' to continue...");
+				char a = calc_again("\nEnter 'c' to continue...\n"
+					                 "Enter any other key to quit...\n");
 				if (a != 'c') { break; }
 
 				cout << endl;
@@ -36,13 +37,22 @@ namespace Algebra
 			catch (Rational::Invalid_Input)
 			{
 				cerr << error;
-				char a = calc_again("Enter 'c' to continue...");
+				char a = calc_again("\nEnter 'c' to continue...\n"
+					                  "Enter any other key to quit...\n");
 				if (a != 'c') { break; }
 			}
 			catch (Expression::Invalid_Operator)
 			{
 				cerr << error;
-				char a = calc_again("Enter 'c' to continue...");
+				char a = calc_again("\nEnter 'c' to continue...\n"
+					                  "Enter any other key to quit...\n");
+				if (a != 'c') { break; }
+			}
+			catch (...)
+			{
+				cerr << error;
+				char a = calc_again("\nEnter 'c' to continue...\n"
+					                "Enter any other key to quit...\n");
 				if (a != 'c') { break; }
 			}
 		}
