@@ -95,9 +95,10 @@ namespace Algebra
 		return is;
 	}
 
-	ostream& operator<<(ostream& os, const Expression& expresson)
+	ostream& operator<<(ostream& os, const Expression& expression)
 	{
-		return os << "[Result]: " << expresson.get_rn1() << ' ' 
-			  << expresson.get_operator() << ' ' << expresson.get_rn2() << " = ";
+		return os << "[Exact Form]: " << expression.get_rn1() << ' ' 
+			<< expression.get_operator() << ' ' << expression.get_rn2() << " = " << expression.compute()
+			<< "\n[Decimal Form]: " << expression.compute().decimal_val() << '\n';
 	}
 }
