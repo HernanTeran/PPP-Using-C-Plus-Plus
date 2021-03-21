@@ -23,7 +23,7 @@
 
 namespace Algebra
 {
-	void driver();
+	void driver(const std::string& message, const std::string& error);
 	char calc_again(const std::string& message);
 }
 
