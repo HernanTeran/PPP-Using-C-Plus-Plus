@@ -49,7 +49,11 @@ namespace Algebra
 
 		// modifying operations
 		void set_numerator(int num) { numerator = num; }
-		void set_denominator(int den) { denominator = den; }
+		void set_denominator(int den) 
+		{ 
+			if (den == 0) { throw Invalid_Input{}; }
+			denominator = den;
+		}
 
 	private:
 		int numerator{ 0 }, denominator{ 0 };
