@@ -70,7 +70,7 @@ namespace Algebra
 		if (!is)
 		{
 			is.clear();
-			is.ignore();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
 			throw Rational::Invalid_Input{};
 		}
 
@@ -87,7 +87,7 @@ namespace Algebra
 		if (!is || den == 0)
 		{
 			is.clear();
-			is.ignore();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
 			throw Rational::Invalid_Input{};
 		}
 
