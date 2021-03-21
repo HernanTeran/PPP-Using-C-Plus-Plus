@@ -53,24 +53,38 @@ namespace Algebra
 
 	istream& operator>>(istream& is, Rational& rn)
 	{
-		cout << "[Input a rational number: numerator/denominator]\n\n";
+		cout << "[Input a rational number: numerator/denominator]\n\n"
+		     << "[Numerator]: ";
 		int num{ 0 };
-		cout << "[Numerator]: ";
 		is >> num;
 
-		if (!is)
+		if (is.eof())
 		{
-			is.clear(ios_base::failbit);
+			is.clear();
 			throw Rational::Invalid_Input{};
 		}
 
-    int den{ 0 };
+		if (!is)
+		{
+			is.clear();
+			is.ignore();
+			throw Rational::Invalid_Input{};
+		}
+
 		cout << "[Denominator]: ";
+		int den{ 0 };
 		is >> den;
+
+		if (is.eof())
+		{
+			is.clear();
+			throw Rational::Invalid_Input{};
+		}
 
 		if (!is || den == 0)
 		{
-			is.clear(ios_base::failbit);
+			is.clear();
+			is.ignore();
 			throw Rational::Invalid_Input{};
 		}
 
