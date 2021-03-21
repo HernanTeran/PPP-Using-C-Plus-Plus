@@ -23,7 +23,9 @@
 
 namespace Algebra
 {
-	void driver(const std::string& message, const std::string& error);
+	void driver(const std::string& menu, const std::string& message, const std::string& error);
+	Expression get_expression();
+	void print_calc(const Expression& expression);
 	char calc_again(const std::string& message);
 }
 
