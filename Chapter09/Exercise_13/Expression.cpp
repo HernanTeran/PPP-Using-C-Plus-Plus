@@ -73,31 +73,20 @@ namespace Algebra
 		Rational rn1;
 		is >> rn1;
 
-		if (!is)
-		{
-			is.clear(ios_base::failbit);
-			throw Expression::Invalid_Operator{};
-		}
-
 		cout << "\n[Input + - * /]: ";
-    char oper{ '0' };
+		char oper{ '0' };
 		is >> oper;
 
-		if (!is)
+		if (!is || is.eof() || !is_valid_operator(oper))
 		{
-			is.clear(ios_base::failbit);
+			is.clear();
 			throw Expression::Invalid_Operator{};
 		}
 
 		cout << '\n';
-    Rational rn2;
-		is >> rn2;
 
-		if (!is)
-		{
-			is.clear(ios_base::failbit);
-			throw Expression::Invalid_Operator{};
-		}
+		Rational rn2;
+		is >> rn2;
 
 		cout << '\n';
 
@@ -108,6 +97,7 @@ namespace Algebra
 
 	ostream& operator<<(ostream& os, const Expression& expresson)
 	{
-		return os << expresson.get_rn1() << ' ' << expresson.get_operator() << ' ' << expresson.get_rn2() << " = ";
+		return os << "[Result]: " << expresson.get_rn1() << ' ' 
+			  << expresson.get_operator() << ' ' << expresson.get_rn2() << " = ";
 	}
 }
