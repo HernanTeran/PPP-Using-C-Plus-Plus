@@ -15,7 +15,16 @@
 
 int main()
 {
-	Algebra::driver("\nGoodbye!", "\nI am unable to solve this problem.\n\n");
+	Algebra::driver("==============================\n"
+		            "[Compute Rational Expressions]\n"
+		            "==============================\n"
+		            "[Input + for addition]\n"
+		            "[Input - for subtraction]\n"
+		            "[Input * for multiplication]\n"
+		            "[Input / for division]\n"
+		            "==============================\n\n", 
+		            "\nGoodbye!", 
+		            "\nI am unable to solve this problem.\n\n");
 	
 	return 0;
 }
