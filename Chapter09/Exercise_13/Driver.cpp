@@ -76,6 +76,12 @@ namespace Algebra
 		cout << message << '\n';
 		char a{ '0' };
 		cin >> a;
+		if (!cin)
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			return 'q';
+		}
 		return a;
 	}
 }
