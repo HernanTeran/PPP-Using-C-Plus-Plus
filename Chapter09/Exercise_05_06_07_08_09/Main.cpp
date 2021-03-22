@@ -6,6 +6,7 @@
 //
 // Author: Hernan Teran
 // Created: 2021/02/09
+// Updated: 2021/03/22
 //
 /*
 * Class Book should have members for the ISBN, title, author, and copyright date.
@@ -44,7 +45,10 @@
 
 int main()
 {
-	Driver::driver();
+	Local_Library::driver("\nUnable to identify Book.\n", 
+		                  "\nUnable to identify Patron.\n", 
+		                  "\nUnable to complete Library transaction.\n",
+		                  "Enter 'c' to continue...\n");
 
 	return 0;
 }
