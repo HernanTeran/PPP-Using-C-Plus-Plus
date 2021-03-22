@@ -3,25 +3,19 @@
 #include <fstream>
 #include <iomanip>
 
-using std::cout;
-using std::string;
-using std::cin;
-using std::fstream;
-using std::ifstream;
-using std::ofstream;
+using namespace std;
 
 // *READ*
-// at first the program wasn't working because
-// I didn't close ofs
+// at first the program wasn't working because I didn't close ofs
 
 int main()
-{
-	// file path: practice -> out -> build -> x64 -> practice
-	
+{	
 	cout << "Please enter the output file name:\n";
 	string oname;
 	cin >> oname;
 	ofstream ofs{ oname };
+	if (!ofs)
+		cerr << "can't open file, " << oname << '\n';
 
 	string vowels{ "Once upon a time!" };
 	ofs << vowels;
@@ -31,10 +25,12 @@ int main()
 	string iname;
 	cin >> iname;
 	ifstream ifs{ iname };
+	if (!ifs)
+		cerr << "can't open file, " << iname << '\n';
 
 	string disemvowel;
 
-	for (char l{ '0' }; ifs >> std::noskipws >> l;)
+	for (char l{ '0' }; ifs >> noskipws >> l;)
 	{
 		switch (l)
 		{
