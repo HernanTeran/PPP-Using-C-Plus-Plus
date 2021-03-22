@@ -3,23 +3,16 @@
 #include <fstream>
 #include <map>
 
-using std::cout;
-using std::string;
-using std::cin;
-using std::fstream;
-using std::ifstream;
-using std::ofstream;
-using std::cerr;
-using std::map;
+using namespace std;
 
 int main()
 {
-	// file path: practice -> out -> build -> x64 -> practice
-
 	cout << "Please enter the output file name:\n";
 	string oname;
 	cin >> oname;
 	ofstream ofs{ oname };
+	if (!ofs)
+		cerr << "can't open file, " << oname << '\n';
 	ofs << "i like to eat 5 pies\nso & ye%$a; go, tell / a dog 23\n4 4.5 nice...{}~~ QWERTY_+=:";
 	ofs.close();
 
@@ -55,7 +48,8 @@ int main()
 	cout << "\nvalue\tcount\n"
 		   << "-------------\n";
 
-	for (const auto& m : counts) { cout << m.first << '\t' << m.second << '\n'; }
+	for (const auto& m : counts)
+		cout << m.first << '\t' << m.second << '\n';
 
 	return 0;
 }
