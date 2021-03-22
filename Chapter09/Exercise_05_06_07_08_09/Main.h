@@ -5,7 +5,8 @@
 // Chapter 9 Exercises 5 - 9
 //
 // Author: Hernan Teran
-// Created: 2021/02/09
+// Created: 2021/02/19
+// Updated: 2021/03/22
 //
 /*
 * Class Book should have members for the ISBN, title, author, and copyright date.
