@@ -2,20 +2,16 @@
 #include <string>
 #include <fstream>
 
-using std::cout;
-using std::string;
-using std::cin;
-using std::fstream;
-using std::ifstream;
+using namespace std;
 
 int main()
 {
-	// file path: practice -> out -> build -> x64 -> practice
-
 	cout << "Please enter the input file name:\n";
 	string iname;
 	cin >> iname;
 	ifstream ifs{ iname };
+	if (!ifs)
+		cerr << "can't open file, " << iname;
 
 	string paragraph;
 	
