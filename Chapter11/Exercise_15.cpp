@@ -4,19 +4,10 @@
 #include <fstream>
 #include <iomanip>
 
-using std::cout;
-using std::string;
-using std::cin;
-using std::fstream;
-using std::ifstream;
-using std::ofstream;
-using std::cerr;
-using std::vector;
+using namespace std;
 
 int main()
 {
-	// file path: practice -> out -> build -> x64 -> practice
-
 	cout << "Please enter the output file name:\n";
 	string oname;
 	cin >> oname;
@@ -65,9 +56,7 @@ int main()
 	ofs.open(oname);
 
 	for (auto& n : numbers)
-	{
-		ofs << std::setprecision(8) << std::scientific << n << '\n';
-	}
+		ofs << setprecision(8) << scientific << n << '\n';
 
 	return 0;
 }
