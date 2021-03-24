@@ -26,213 +26,248 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 #include "Book.h"
 
-namespace Books
+using namespace std;
+
+namespace Local_Library
 {
-	using namespace std;
-
-	//-----------------------------------------------------
-	// Constructors
-	//-----------------------------------------------------
-
-	//------------------------------------------------------------------------------------------------------------------------------
-	// Book::Book()
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* @note default constructor
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	Book::Book() : copyright_date{0}, genre{}
+	Book::Book()
+		:
+		ISBN{ default_book().get_ISBN() },
+		title{ default_book().get_title() },
+		author{ default_book().get_author() },
+		copyright_date{ default_book().get_copyright_date() },
+		genre{ default_book().get_genre() }
 	{
+		available = true;
+		if (available)
+			status = "Available";
+		else
+			status = "Unavailable";
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// Book::Book(const string& isbn_,
-	//            const string& title_,
-	//            const string& author_,
-	//            int copyright_date_,
-	//            Genre genre_)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Constructor invariant consists of these members having valid input.
-	* 
-	* @param <isbn_>           input ISBN in n-n-n-n-x
-	* @param <title_>          input book title with length >= 3
-	* @param <author_>         input author full name
-	* @param <copyright_date_> input a date in YYYY in the range of [1800:2021]
-	* @param <genre_>          input 1 of the 5 genre options
-	* 
-	* @exception Invalid_Book exception is thrown if any of the members are invalid.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	Book::Book(const string& isbn_,
+	Book::Book(const string& ISBN_,
 		const string& title_,
 		const string& author_,
 		int copyright_date_,
 		Genre genre_)
 		:
-		isbn{ isbn_ },
+		ISBN{ ISBN_ },
 		title{ title_ },
 		author{ author_ },
 		copyright_date{ copyright_date_ },
 		genre{ genre_ }
 	{
-		if (!is_valid_book(isbn_, title_, author_, copyright_date_, genre_)) { throw Invalid_Book{}; }
+		if (!is_valid_book(ISBN_, title_, author_, copyright_date_, genre_)) { throw Invalid_Book{}; }
+		available = true;
+		if (available)
+			status = "Available";
+		else
+			status = "Unavailable";
 	}
 
-	//-----------------------------------------------------
-	// Helper functions
-	//-----------------------------------------------------
+	const Book& default_book()
+	{
+		static Book book{ "0-0-0-x", "Unknown title", "Unknown author", 1800, Genre::Fiction };
+		return book;
+	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// bool is_valid_book(const string& isbn,
-	//                    const string& title,
-	//                    const string& author,
-	//                    const int copyright_date,
-	//                    const Genre genre)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* This function validates all user input and is called in the constructor which is able to trigger an exception.
-	* 
-	* @param <isbn>           input ISBN in n-n-n-n-x
-	* @param <title>          input book title with length >= 3
-	* @param <author>         input author full name
-	* @param <copyright_date> input a date in YYYY in the range of [1800:2021]
-	* @param <genre>          input 1 of the 5 genre options
-	* 
-	* @note test: 1) ISBN 2) title 3) author 4) copyright date 5) genre
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	bool is_valid_book(const string& isbn,
+	bool is_valid_book(const string& ISBN,
 		const string& title,
 		const string& author,
-		const int copyright_date,
-		const Genre genre)
+		int copyright_date,
+		Genre genre)
 	{
-		regex pat{ R"(([0-9])\-([0-9])\-([0-9])\-([0-9])\-([a-zA-z]))" };
-
-		if (!regex_match(isbn, pat)) { return false; }
-
-		constexpr int min_str_len{ 3 };
-
-		if (title.length() < min_str_len) { return false; }
-		if (author.length() < min_str_len) { return false; }
-
-		constexpr int min_date{ 1800 };
-		constexpr int max_date{ 2021 };
-
-		if (copyright_date < min_date || copyright_date > max_date) { return false; }
-
-		constexpr Genre min_genre{ Genre::Fiction };
-		constexpr Genre max_genre{ Genre::Children };
-
-		if (genre < min_genre || genre > max_genre) { return false; }
-
+		regex pat{ R"(([0-9])\-([0-9])\-([0-9])\-([A-za-z]))" };
+		if (!regex_match(ISBN, pat)) { return false; }
+		if (title.length() < Book::MIN_WORD_LEN) { return false; }
+		if (author.length() < Book::MIN_WORD_LEN) { return false; }
+		if (copyright_date < Book::MIN_YEAR || copyright_date > Book::MAX_YEAR) { return false; }
+		if (genre < Genre::Fiction || genre > Genre::Children) { return false; }
 		return true;
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// ostream& operator << (ostream& os, const Book& obj)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Overloading the << (extraction) operator to print the title, author, ISBN, and copyright date.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	ostream& operator << (ostream& os, const Book& obj)
+	string Book::get_str_genre() const
 	{
-		return os << "[Book Info]\n"
-			<< "-----------\n"
-			<< "[Title]: " << obj.get_title() << '\n'
-			<< "[Author]: " << obj.get_author() << '\n'
-			<< "[ISBN]: " << obj.get_isbn() << '\n'
-			<< "[Copyright Date]: " << obj.get_copyright_date() << "\n\n";
-	}
+		string str_genre;
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// istream& operator >> (istream& is, const Book& obj)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Overloading the >> (insertion) operator to get user input for the title, author, ISBN, and copyright date.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	istream& operator >> (istream& is, Book& obj)
-	{
-		cout << "Enter ISBN (d-d-d-d-l):\n";
-		string ISBN;
-		getline(is, ISBN);
-		if (!is) { return is; }
-
-		cout << "Enter book title:\n";
-		string title;
-		getline(is, title);
-		if (!is) { return is; }
-
-		cout << "Enter book author:\n";
-		string author;
-		getline(is, author);
-		if (!is) { return is; }
-
-		cout << "Enter copyright date (yyyy):\n";
-		int copyright{ 1800 };
-		is >> copyright;
-		if (!is) { return is; }
-
-		cout
-			<< "Enter genre (1-5):\n"
-			<< "Fiction\n"
-			<< "Nonfiction\n"
-			<< "Periodical\n"
-			<< "Biography\n"
-			<< "Children\n\n";
-
-		int i_genre{ 0 };
-		is >> i_genre;
-		if (!is) { return is; }
-		Books::Genre genre{};
-
-		switch (i_genre)
+		switch (genre)
 		{
-		case 1:
-			genre = Books::Genre::Fiction;
+		case Genre::Fiction:
+			str_genre = "Fiction";
 			break;
-		case 2:
-			genre = Books::Genre::Nonfiction;
+		case Genre::Nonfiction:
+			str_genre = "Nonfiction";
 			break;
-		case 3:
-			genre = Books::Genre::Periodical;
+		case Genre::Periodical:
+			str_genre = "Periodical";
 			break;
-		case 4:
-			genre = Books::Genre::Biography;
+		case Genre::Biography:
+			str_genre = "Biography";
 			break;
-		case 5:
-			genre = Books::Genre::Children;
+		case Genre::Children:
+			str_genre = "Children";
 			break;
 		default:
-			cerr << "[Error]: invalid input\n";
-			break;
+			throw Invalid_Book{};
 		}
 
-		cin.ignore();
+		return str_genre;
+	}
 
-		obj = Book{ ISBN, title, author, copyright, genre };
+	ostream& operator<<(ostream& os, const Book& book)
+	{
+		return os << "\n[Book]\n"
+			<< "[Title: " << book.get_title() << "]\n"
+			<< "[Author: " << book.get_author() << "]\n"
+			<< "[ISBN: " << book.get_ISBN() << "]\n"
+			<< "[Genre: " << book.get_str_genre() << "]\n"
+			<< "[Status: " << book.get_avail_status() << "]\n";
+	}
+
+	istream& operator>>(istream& is, Book& book)
+	{
+		string ISBN = ISBN_input(is);
+		string title = title_input(is);
+		string author = author_input(is);
+		int copyright_date = cpyd_input(is);
+		Genre genre = genre_input(is);
+
+		book = Book{ ISBN, title, author, copyright_date, genre };
 
 		return is;
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// bool operator==(const Book& obj1, const Book& obj2)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Overloading the == (equality) operator to compare valid books.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	bool operator==(const Book& obj1, const Book& obj2) { return obj1.get_isbn() == obj2.get_isbn(); }
+	bool operator==(const Book& b1, const Book& b2)
+	{
+		return b1.get_ISBN() == b2.get_ISBN();
+	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// bool operator!=(const Book& obj1, const Book& obj2)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Overloading the != (inequality) operator to compare valid books.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	bool operator!=(const Book& obj1, const Book& obj2) { return !(obj1.get_isbn() == obj2.get_isbn()); }
+	bool operator!=(const Book& b1, const Book& b2)
+	{
+		return b1.get_ISBN() != b2.get_ISBN();
+	}
+
+	string ISBN_input(istream& is)
+	{
+		string ISBN;
+		cout << "[Input ISBN n-n-n-x]: ";
+		is >> ISBN;
+		if (is.eof())
+		{
+			is.clear();
+			throw Book::Invalid_Book{};
+		}
+		return ISBN;
+	}
+
+	string title_input(istream& is)
+	{
+		string title;
+		cout << "[Input title]: ";
+		is.ignore(10000, '\n');
+		getline(is, title, '\n');
+		return title;
+	}
+
+	string author_input(istream& is)
+	{
+		string fname, lname;
+		cout << "[Input author]: ";
+		is >> fname >> lname;
+
+		if (is.eof())
+		{
+			is.clear();
+			throw Book::Invalid_Book{};
+		}
+
+		if (!is)
+		{
+			is.clear();
+			is.ignore();
+			throw Book::Invalid_Book{};
+		}
+
+		return fname + ' ' + lname;
+	}
+
+	int cpyd_input(istream& is)
+	{
+		int copyright_date{ 0 };
+		cout << "[Input copyright date]: ";
+		is >> copyright_date;
+
+		if (is.eof())
+		{
+			is.clear();
+			throw Book::Invalid_Book{};
+		}
+
+		if (!is)
+		{
+			is.clear();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
+			throw Book::Invalid_Book{};
+		}
+
+		return copyright_date;
+	}
+
+	int genre_int(istream& is)
+	{
+		cout << "\n[Genres]\n"
+			<< "(1) Fiction\n"
+			<< "(2) Nonfiction\n"
+			<< "(3) Periodical\n"
+			<< "(4) Biography\n"
+			<< "(5) Children\n"
+			<< "\n[Input genre]: ";
+
+		int genre{ 0 };
+		is >> genre;
+
+		if (is.eof())
+		{
+			is.clear();
+			throw Book::Invalid_Book{};
+		}
+
+		if (!is)
+		{
+			is.clear();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
+			throw Book::Invalid_Book{};
+		}
+
+		return genre;
+	}
+
+	Genre genre_input(istream& is)
+	{
+		int i_genre = genre_int(is);
+		Genre genre;
+
+		switch (i_genre)
+		{
+		case 1:
+			genre = Genre::Fiction;
+			break;
+		case 2:
+			genre = Genre::Nonfiction;
+			break;
+		case 3:
+			genre = Genre::Periodical;
+			break;
+		case 4:
+			genre = Genre::Biography;
+			break;
+		case 5:
+			genre = Genre::Children;
+			break;
+		default:
+			throw Book::Invalid_Book{};
+		}
+
+		return genre;
+	}
 }
