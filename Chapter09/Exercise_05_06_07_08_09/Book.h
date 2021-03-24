@@ -28,83 +28,75 @@
 #define BOOK_H
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <regex>
-#include <iostream>
-#include <ostream>
 
-namespace Books
+namespace Local_Library
 {
+	// symbolic constants
 	enum class Genre { Fiction = 1, Nonfiction, Periodical, Biography, Children };
 
 	class Book
 	{
 	public:
-		class Invalid_Book{};
+		// constants
+		static constexpr std::size_t MIN_WORD_LEN{ 2 };
+		static constexpr int MIN_YEAR{ 1800 }, MAX_YEAR{ 2021 };
 
+	public:
+		// exception class
+		class Invalid_Book {};
+
+		// constructors
 		Book();
-
-		Book(const std::string& isbn_,
+		Book(const std::string& ISBN_,
 			const std::string& title_,
 			const std::string& author_,
 			int copyright_date_,
 			Genre genre_);
 
-		//-----------------------------------------------------
-	        // Public member functions
-	        //-----------------------------------------------------
+	public:
+		// public member functions
 
-		//-----------------------------------------------------
-		// Nonmodifying operations
-		//-----------------------------------------------------
-		inline std::string get_isbn() const { return isbn; }
-		inline std::string get_title() const { return title; }
-		inline std::string get_author() const { return author; }
-		inline int get_copyright_date() const { return copyright_date; }
-		inline bool is_available() { return book_is_available; }
+		// nonmodifying operations
+		std::string get_ISBN() const { return ISBN; }
+		std::string get_title() const { return title; }
+		std::string get_author() const { return author; }
+		std::string get_avail_status() const { return status; }
+		std::string get_str_genre() const;
+		int get_copyright_date() const { return copyright_date; }
+		Genre get_genre() const { return genre; }
+		bool is_available() const { return available; }
 
-		//-----------------------------------------------------
-		// Modifying operations
-		//-----------------------------------------------------
-		inline void check_out()
-		{
-			if (book_is_available)
-			{
-				book_is_available = false;
-				std::cout << get_title() << " by " << get_author() << " has been checked out.\n";
-				return;
-			}
-		}
+		// modifying operation
+		void set_availability(bool avai) { available = avai; }
+		void set_status(const std::string& s) { status = s; }
 
-		inline void return_book()
-		{
-			if (!book_is_available)
-			{
-				book_is_available = true;
-				std::cout << get_title() << " by " << get_author() << " has been returned.\n";
-				return;
-			}
-		}
 	private:
-		std::string isbn;
-		std::string title;
-		std::string author;
-		int copyright_date{ 1800 };
-		Genre genre{ Genre::Fiction };
-		bool book_is_available{ true };
+		std::string ISBN, title, author, status;
+		int copyright_date;
+		Genre genre;
+		bool available{ true };
 	};
 
-	bool is_valid_book(const std::string& isbn,
-		const std::string& title,
-		const std::string& author,
-		const int copyright_date,
-		const Genre genre);
+	// helper functions
+	const Book& default_book();
+	bool is_valid_book(const std::string& ISBN, const std::string& title, const std::string& author,
+		int copyright_date, Genre genre);
 
-	std::ostream& operator << (std::ostream& os, const Book& obj);
-	std::istream& operator >> (std::istream& is, Book& obj);
+	std::ostream& operator<<(std::ostream& os, const Book& book);
+	std::istream& operator>>(std::istream& is, Book& book);
 
-	bool operator == (const Book& obj1, const Book& obj2);
-	bool operator != (const Book& obj1, const Book& obj2);
+	bool operator==(const Book& b1, const Book& b2);
+	bool operator!=(const Book& b1, const Book& b2);
+
+	std::string ISBN_input(std::istream& is);
+	std::string title_input(std::istream& is);
+	std::string author_input(std::istream& is);
+	int cpyd_input(std::istream& is);
+	int genre_int(std::istream& is);
+	Genre genre_input(std::istream& is);
 }
 
 #endif // BOOK_H
