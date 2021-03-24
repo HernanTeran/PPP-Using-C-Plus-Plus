@@ -1,9 +1,6 @@
 #include <iostream>
-#include <string>
 
-using std::cout;
-using std::string;
-using std::cin;
+using namespace std;
 
 // *READ*
 // to read a char* use cin.getline(var, delim)
@@ -15,60 +12,34 @@ using std::cin;
 // because they are not allocated on the free store
 // using the new operator
 
-char* get_str(const std::string& prompt, int sz);
-char* str_dup(const char* s);
-void print_str(const char* c_s);
+char* str_dup(const char* s, int SZ);
 
 int main()
 {
-	constexpr int sz{ 50 };
-	char* c_str_orig = get_str("Please enter your string:\n", sz);
+	char* s = new char[] {"ham and apples"};
+	
+	int SZ{ 1 };
+	
+	for (int i{ 0 }; s[i] != '\0'; ++i)
+		++SZ;
 
-	char* c_str_copy = str_dup(c_str_orig);
-	print_str(c_str_copy);
+	char* sc = str_dup(s, SZ);
 
-	delete[] c_str_orig;
-	delete[] c_str_copy;
+	for (int i{ 0 }; i != SZ; ++i)
+		cout << sc[i];
+	
+	delete[] s;
+	delete[] sc;
 
 	return 0;
 }
 
-char* get_str(const std::string& prompt, int sz)
+char* str_dup(const char* s, int SZ)
 {
-	char* temp = new char[sz];
-	constexpr char delim{ '0' };
-	cout << prompt;
-	cin.getline(temp, delim);
+	char* c = new char[SZ];
 
-	return temp;
-}
+	for (int i{ 0 }; i != SZ; ++i)
+		c[i] = s[i];
 
-char* str_dup(const char* s)
-{
-	int i{ 0 };
-	constexpr int end_of_str{ 0 };
-	int sz{ 1 };
-
-	while (s[i] != end_of_str)
-	{
-		++sz;
-		++i;
-	}
-
-	char* temp_str = new char[sz];
-	for (int x{ 0 }; x < sz; ++x) { temp_str[x] = s[x]; }
-
-	return temp_str;
-}
-
-void print_str(const char* c_s)
-{
-	int i{ 0 };
-	constexpr int end_of_str{ 0 };
-
-	while (c_s[i] != end_of_str)
-	{
-		cout << c_s[i];
-		++i;
-	}
+	return c;
 }
