@@ -13,74 +13,93 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 #include "Library_Impl.h"
 
-namespace Driver
+using namespace std;
+
+namespace Local_Library
 {
-	using namespace Books;
-	using namespace Patrons;
-	using namespace Local_Library;
-
-	using std::cin;
-	using std::cout;
-	using std::cerr;
-
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void driver()
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* This function runs the program and is called by main.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	void driver()
+	void driver(const string& inv_b, const string& inv_p, const string& inv_l)
 	{
-		try
+		for (;;)
 		{
-			//----------------------------------------------------------------------------------------------------------------------
-			// Test cases
-			//----------------------------------------------------------------------------------------------------------------------
-			/*
-			* @note rand_book and rand_patron are suppose to provide invalid input for testing purposes.
-			*/
-			//----------------------------------------------------------------------------------------------------------------------
-			Book rand_book{ "1-2-2-2-F", "The Shining", "Stephen King", 1805, Books::Genre::Biography };
-			Patron rand_patron{ "Gene Belcher", 123456 };
+			try
+			{
+				Library library;
 
-			Book book1;
-			cin >> book1;
-			cout << book1;
+				Book b1, b2;
+				cin >> b1 >> b2;
 
-			Patron patron1{ "Bob Belcher", 434323 };
+				library.add_book(b1);
+				library.add_book(b2);
 
-			Library library;
-			library.add_book(book1);
-			library.add_patron(patron1);
-			library.check_out_book(book1, patron1);
+				Patron p1, p2;
+				cin >> p1 >> p2;
 
-			// test case ------------------------------------------------------------------
-			library.check_out_book(rand_book, rand_patron);
-			// ----------------------------------------------------------------------------
+				library.add_patron(p1);
+				library.add_patron(p2);
 
-			Book book2;
-			cin >> book2;
-			cout << book2;
+				library.check_out_book(b1, p1);
+				library.check_out_book(b2, p2);
 
-			Patron patron2{ "Linda Belcher", 785342 };
-			library.add_book(book2);
-			library.add_patron(patron2);
-			library.check_out_book(book2, patron2);
+				print_lib(library);
 
-			library.print_debt_list();
+				library.check_in_book(b1, p1);
+				library.check_in_book(b2, p2);
 
-			library.check_in_book(book1, patron1);
-			library.check_in_book(book2, patron2);
-
+				print_lib(library);
+				
+				char a = cont_loop("Enter 'c' to continue...\n");
+				if (a != 'c') { return; }
+			}
+			catch (Book::Invalid_Book)
+			{
+				cerr << inv_b << '\n';
+				char a = cont_loop("Enter 'c' to continue...\n");
+				if (a != 'c') { return; }
+			}
+			catch (Patron::Invalid_Patron)
+			{
+				cerr << inv_p << '\n';
+				char a = cont_loop("Enter 'c' to continue...\n");
+				if (a != 'c') { return; }
+			}
+			catch (Library::Lib_Error)
+			{
+				cerr << inv_l << '\n';
+				char a = cont_loop("Enter 'c' to continue...\n");
+				if (a != 'c') { return; }
+			}
+			catch (exception& e)
+			{
+				cerr << e.what();
+				char a = cont_loop("Enter 'c' to continue...\n");
+				if (a != 'c') { return; }
+			}
+			catch (...)
+			{
+				cerr << "An unexpected error occurred.\n";
+				return;
+			}
 		}
-		catch (Book::Invalid_Book)
+	}
+
+	char cont_loop(const string& prompt)
+	{
+		cout << prompt;
+		char c{ '0' };
+		cin >> c;
+
+		if (!cin || cin.eof())
 		{
-			cerr << "Invalid book.\n";
+			cin.clear();
+			return 'q';
 		}
-		catch (Patron::Invalid_Patron)
-		{
-			cerr << "Invalid patron.\n";
-		}
+
+		return c;
+	}
+
+	void print_lib(const Library& lib)
+	{
+		cout << lib;
+		print_p_names(patrons_in_debt(lib));
 	}
 }
