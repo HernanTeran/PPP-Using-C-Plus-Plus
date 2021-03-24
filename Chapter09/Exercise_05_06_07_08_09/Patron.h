@@ -18,50 +18,61 @@
 #define PATRON_H
 #pragma once
 
+#include <iostream>
 #include <string>
+#include <regex>
 
-namespace Patrons
+namespace Local_Library
 {
 	class Patron
 	{
 	public:
-		class Invalid_Patron{};
+		// constants
+		static constexpr std::size_t MIN_NAME_LEN{ 2 };
+		static constexpr std::size_t CARD_NUM_LEN{ 6 };
+		static constexpr double ZERO_BAL{ 0.0 };
 
-		Patron() = delete;
+	public:
+		// exception class
+		class Invalid_Patron {};
 
-		Patron(const std::string& full_name_, int account_number_);
+		// constructors
+		Patron();
+		Patron(const std::string& full_name_, const std::string& lib_card_num_);
 
-		//-----------------------------------------------------
-		// Public member functions
-		//-----------------------------------------------------
+	public:
+		// public member functions
 
-		//-----------------------------------------------------
-		// Nonmodifying operations
-		//-----------------------------------------------------
-		inline std::string get_full_name() const { return full_name; }
-		inline int get_account_number() const { return account_number; }
-		inline double get_library_fees() const { return library_fee; }
+		// nonmodifying operations
+		std::string get_full_name() const { return full_name; }
+		std::string get_lib_card_num() const { return lib_card_num; }
+		double get_lib_fees() const { return lib_fees; }
 
-		//-----------------------------------------------------
-		// Modifying operation
-		//-----------------------------------------------------
-		inline void set_fee(double library_fee_)
+		// modifying operation
+		void set_lib_fee(double fee)
 		{
-			if (library_fee_ < 0) { throw Invalid_Patron{}; }
-			library_fee = library_fee_;
+			if (fee < 0) { throw Invalid_Patron{}; }
+			lib_fees = fee;
 		}
 
 	private:
-		std::string full_name;
-		int account_number{ 0 };
-		double library_fee{ 0 };
+		std::string full_name, lib_card_num;
+		double lib_fees{ 0.0 };
 	};
 
-	bool is_valid_patron(const std::string& full_name_, int account_number_);
+	// helper functions
+	const Patron& default_patron();
+	bool is_valid_patron(const std::string& full_name, const std::string& lib_card_num);
 	bool owes_fees(const Patron& patron);
 
-	bool operator == (const Patron& obj1, const Patron& obj2);
-	bool operator != (const Patron& obj1, const Patron& obj2);
+	std::ostream& operator<<(std::ostream& os, const Patron& patron);
+	std::istream& operator>>(std::istream& is, Patron& patron);
+
+	bool operator==(const Patron& p1, const Patron& p2);
+	bool operator!=(const Patron& p1, const Patron& p2);
+
+	std::string name_input(std::istream& is);
+	std::string lcn_input(std::istream& is);
 }
 
 #endif // PATRON_H
