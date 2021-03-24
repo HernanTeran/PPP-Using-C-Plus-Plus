@@ -24,280 +24,203 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 #include "Library.h"
 
+using namespace std;
+
 namespace Local_Library
 {
-	using namespace std;
-	using Books::Book;
-	using Patrons::Patron;
-
-	//------------------------------------------------------------------------------------------------------------------------------
-	// Local_Library::Library::Library(const vector<Book>& books_,
-	//                                 const vector<Patron>& patrons_)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* @param <books_>   valid books are added to vector
-	* @param <patrons_> valid patrons are added to vector
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	Local_Library::Library::Library(const vector<Book>& books_,
-		const vector<Patron>& patrons_)
-		:
-		books{ books_ }, patrons{ patrons_ }
+	ostream& operator<<(ostream& os, const Library& library)
 	{
+		os << "================================\n"
+			<< "*Patrons in Library*\n"
+			<< "================================\n";
+		for (const Patron& p : library.get_patrons())
+			os << p;
+
+		os << "\n================================\n"
+			<< "*Books in Library*\n"
+			<< "================================\n";
+		for (const Book& b : library.get_books())
+			os << b;
+
+		os << "\n================================\n"
+			<< "*Transactions*\n" 
+			<<"================================\n";
+		for (const Transaction& t : library.get_transactions())
+			os << t.patron << t.book << '\n';
+
+		os << "================================\n\n";
+
+		return os;
 	}
 
-	//-----------------------------------------------------
-	// Public member functions
-	//-----------------------------------------------------
-
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Library::add_book(const Book& book)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Adds a valid book to the books vector unless the book is already in the vector.
-	* 
-	* @param <book> valid unique book
-	* 
-	* @note If the book is already in the vector the function returns with an error message.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
 	void Library::add_book(const Book& book)
 	{
-		if (books.empty())
-		{
+		auto it = find(books.cbegin(), books.cend(), book);
+		if (it == books.cend())
+		{ 
 			books.push_back(book);
-			cout << book.get_title() << " by " << book.get_author() << " has been added to the library.\n";
+			cout << "\n[" + book.get_title() + " by " + book.get_author() + " has been added to the Library.]\n\n";
 			return;
 		}
-
-		for (const auto& b : books)
-		{
-			if (b == book)
-			{
-				cerr << "This book is already in the library!\n";
-				return;
-			}
-		}
-
-		books.push_back(book);
-		cout << book.get_title() << " by " << book.get_author() << " has been added to the library.\n";
+		cerr << "\n[This Book is already in the Library!]\n";
 		return;
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Library::add_patron(const Patron& patron)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* Adds a valid patron to the patrons vector unless the patron is already in the vector.
-	*
-	* @param <patron> valid unique patron
-	*
-	* @note If the patron is already in the vector the function returns with an error message.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
 	void Library::add_patron(const Patron& patron)
 	{
-		if (patrons.empty())
+		auto it = find(patrons.cbegin(), patrons.cend(), patron);
+		if (it == patrons.cend())
 		{
 			patrons.push_back(patron);
-			cout << patron.get_full_name() << " is now in the library.\n";
+			cout << "\n[" + patron.get_full_name() + " is in the Library.]\n\n";
 			return;
 		}
-
-		for (const auto& p : patrons)
-		{
-			if (p == patron)
-			{
-				cerr << "This patron is already in the library!\n";
-				return;
-			}
-		}
-
-		patrons.push_back(patron);
-		cout << patron.get_full_name() << " is now in the library.\n";
+		cerr << "\n[This Patron is already in the Library]!\n";
 		return;
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Library::check_out_book(Book& book, Patron& patron)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* This function checks out a book by validating the book, patron, and checking if the patron owes fees.
-	* If everything checks out, a Transaction is created.
-	*
-	* @param <book>   valid unique book
-	* @param <patron> valid unique patron
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
 	void Library::check_out_book(Book& book, Patron& patron)
 	{
-		bool book_match{ true };
+		auto it_book = find(books.cbegin(), books.cend(), book);
+		auto it_patron = find(patrons.cbegin(), patrons.cend(), patron);
 
-		for (size_t b{ 0 }; b != books.size(); ++b)
+		if (it_book != books.cend() && it_patron != patrons.cend())
 		{
-			if (books.at(b) == book)
+			if (!book.is_available())
 			{
-				cout << book.get_title() << " with ISBN " << book.get_isbn() << " has been found.\n";
-				break;
-			}
-
-			constexpr double last_book{ 1 };
-
-			if (b == books.size() - last_book)
-			{
-				cerr << "This book is not in the library!\n";
-				book_match = false;
-			}
-		}
-
-		bool patron_match{ true };
-
-		for (size_t p{ 0 }; p != patrons.size(); ++p)
-		{
-			if (patrons.at(p) == patron)
-			{
-				cout << patron.get_full_name() << " with account number "
-					 << patron.get_account_number() << " has been found.\n";
-				break;
-			}
-
-			constexpr double last_patron{ 1 };
-
-			if (p == patrons.size() - last_patron)
-			{
-				cerr << "This patron is not in the library!\n";
-				patron_match = false;
-			}
-		}
-
-		if (!book_match || !patron_match) { return; }
-
-		for (const auto& t : transactions)
-		{
-			if (t.book == book && t.patron == patron)
-			{
-				cerr << "You have already checked this book out!\n";
+				cerr << "\n[" + book.get_title() + " by " + book.get_author() + " is currently unavailable.]\n\n";
 				return;
 			}
-		}
 
-		constexpr double zero_balance{ 0 };
+			if (owes_fees(patron))
+			{
+				cerr << "\n[Unable to checkout book because " + patron.get_full_name() + 
+					" owes $" << patron.get_lib_fees() << ".]\n\n";
+				return;
+			}
 
-		if (patron.get_library_fees() != zero_balance)
-		{
-			cerr << patron.get_full_name() << " you have an outstanding balance of $"
-				 << patron.get_library_fees() << ".\nYou are not allowed to check out a book until it is paid off.\n";
-			return;
-		}
+			book.set_availability(false);
+			patron.set_lib_fee(BASE_FEE);
+			book.set_status("Unavailable");
 
-		if (book.is_available())
-		{
-			book.check_out();
-			constexpr double base_fee{ 1.08 };
-			patron.set_fee(base_fee);
+			for (auto& b : books)
+				if (b == book)
+					b.set_status("Unavailable");
+			
+			for (auto& p : patrons)
+				if (p == patron)
+					p.set_lib_fee(BASE_FEE);
+
 			transactions.push_back(Transaction{ book, patron });
-			patrons_in_debt.push_back(patron);
-			cout << "Happy Reading " << patron.get_full_name() << "!\n";
+			cout << "\n[" + patron.get_full_name() + " has checked out " + book.get_title() + " by " +
+				book.get_author() + ".]\n\n";
 			return;
 		}
-		else
-		{
-			cerr << book.get_title() << " by " << book.get_author() << " is currently checked out.\n";
-			return;
-		}
+		else { throw Lib_Error{}; }
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Library::check_in_book(Book& book, Patron& patron)
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* This function checks in a book by checking for the correct book and patron.
-	* If the patron owed any fees, the fees will be cleared.
-	*
-	* @param <book>   valid unique book
-	* @param <patron> valid unique patron
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
 	void Library::check_in_book(Book& book, Patron& patron)
 	{
-		for (auto& t : transactions)
+		auto it_bl = find(books.cbegin(), books.cend(), book);
+		auto it_pl = find(patrons.cbegin(), patrons.cend(), patron);
+
+		if (it_bl == books.cend() || it_pl == patrons.cend())
+			throw Lib_Error{};
+
+		for (size_t i{ 0 }; i != transactions.size(); ++i)
 		{
-			if (t.book == book && t.patron == patron)
-				// return book and clear library fee
-				// remove single transaction if there is only one in the vector
-				// else move transaction to the back to be able to remove it by using pop_back()
+			if (book == transactions.at(i).book && patron == transactions.at(i).patron)
 			{
-				book.return_book();
+				book.set_availability(true);
+				patron.set_lib_fee(patron.ZERO_BAL);
+				book.set_status("Available");
+				break;
+			}
+		}
 
-				constexpr double zero_balance{ 0 };
-				patron.set_fee(zero_balance);
+		for (auto& b : books)
+			if (b == book)
+				b.set_status("Available");
 
-				constexpr size_t one_transaction{ 1 };
+		for (size_t i{ 0 }; i != patrons.size(); ++i)
+		{
+			if (patron == patrons.at(i))
+			{
+				patrons.at(i).set_lib_fee(patron.ZERO_BAL);
+				break;
+			}
+		}
 
-				if (transactions.size() == one_transaction)
+		if (transactions.size() == 1)
+		{
+			transactions.pop_back();
+			cout << "[" + patron.get_full_name() + " has returned " + book.get_title() + "]\n";
+			remove_patron(patron);
+			return;
+		}
+
+		if (transactions.size() > 1)
+		{
+			for (size_t i{ 0 }; i != transactions.size(); ++i)
+			{
+				if (patron == transactions.at(i).patron)
 				{
+					swap(transactions.at(i), transactions.at(transactions.size() - 1));
 					transactions.pop_back();
-					cout << "Transaction has been cleared.\n";
+					cout << "[" + patron.get_full_name() + " has returned " + book.get_title() + "]\n";
+					remove_patron(patron);
 					return;
+				}
+			}
+		}
+		else { throw Lib_Error{}; }
+	}
+
+	void Library::remove_patron(Patron& patron)
+	{
+		if (owes_fees(patron))
+			throw Lib_Error{};
+
+		for (size_t i{ 0 }; i != patrons.size(); ++i)
+		{
+			if (patron == patrons.at(i))
+			{
+				if (patrons.size() == 1)
+				{
+					patrons.pop_back();
+					break;
 				}
 				else
 				{
-					const size_t last_transaction{ transactions.size() - one_transaction };
-
-					swap(t, transactions.at(last_transaction));
-					transactions.pop_back();
-					cout << "Transaction has been cleared.\n";
-					return;
+					swap(patron, patrons.at(patrons.size() - 1));
+					patrons.pop_back();
+					break;
 				}
 			}
 		}
 
-		for (auto& p : patrons_in_debt)
-		{
-			constexpr size_t one_patron{ 1 };
-
-			if (patrons_in_debt.size() == one_patron)
-			{
-				patrons_in_debt.pop_back();
-				cout << p.get_full_name() << " has been cleared from in-debt list.\n";
-				return;
-			}
-			else
-			{
-				const size_t last_patron{ patrons_in_debt.size() - one_patron };
-
-				swap(p, patrons_in_debt.at(last_patron));
-				patrons_in_debt.pop_back();
-				cout << p.get_full_name() << " has been cleared from in-debt list.\n";
-				return;
-			}
-		}
-
-		// if there are no matches
-		cerr << "There are no matches for that book or patron.\n";
+		cout << "\n[" + patron.get_full_name() + " has left the Library.]\n";
 		return;
 	}
 
-	//------------------------------------------------------------------------------------------------------------------------------
-	// void Library::print_debt_list()
-	//------------------------------------------------------------------------------------------------------------------------------
-	/*
-	* This function prints the names of patrons that owe fees.
-	*/
-	//------------------------------------------------------------------------------------------------------------------------------
-	void Library::print_debt_list()
+	vector<string> patrons_in_debt(const Library& library)
 	{
-		if (transactions.empty())
-		{
-			cerr << "There are currently no transactions.\n";
-			return;
-		}
+		vector<string> names;
 
-		cout << "\n*PATRONS IN-DEBT*\n"
-			<< "------------------\n";
-		for (const auto& p : patrons_in_debt) { cout << p.get_full_name() << '\n'; }
-		cout << '\n';
+		for (const auto& p : library.get_patrons())
+			if (owes_fees(p))
+				names.push_back(p.get_full_name());
+			else
+				throw Library::Lib_Error{};
 
-		return;
+		return names;
+	}
+
+	void print_p_names(const vector<string>& pnames)
+	{
+		cout << "[Patrons in debt]:\n";
+		for (const auto& n : pnames)
+			cout << n << '\n';
+		cout << endl;
 	}
 }
