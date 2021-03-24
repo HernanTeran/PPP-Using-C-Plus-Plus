@@ -29,43 +29,56 @@
 #include "Book.h"
 #include "Patron.h"
 
+#include <iostream>
+#include <string>
 #include <vector>
 
 namespace Local_Library
 {
-	//-----------------------------------------------------
-	// struct Transaction
-	//-----------------------------------------------------
-	/*
-	* takes valid books and patrons
-	*/
-	//-----------------------------------------------------
 	struct Transaction
 	{
-		Books::Book book;
-		Patrons::Patron patron;
+		Book book;
+		Patron patron;
 	};
 
 	class Library
 	{
 	public:
-		Library() = default;
+		// constant
+		static constexpr double BASE_FEE{ 10.99 };
 
-		Library(const std::vector<Books::Book>& books_,
-			const std::vector<Patrons::Patron>& patrons_);
+		// exception class
+		class Lib_Error {};
 
-		void add_book(const Books::Book& book);
-		void add_patron(const Patrons::Patron& patron);
-		void check_out_book(Books::Book& book, Patrons::Patron& patron);
-		void check_in_book(Books::Book& book, Patrons::Patron& patron);
-		void print_debt_list();
+		// no need for constructors
+	public:
+		// public member functions
+
+		// nonmodifying operations
+		std::vector<Book> get_books() const { return books; }
+		std::vector<Patron> get_patrons() const { return patrons; }
+		std::vector<Transaction> get_transactions() const { return transactions; }
+
+		// modifying operations
+		void add_book(const Book& book);
+		void add_patron(const Patron& patron);
+		void check_out_book(Book& book, Patron& patron);
+		void check_in_book(Book& book, Patron& patron);
+
+	protected:
+		void remove_patron(Patron& patron);
 
 	private:
-		std::vector<Books::Book> books;
-		std::vector<Patrons::Patron> patrons;
+		std::vector<Book> books;
+		std::vector<Patron> patrons;
 		std::vector<Transaction> transactions;
-		std::vector<Patrons::Patron> patrons_in_debt;
 	};
+
+	// helper functions
+	std::ostream& operator<<(std::ostream& os, const Library& library);
+
+	std::vector<std::string> patrons_in_debt(const Library& library);
+	void print_p_names(const std::vector<std::string>& pnames);
 }
 
 #endif // LIBRARY_H
