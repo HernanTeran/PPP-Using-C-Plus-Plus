@@ -45,10 +45,9 @@
 
 int main()
 {
-	Local_Library::driver("\nUnable to identify Book.\n", 
-		                  "\nUnable to identify Patron.\n", 
-		                  "\nUnable to complete Library transaction.\n",
-		                  "Enter 'c' to continue...\n");
+	Local_Library::driver("\nUnable to identify Book.\n",
+		"\nUnable to identify Patron.\n",
+		"\nUnable to complete Library transaction.\n");
 
 	return 0;
 }
