@@ -23,7 +23,7 @@ namespace Currency
 	public:
 		// nonmodifying operation
 		long int cents() const { return c; }
-		double monetary_value() const { return (double)c / 100; }
+		double monetary_value() const { return static_cast<double>(c) / 100; }
 		double rounded_value() const;
 
 	private:
