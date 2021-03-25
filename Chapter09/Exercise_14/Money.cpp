@@ -1,45 +1,25 @@
 #include "Money.h"
 
+using namespace std;
+
 namespace Currency
 {
-	Money::Money() : cents{0} {}
-
-	Money::Money(long int cents_) : cents{ cents_ }
+	Money::Money() : c{0}
 	{
-		if (!is_valid_amount(cents_)) { throw Invalid_amount{}; }
 	}
 
-	bool is_valid_amount(long int cents_)
+	Money::Money(long int cs) : c{cs}
 	{
-		constexpr long int max_value{ 2147483647 };
-		return cents_ >= 0 && cents_ <= max_value;
+		if (!is_valid_amount(cs)) { throw Invalid_Amount{}; }
 	}
 
-	std::ostream& operator<<(std::ostream& os, const Money& money)
+	bool is_valid_amount(long int cs)
 	{
-		return os << "In dollars: $" << money.get_monetary_value() << '\n'
-		          << "Rounded: $" << money.get_rounded_value() << '\n';
+		if (cs < 0 && cs >= Money::MAX_VAL) { return false; }
+		return true;
 	}
 
-	std::istream& operator>>(std::istream& is, Money& money)
-	{
-		std::cout << "Enter a a monetary value in cents:\n";
-		long int cents{ 0 };
-		is >> cents;
-
-		if (!is)
-			// return with original value if is.fail()
-		{
-			is.clear(std::ios_base::failbit);
-			return is;
-		}
-
-		money = Money{ cents };
-
-		return is;
-	}
-
-	double Money::get_rounded_value() const
+	double Money::rounded_value() const
 		// round monetary_value
 		// subtract monetary_value from the rounded value
 		// then divide that value by 0.1
@@ -48,10 +28,46 @@ namespace Currency
 		// e.g. 14.56, difference = 0.04 to round up to 14.60
 		// return monetary_value - (+/-) rounded_difference
 	{
-		const double rounded_amount = round(get_monetary_value());
-		const double rounded_decimal = (get_monetary_value() - rounded_amount) / 0.1;
+		const double rounded_amount = round(monetary_value());
+		const double rounded_decimal = (monetary_value() - rounded_amount) / 0.1;
 		const double rounded_difference = (rounded_decimal - round(rounded_decimal)) / 10;
 
-		return get_monetary_value() - rounded_difference;
+		return monetary_value() - rounded_difference;
+	}
+
+	ostream& operator<<(ostream& os, const Money& money)
+	{
+		return os << "Actual: $" << money.monetary_value() << '\n'
+			<< "Rounded: $" << money.rounded_value() << "\n\n";
+	}
+
+	istream& operator>>(istream& is, Money& money)
+	{
+		long int cents = input(is, "Enter a monetary value in cents: ");
+		money = Money{ cents };
+		return is;
+	}
+
+	long int input(istream& is, const string& prompt)
+	{
+		cout << prompt;
+		long int c{ 0 };
+		is >> c;
+		cout << endl;
+
+		if (is.eof())
+		{
+			is.clear();
+			throw Money::Invalid_Amount{};
+		}
+
+		if (!is)
+		{
+			is.clear();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
+			throw Money::Invalid_Amount{};
+		}
+
+		return c;
 	}
 }
