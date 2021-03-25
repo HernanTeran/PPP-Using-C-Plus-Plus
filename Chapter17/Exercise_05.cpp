@@ -1,5 +1,5 @@
 // Author: Hernan Teran
-// Created: 2021/03/24
+// Created: 2021/03/25
 // Chapter 17 Exercise 5
 
 char* findx(const char* s, const char* x);
@@ -21,26 +21,33 @@ int main()
 char* findx(const char* s, const char* x)
 {
 	if (!x) { return nullptr; }
-	
+
 	bool found{ false };
-	size_t y{ 0 };
+	size_t y{ 0 }; // used to loop through x
 
 	for (size_t i{ 0 }; s[i]; ++i)
+		// loop through s
 	{
 		if (s[i] == x[y])
 		{
 			for (size_t p{ y + 1 }; x[p]; ++p)
+				// check ahead of s
+				// loop through x
 			{
 				if (s[i + p] != x[p])
+					// reset
 				{
 					found = false;
+					y = 0;
 					break;
 				}
+				// else continue checking string
 				++y;
 				found = true;
 			}
 
 			if (found)
+				// check for punctuation/spaces
 			{
 				switch (s[i + 1])
 				{
@@ -52,12 +59,12 @@ char* findx(const char* s, const char* x)
 				case ':':
 				case '!':
 				case '?':
-					return const_cast<char*>(x);
+					return const_cast<char*>(x); // found
 				default:
-					break;
+					break; // still looping
 				}
 			}
 		}
 	}
-	return nullptr;
+	return nullptr; // not found
 }
