@@ -50,8 +50,8 @@ char* findx(const char* s, const char* x)
 				case ',':
 				case ';':
 				case ':':
+				case '!':
 				case '?':
-        case '!':
 					return const_cast<char*>(x);
 				default:
 					break;
