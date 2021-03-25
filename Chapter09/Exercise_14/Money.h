@@ -1,36 +1,41 @@
+#ifndef MONEY_H
+#define MONEY_H
 #pragma once
+
 #include <iostream>
-#include <vector>
 #include <string>
-#include <sstream>
-#include <iomanip>
 
 namespace Currency
 {
 	class Money
 	{
 	public:
+		// constant
+		static constexpr long int MAX_VAL{ 2147483647 };
+
 		// exception class
-		class Invalid_amount{};
+		class Invalid_Amount {};
 
-		// default constructor
+		// constructors
 		Money();
+		Money(long int cs);
 
-		// constructor
-		Money(long int cents_);
-
+	public:
 		// nonmodifying operation
-		long int get_cents() const { return cents; }
-		double get_monetary_value() const { return (double)cents / 100; }
-		double get_rounded_value() const;
+		long int cents() const { return c; }
+		double monetary_value() const { return (double)c / 100; }
+		double rounded_value() const;
 
 	private:
-		long int cents{ 0 };
+		long int c{ 0 };
 	};
 
 	// helper functions
-	bool is_valid_amount(long int cents_);
+	bool is_valid_amount(long int cs);
+	long int input(std::istream& is, const std::string& prompt);
 
 	std::ostream& operator<<(std::ostream& os, const Money& money);
 	std::istream& operator>>(std::istream& is, Money& money);
 }
+
+#endif // MONEY_H
