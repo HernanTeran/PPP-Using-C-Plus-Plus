@@ -62,3 +62,21 @@
 10. A macro is a fragment of code that has been given a name and whenever the name is used it is replaced by the contents of the macro.
 
 11. A concept is a set of requirements on a template argument.
+
+Concepts (In C++ 11 use <typename T> and write the concept as a comment: // requires Element<Elem>() )
+--------
+Element - E
+Container - C
+Forward_iterator - For
+Input_iterator - In
+Output_iterator - Out
+Random_access_iterator - Ran
+Allocator - A
+Equal_comparable - 2 T's
+Equal_comparable<T, U>
+Predicate<P,T>
+Number<N> - N
+Value_type<T>() - T
+
+* Use only int as another template argument
+e.g. template<typename T, int N> struct array { //... }
