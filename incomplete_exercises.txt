@@ -1,0 +1,39 @@
+ch.4 
+e.11-17, 20,21
+
+ch.6
+update e.3
+
+ch.9
+update e.5-9,
+create a Date class,
+see if you can improve on e.13
+update e.14-16
+
+ch.11
+e.16
+
+ch.17
+e.11, 13, 14
+
+ch.18
+e.12
+
+ch.19
+e.4, 11, 13
+update e.10
+
+ch.20
+e.14-17, 20
+
+ch.21
+
+ch.23
+
+ch.24
+
+ch.25
+
+ch.26
+
+ch.27
