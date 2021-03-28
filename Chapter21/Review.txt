@@ -93,3 +93,47 @@
     for (string s; cin >> s; ) ++words[s];
     
     for (const auto& p : words) cout << p.first << ": " << p.second << '\n';
+    
+template <typename In, typename T>
+In find(In first, In last, const T& val)
+{
+	while (first != last && *first != val) ++first;
+	return first;
+}
+
+template <typename In, typename Pred>
+In find_if(In first, In last, Pred pred)
+{
+	while (first != last && !pred(*first)) ++first;
+	return first;
+}
+
+template <typename In, typename T>
+T accumulate(In first, In last, T init)
+{
+	while (first != last)
+	{
+		init += *first;
+		++first;
+	}
+	return init;
+}
+
+template <typename In, typename Out>
+Out copy(In first, In last, Out res)
+{
+	while (first != last)
+	{
+		*res = *first;
+		++res;
+		++first;
+	}
+	return res;
+}
+
+template <typename C>
+// requires Container<C>()
+void sort(C& c)
+{
+	sort(c.cbegin(), c.cend());
+}
