@@ -1,3 +1,10 @@
+projects
+build a calculator
+build a math library for algebra/trig
+improve Health Speaks
+build a gas station pump app
+build grocery store app
+
 ch.4 
 e.11-17, 20,21
 
@@ -27,6 +34,8 @@ ch.20
 e.14-17, 20
 
 ch.21
+e.7, 8, 13, 14
+update e.9,10
 
 ch.23
 
