@@ -16,7 +16,7 @@ using Line_iter = vector<string>::const_iterator;
 class Message
 {
 public:
-	Message(Line_iter p1, Line_iter p2) : first{p1}, last{p2} {}
+	Message(Line_iter p1, Line_iter p2) : first{ p1 }, last{ p2 } {}
 	Line_iter begin() const { return first; }
 	Line_iter end() const { return last; }
 
@@ -28,17 +28,12 @@ using Mess_iter = vector<Message>::const_iterator;
 
 struct Mail_file
 {
-	string fname;
-	vector<string> lines;
-	vector<Message> m;
-	ifstream in;
-
 	Mail_file(const string& n)
 	{
 		in.open(n);
 		if (!in)
 			throw runtime_error("no " + n + '\n');
-		cout << n << " has successfully been opened.\n";
+		cout << n << " has successfully been opened.\n\n";
 
 		for (string s; getline(in, s);)
 			lines.push_back(s);
@@ -58,6 +53,11 @@ struct Mail_file
 
 	Mess_iter begin() const { return m.begin(); }
 	Mess_iter end() const { return m.end(); }
+
+	string fname;
+	vector<string> lines; // contains the contents of the whole file
+	vector<Message> m;    // prints out lines beginning with from: and 1 to:
+	ifstream in;
 };
 
 int main()
@@ -66,25 +66,18 @@ int main()
 
 	multimap<string, string> sender;
 
-	for (auto d : mfile.lines)
-	{
-		cout << d << '\n';
-	}
+	regex pat{ R"(To: |From: \"?(([A-Z][a-z]+) ?([A-Z]\. )?([A-Z][a-z]+)?)[: \w+]?\"?)" };
+	smatch matches;
 
-	for (const auto& m : mfile)
+	for (const auto& f : mfile.m)
 	{
-		string s;
-		regex pat{ R"(To:|From: (\"?[A-Z][a-z]+\"?()? ?([A-Za-z].)? ?\"?([A-Z][a-z]*)?\"?)" };
-		smatch matches;
-		if (regex_search(*m.begin(), matches, pat))
+		if (regex_search(*f.begin(), matches, pat))
 		{
-			s = matches[1];
-			string mm = *m.begin();
-			sender.insert(make_pair( s, mm ));
+			sender.insert(make_pair(matches[1], *f.begin()));
 		}
 	}
 
-	for (auto u : sender) cout << "Name: " << u.first << '\n' << u.second << "\n\n";
+	for (auto g : sender) cout << "name: " << g.first << '\n' << g.second << "\n\n";
 
 	return 0;
 }
