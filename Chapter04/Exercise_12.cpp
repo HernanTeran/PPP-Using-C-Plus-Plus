@@ -1,6 +1,6 @@
 // Author: Hernan Teran
 // Date:   2021/03/30
-// Chapter 4 Exercise 11
+// Chapter 4 Exercise 12
 
 #include <iostream>
 #include <vector>
