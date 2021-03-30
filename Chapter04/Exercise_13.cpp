@@ -2,7 +2,9 @@
 // Date:   2021/03/30
 // Chapter 4 Exercise 13
 
-#include "Main.h"
+#include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
