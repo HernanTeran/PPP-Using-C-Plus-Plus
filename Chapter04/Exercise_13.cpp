@@ -38,11 +38,10 @@ vector<int> is_prime(int n)
 			not_prime.push_back(sieve(i, d));
 			++d;
 		}
-    
-    auto it = find(not_prime.cbegin(), not_prime.cend(), i);
+		
+		auto it = find(not_prime.cbegin(), not_prime.cend(), i);
 		if (it == not_prime.cend())
 			primes.push_back(i);
 	}
-  
 	return primes;
 }
