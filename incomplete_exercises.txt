@@ -6,7 +6,7 @@ build a gas station pump app
 build grocery store app
 
 ch.4 
-e.11-17, 20,21
+e.13-17, 20,21
 
 ch.6
 update e.3
