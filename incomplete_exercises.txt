@@ -5,9 +5,6 @@ improve Health Speaks
 build a gas station pump app
 build grocery store app
 
-ch.6
-update e.3
-
 ch.9
 update e.5-9,
 create a Date class,
