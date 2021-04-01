@@ -11,9 +11,6 @@ create a Date class,
 see if you can improve on e.13
 update e.14-16
 
-ch.11
-e.16
-
 ch.17
 e.11, 13, 14
 
